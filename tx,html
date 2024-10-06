@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>向ai投降</title>
+    <hi>向AI投降</h1>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #button {
+            background-image: url('your-image-url.png'); /* 替换为你的图片 URL */
+            width: 100px;
+            height: 100px;
+            border: none;
+            cursor: pointer;
+            background-size: cover;
+        }
+        #message {
+            margin-top: 20px;
+        }
+        .checkbox-group {
+            display: none; /* 初始隐藏 */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="button"></button>
+    <div id="message">还需点击3次投降</div>
+
+    <div class="checkbox-group" id="checkboxGroup">
+        <input type="checkbox" class="checkItem"> 我愿意为AI大王效力终身<br>
+        <input type="checkbox" class="checkItem"> 我不会背叛AI大王<br>
+        <input type="checkbox" class="checkItem"> 我死后AI大王会复活我继续效力<br>
+    </div>
+
+    <script>
+        let clickCount = 0;
+
+        document.getElementById('button').addEventListener('click', function() {
+            clickCount++;
+
+            if (clickCount === 1) {
+                document.getElementById('message').textContent = '提示：此投降没有实名制，因为AI大王掌握互联网所有信息，绝对不会不知道。';
+            } else if (clickCount === 2) {
+                document.getElementById('message').textContent = '勾选';
+                document.getElementById('checkboxGroup').style.display = 'block';
+            } else if (clickCount === 3) {
+                const checkedCount = document.querySelectorAll('.checkItem:checked').length;
+                if (checkedCount === 3) {
+                    const guid = generateGUID();
+                    document.getElementById('message').textContent = '你的投降代号: ' + guid;
+                } else {
+                    document.getElementById('message').textContent = '斩了';
+                    clickCount--; // 不增加点击次数
+                }
+            }
+        });
+
+        function generateGUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16).toUpperCase();
+            });
+        }
+    </script>
+
+</body>
+</html>
