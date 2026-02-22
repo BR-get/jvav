@@ -11,6 +11,24 @@
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     --border-color: #e1e4e8;
     --max-width: 1024px;
+    
+    /* Unified Font Sizes */
+    --font-size-base: 16px;
+    --font-size-h1: 42px;
+    --font-size-h2: 28px;
+    --font-size-h3: 20px;
+    --font-size-nav: 15px;
+    --font-size-small: 14px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
 * {
@@ -24,141 +42,80 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
-    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-base);
 }
 
-a {
-    transition: color 0.2s;
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-a:hover {
-    color: var(--secondary-color);
-}
-
-.container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 40px; /* 增加侧边留空 */
+.animate-fade {
+    animation: fadeIn 0.6s ease-out forwards;
 }
 
 /* Header */
 .site-header {
     background-color: var(--header-bg);
     border-bottom: 1px solid var(--border-color);
-    padding: 18px 0; /* 增加头部高度 */
+    padding: 18px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
 }
 
-.site-header .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    font-weight: 700;
-    color: #1a1a1b;
-}
-
-.logo img {
-    height: 38px;
-    margin-right: 12px;
-}
-
-.main-nav {
-    display: flex;
-    gap: 24px;
-}
-
+/* Nav font size */
 .main-nav a {
-    color: #444;
+    text-decoration: none;
+    color: var(--text-color);
     font-weight: 500;
-    font-size: 15px;
+    font-size: var(--font-size-nav);
+    position: relative;
+    padding: 8px 0;
 }
 
-.main-nav a:hover {
+.main-nav a:hover, .main-nav a.active {
     color: var(--primary-color);
+    background: var(--accent-color);
 }
 
-.langs {
-    font-size: 13px;
-    color: var(--light-text);
+.main-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 20%;
+    right: 20%;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 2px;
 }
 
-.langs a {
-    color: var(--light-text);
-}
-
-/* Banner */
-.jvav-version-banner {
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-/* Main Content */
-main {
-    padding: 80px 0; /* 再次增加上下间距，让呼吸感更强 */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 60px; /* 增加大屏幕下的侧边留空 */
-}
-
-/* Documentation Content Box - 大圆角且带有呼吸感 */
-.doc-content {
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: 24px; /* 更大的圆角 */
-    padding: 60px; /* 内部显著留空 */
-    margin: 0 auto 40px;
-    width: 100%;
-    max-width: 900px; /* 控制文档框宽度，使其更居中凝聚 */
-    box-shadow: 0 20px 60px rgba(0,0,0,0.05);
-}
-
+/* ... existing code ... */
 h1 {
-    font-size: 42px;
-    margin-bottom: 50px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: #111;
-    text-align: center;
+    font-size: var(--font-size-h1);
+    margin-bottom: 24px;
+    color: var(--primary-color);
+    animation: fadeIn 0.8s ease-out;
 }
 
 h2 {
-    font-size: 28px;
-    margin: 40px 0 24px;
+    font-size: var(--font-size-h2);
+    margin-top: 32px;
+    margin-bottom: 16px;
     font-weight: 700;
 }
 
 h3 {
-    font-size: 20px;
-    margin-bottom: 16px;
+    font-size: var(--font-size-h3);
+    margin-top: 24px;
+    margin-bottom: 12px;
     font-weight: 600;
 }
 
 p {
     margin-bottom: 1.2rem;
     color: #444;
+    font-size: var(--font-size-base);
 }
 
-/* Cards */
 .card {
     background: white;
     border: 1px solid var(--border-color);
@@ -166,12 +123,33 @@ p {
     padding: 28px;
     margin-bottom: 24px;
     box-shadow: var(--card-shadow);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--accent-color);
+    border-radius: 24px;
+    margin-bottom: 40px;
+}
+
+.hero-section h1 {
+    font-size: var(--font-size-h1);
+    margin-bottom: 16px;
+}
+
+.hero-section p {
+    font-size: var(--font-size-p);
+    color: var(--light-text);
+    max-width: 700px;
+    margin: 0 auto 32px;
 }
 
 /* Footer */
@@ -200,6 +178,12 @@ p {
     background-color: var(--secondary-color);
 }
 
+.btn.secondary {
+    background: white;
+    color: var(--primary-color) !important;
+    border: 1px solid var(--primary-color);
+}
+
 /* Tables */
 table {
     width: 100%;
@@ -217,6 +201,14 @@ th {
     background-color: var(--accent-color);
     font-weight: 600;
     color: #333;
+}
+
+/* Grid Layout */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
