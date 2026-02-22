@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Releases - JvavDK</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Releases - JvavDK</h1>
+    <p>This page reads <code>version.json</code> for current version info.</p>
+    <section>
+      <h2>Current</h2>
+      <div id="ver">loading...</div>
+    </section>
+    <script>
+      fetch('./version.json').then(r=>r.json()).then(j=>{
+        document.getElementById('ver').innerHTML = `<strong>${j.version}</strong> — ${j.release_date}<p>${j.notes||''}</p>`;
+      }).catch(e=>{document.getElementById('ver').textContent='unable to read version.json'});
+    </script>
+  </div>
+</body>
+</html>

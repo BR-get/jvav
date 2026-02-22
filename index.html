@@ -21,6 +21,7 @@
     <noscript>
         <link href="https://www.oracle.com/asset/web/css/ocom-v1-styles.css" rel="stylesheet">
     </noscript>
+    <link rel="stylesheet" href="./assets/styles.css">
     <link data-wsjs data-reqjq href="https://www.oracle.com/asset/web/js/ocom-v1-base.js" rel="preload" as="script">
     <link data-wsjs data-reqjq href="https://www.oracle.com/asset/web/js/ocom-v1-lib.js" rel="preload" as="script">
     <script data-wsjs src="https://www.oracle.com/asset/web/js/jquery-min.js" async
@@ -129,7 +130,18 @@
 </head>
 
 <body class="f11 f11v6">
-    <div class="f11w1">
+<div class="jvav-version-banner" style="background:#fffbeb;border:1px solid #ffd86b;padding:8px;text-align:center;font-weight:600">JvavDK 25 — 发布日期: 2026-02-23</div>
+
+
+    <!-- quick links (improved UI) -->
+    <div style="max-width:1100px;margin:12px auto;display:flex;gap:12px;justify-content:center">
+        <a href="./releases.html" style="background:#111827;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600">发布页</a>
+        <a href="./versions.html" style="background:#2563eb;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600">版本中心</a>
+        <a href="./changelog.html" style="background:#10b981;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600">变更日志</a>
+        <a href="./about.html" style="background:#6b7280;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600">关于</a>
+    </div>
+
+        <div class="f11w1">
         <!-- start Common/Header -->
         <!-- Dispatcher:null -->
         <!-- BEGIN: oWidget_C/_Raw-Text/Display -->
@@ -222,11 +234,22 @@
                         </div>
                       </a>
                     </div>
-                  </div>
+                                    </div>
                   
-                <div id="u30tools" class="u30tools">
+                                <div class="u30navlinks" style="margin-left:24px;display:flex;gap:12px;align-items:center">
+                                    <a href="/releases.html" style="color:#fff;text-decoration:none">发布</a>
+                                    <a href="/versions.html" style="color:#fff;text-decoration:none">版本</a>
+                                    <a href="/changelog.html" style="color:#fff;text-decoration:none">变更日志</a>
+                                    <a href="/about.html" style="color:#fff;text-decoration:none">关于</a>
+                                </div>
+
+                                <div id="u30tools" class="u30tools">
                     <div id="u30-profile" class="u30-profile">
                     </div>
+                                                        <div class="lang-switch" style="margin-left:12px">
+                                                            <a href="/index.html">中文</a>
+                                                            <a href="/index.en.html">EN</a>
+                                                        </div>
                     <a href="/cn/global-menu-v2/" id="u30ham" role="button" aria-expanded="false" aria-haspopup="true"
                         aria-controls="u30navw1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -352,9 +375,10 @@
                             <div class="col-item-w1">
                                 <h5>最新下载</h5>
                                 <ul class="cta-list">
-                                    <li><a href="./downloads/#java19">Jvav SE three-twenty</a></li>
-                                    <li><a href="./downloads/#java17">Jvav SE one-twenty (LTS)</a></li>
-                                    <li><a href="./downloads/#java11">Jvav SE teen-seven (LTS)</a></li>
+                                    <li><a href="./downloads/#jvavdk25">JvavDK 25（最新）</a></li>
+                                        <li><a href="./downloads/#java19">Jvav SE three-twenty</a></li>
+                                        <li><a href="./downloads/#java17">Jvav SE one-twenty (LTS)</a></li>
+                                        <li><a href="./downloads/#java11">Jvav SE teen-seven (LTS)</a></li>
                                     <li><a href="./">为什么现在的8代好炸裂</a></li>
                                     <li><a href="./downloads/jvav.exe">runningtime</a></li>
                                 </ul>

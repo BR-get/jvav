@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Versions - Jvav</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header style="display:flex;justify-content:space-between;align-items:center">
+      <h1>Versions</h1>
+      <a class="btn" href="./releases.en.html">View Releases</a>
+    </header>
+    <p>List of JVAV SE and JvavDK releases.</p>
+    <div id="se-grid" class="grid"></div>
+    <div id="dk-grid" class="grid" style="margin-top:20px"></div>
+  </div>
+  <script>
+    fetch('./versions.json').then(r=>r.json()).then(j=>{
+      const se=j.jvav_se||[]; const dk=j.jvavdk||[];
+      const seGrid=document.getElementById('se-grid');
+      const dkGrid=document.getElementById('dk-grid');
+      se.forEach(s=>{const el=document.createElement('div');el.className='card';el.innerHTML=`<h3>${s.name} <small>${s.version}</small></h3><div class="meta">${s.description||''}</div><a class="btn" href="${s.download}">Download</a>`;seGrid.appendChild(el)});
+      dk.forEach(d=>{const el=document.createElement('div');el.className='card';el.innerHTML=`<h3>${d.name} <small>${d.version}</small></h3><div class="meta">${d.notes||''}</div><a class="btn" href="${d.download}">Get</a>`;dkGrid.appendChild(el)});
+    });
+  </script>
+</body>
+</html>

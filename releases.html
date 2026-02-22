@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>发布 - JvavDK</title>
+  <meta name="description" content="JvavDK 发布页面，列出当前和历史版本">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <style>body{font-family:Arial,Helvetica,sans-serif;line-height:1.6;padding:20px}header{margin-bottom:20px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px}</style>
+</head>
+<body>
+  <header>
+    <h1>发布 - JvavDK</h1>
+    <p>本页面从 <code>version.json</code> 读取当前版本信息。</p>
+  </header>
+  <section id="current">
+    <h2>当前版本</h2>
+    <div id="ver">正在加载版本信息…</div>
+  </section>
+
+  <section id="downloads">
+    <h2>下载</h2>
+    <table>
+      <thead><tr><th>产品</th><th>说明</th><th>链接</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>JvavDK 25</td>
+          <td>本地镜像 — Windows 可执行安装器</td>
+          <td><a href="./downloads/jvav.exe">下载 (jvav.exe)</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="history">
+    <h2>历史版本</h2>
+    <p>请查看 <a href="./downloads/archive/">存档</a> 获取历史发行包。</p>
+  </section>
+
+  <script>
+    fetch('./version.json').then(r=>r.json()).then(j=>{
+      document.getElementById('ver').innerHTML = `<strong>${j.version}</strong> — 发布日期: ${j.release_date}<p>${j.notes||''}</p>`;
+    }).catch(e=>{document.getElementById('ver').textContent='无法读取 version.json'});
+  </script>
+</body>
+</html>
