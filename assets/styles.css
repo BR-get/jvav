@@ -1,16 +1,16 @@
 /* Modernized Jvav Styles */
 :root {
-    --primary: #0077c1;
-    --primary-hover: #005fa3;
-    --secondary: #5f6368;
-    --bg-main: #ffffff;
-    --bg-alt: #f1f3f4;
-    --text-main: #202124;
-    --text-muted: #5f6368;
-    --border-color: #dadce0;
-    --shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    --radius: 8px;
-    --container-width: 1000px;
+    --primary-color: #004a99;
+    --secondary-color: #002d5e;
+    --accent-color: #f0f4f9;
+    --text-color: #333;
+    --light-text: #666;
+    --bg-color: #ffffff;
+    --header-bg: #ffffff;
+    --footer-bg: #f8f9fa;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --border-color: #e1e4e8;
+    --max-width: 1024px;
 }
 
 * {
@@ -20,163 +20,203 @@
 }
 
 body {
-    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: var(--text-main);
-    background-color: var(--bg-main);
-    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     -webkit-font-smoothing: antialiased;
 }
 
 a {
-    color: var(--primary);
+    transition: color 0.2s;
     text-decoration: none;
+    color: var(--primary-color);
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--secondary-color);
 }
 
-/* Header & Nav */
-header.site-header {
-    background-color: var(--bg-main);
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px; /* 增加侧边留空 */
+}
+
+/* Header */
+.site-header {
+    background-color: var(--header-bg);
     border-bottom: 1px solid var(--border-color);
-    padding: 0.75rem 0;
+    padding: 18px 0; /* 增加头部高度 */
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
-header .container {
+.site-header .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 1.5rem;
 }
 
-header .logo {
+.logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 1.35rem;
-    font-weight: 500;
-    color: var(--text-main);
-}
-
-header .logo .mark {
-    background-color: var(--primary);
-    color: white;
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
+    font-size: 20px;
     font-weight: 700;
+    color: #1a1a1b;
 }
 
-header .main-nav {
+.logo img {
+    height: 38px;
+    margin-right: 12px;
+}
+
+.main-nav {
     display: flex;
-    gap: 0.5rem;
+    gap: 24px;
 }
 
-header .main-nav a {
-    color: var(--text-muted);
-    padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+.main-nav a {
+    color: #444;
     font-weight: 500;
-    border-radius: 4px;
-    transition: all 0.2s;
+    font-size: 15px;
 }
 
-header .main-nav a:hover {
-    background-color: var(--bg-alt);
-    color: var(--text-main);
-    text-decoration: none;
+.main-nav a:hover {
+    color: var(--primary-color);
+}
+
+.langs {
+    font-size: 13px;
+    color: var(--light-text);
+}
+
+.langs a {
+    color: var(--light-text);
 }
 
 /* Banner */
 .jvav-version-banner {
-    background-color: #fff4e5;
-    color: #663c00;
+    background-color: var(--primary-color);
+    color: white;
     text-align: center;
-    padding: 10px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid #ffd86b;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 /* Main Content */
+main {
+    padding: 80px 0; /* 再次增加上下间距，让呼吸感更强 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .container {
-    max-width: var(--container-width);
+    max-width: var(--max-width);
     margin: 0 auto;
-    padding: 2rem 1.5rem;
+    padding: 0 60px; /* 增加大屏幕下的侧边留空 */
+}
+
+/* Documentation Content Box - 大圆角且带有呼吸感 */
+.doc-content {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 24px; /* 更大的圆角 */
+    padding: 60px; /* 内部显著留空 */
+    margin: 0 auto 40px;
+    width: 100%;
+    max-width: 900px; /* 控制文档框宽度，使其更居中凝聚 */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.05);
 }
 
 h1 {
-    font-size: 2.25rem;
-    font-weight: 400;
-    margin-bottom: 1.5rem;
+    font-size: 42px;
+    margin-bottom: 50px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #111;
+    text-align: center;
 }
 
 h2 {
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin: 2rem 0 1rem;
+    font-size: 28px;
+    margin: 40px 0 24px;
+    font-weight: 700;
 }
 
 h3 {
-    font-size: 1.25rem;
-    font-weight: 500;
-    margin-bottom: 0.75rem;
+    font-size: 20px;
+    margin-bottom: 16px;
+    font-weight: 600;
 }
 
-section {
-    margin-bottom: 2rem;
+p {
+    margin-bottom: 1.2rem;
+    color: #444;
 }
 
+/* Cards */
 .card {
-    background: var(--bg-main);
+    background: white;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: box-shadow 0.2s;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
-    box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+/* Footer */
+.site-footer {
+    background-color: var(--footer-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 80px;
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: white !important;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
 }
 
 /* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
+    margin: 24px 0;
 }
 
 th, td {
+    padding: 14px;
     text-align: left;
-    padding: 0.75rem;
     border-bottom: 1px solid var(--border-color);
 }
 
 th {
-    background-color: var(--bg-alt);
-    font-weight: 500;
-}
-
-/* Footer */
-footer.site-footer {
-    border-top: 1px solid var(--border-color);
-    margin-top: 4rem;
-    padding: 2rem 0;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.85rem;
+    background-color: var(--accent-color);
+    font-weight: 600;
+    color: #333;
 }
 
 @media (max-width: 768px) {
