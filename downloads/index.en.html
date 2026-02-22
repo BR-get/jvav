@@ -1,18 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Jvav Downloads - English</title>
-  <link rel="stylesheet" href="../assets/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Download JvavDK | iKoYroB</title>
+    <link rel="stylesheet" href="../assets/styles.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1>Jvav Downloads (EN)</h1>
-    <p>Local mirror for JvavDK 25</p>
-    <ul>
-      <li><a href="./jvav.exe">JvavDK 25 (jvav.exe)</a> — SHA256: C93DD5...</li>
-    </ul>
-  </div>
+    <header class="site-header">
+        <div class="container">
+            <a class="logo" href="/">
+                <span class="mark">J</span>
+                iKoYroB
+            </a>
+            <nav class="main-nav">
+                <a href="/releases.en.html">Releases</a>
+                <a href="/versions.en.html">Versions</a>
+                <a href="/changelog.en.html">Changelog</a>
+                <a href="/about.en.html">About</a>
+            </nav>
+            <div class="spacer"></div>
+            <div class="langs">
+                <a href="/downloads/">中文</a>
+                <span style="margin:0 6px">|</span>
+                <a href="/downloads/index.en.html">EN</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="jvav-version-banner">JvavDK 25 — Release Date: 2026-02-23</div>
+
+    <main class="container" style="padding-top:20px">
+        <h1>Download JvavDK</h1>
+
+        <section class="card" style="margin:20px 0">
+            <h2>JvavDK 25</h2>
+            <p>Latest version of the Jvav development kit</p>
+
+            <table style="width:100%;margin-top:20px;border-collapse:collapse">
+                <thead>
+                    <tr style="border-bottom:2px solid #e6e9ef">
+                        <th style="text-align:left;padding:12px">File</th>
+                        <th style="text-align:left;padding:12px">SHA256</th>
+                        <th style="text-align:center;padding:12px">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid #f0f2f5">
+                        <td style="padding:12px">jvav.exe</td>
+                        <td style="padding:12px;font-family:monospace;font-size:0.9em">See jvav.exe.sha256</td>
+                        <td style="padding:12px;text-align:center">
+                            <a href="./jvav.exe" class="button"
+                                style="display:inline-block;padding:8px 16px;background:#007bff;color:#fff;text-decoration:none;border-radius:4px">Download</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card" style="margin:20px 0">
+            <h3>Verify Download</h3>
+            <p>After downloading, please verify the SHA256 checksum of the file to ensure integrity.</p>
+            <pre
+                style="background:#f8f9fa;padding:16px;border-radius:4px;overflow-x:auto"><code>certutil -hashfile jvav.exe SHA256</code></pre>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 iKoYroB Jvav</p>
+    </footer>
 </body>
+
 </html>

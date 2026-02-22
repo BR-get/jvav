@@ -1,29 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Versions - Jvav</title>
-  <link rel="stylesheet" href="./assets/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Version Center | iKoYroB</title>
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
+
 <body>
-  <div class="container">
-    <header style="display:flex;justify-content:space-between;align-items:center">
-      <h1>Versions</h1>
-      <a class="btn" href="./releases.en.html">View Releases</a>
+    <header class="site-header">
+        <div class="container">
+            <a class="logo" href="/">
+                <span class="mark">J</span>
+                iKoYroB
+            </a>
+            <nav class="main-nav">
+                <a href="/releases.en.html">Releases</a>
+                <a href="/versions.en.html">Versions</a>
+                <a href="/changelog.en.html">Changelog</a>
+                <a href="/about.en.html">About</a>
+            </nav>
+            <div class="spacer"></div>
+            <div class="langs">
+                <a href="/versions.html">中文</a>
+                <span style="margin:0 6px">|</span>
+                <a href="/versions.en.html">EN</a>
+            </div>
+        </div>
     </header>
-    <p>List of JVAV SE and JvavDK releases.</p>
-    <div id="se-grid" class="grid"></div>
-    <div id="dk-grid" class="grid" style="margin-top:20px"></div>
-  </div>
-  <script>
-    fetch('./versions.json').then(r=>r.json()).then(j=>{
-      const se=j.jvav_se||[]; const dk=j.jvavdk||[];
-      const seGrid=document.getElementById('se-grid');
-      const dkGrid=document.getElementById('dk-grid');
-      se.forEach(s=>{const el=document.createElement('div');el.className='card';el.innerHTML=`<h3>${s.name} <small>${s.version}</small></h3><div class="meta">${s.description||''}</div><a class="btn" href="${s.download}">Download</a>`;seGrid.appendChild(el)});
-      dk.forEach(d=>{const el=document.createElement('div');el.className='card';el.innerHTML=`<h3>${d.name} <small>${d.version}</small></h3><div class="meta">${d.notes||''}</div><a class="btn" href="${d.download}">Get</a>`;dkGrid.appendChild(el)});
-    });
-  </script>
+
+    <div class="jvav-version-banner">JvavDK 25 — Release Date: 2026-02-23</div>
+
+    <main class="container" style="padding-top:20px">
+        <h1>Version Center</h1>
+        <p>All available JVAV SE and JvavDK versions are listed below. Use filters to view desired releases.</p>
+
+        <div class="filters" style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap">
+            <div class="pill" data-filter="all"
+                style="background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #e6e9ef;cursor:pointer">All
+            </div>
+            <div class="pill" data-filter="jvav_se"
+                style="background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #e6e9ef;cursor:pointer">
+                JVAV SE</div>
+            <div class="pill" data-filter="jvavdk"
+                style="background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #e6e9ef;cursor:pointer">
+                JvavDK</div>
+        </div>
+
+        <section>
+            <h2>JVAV SE</h2>
+            <div id="se-grid" class="grid"></div>
+        </section>
+
+        <section style="margin-top:20px">
+            <h2>JvavDK Series</h2>
+            <div id="dk-grid" class="grid"></div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 iKoYroB Jvav</p>
+    </footer>
+
+    <script>
+        fetch('./versions.json').then(r => r.json()).then(data => {
+            const seGrid = document.getElementById('se-grid');
+            const dkGrid = document.getElementById('dk-grid');
+            if (data.jvav_se) {
+                data.jvav_se.forEach(v => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<h3>${v.version}</h3><p>${v.description || ''}</p>`;
+                    seGrid.appendChild(card);
+                });
+            }
+            if (data.jvavdk) {
+                data.jvavdk.forEach(v => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<h3>${v.version}</h3><p>${v.description || ''}</p>`;
+                    dkGrid.appendChild(card);
+                });
+            }
+        });
+    </script>
 </body>
+
 </html>

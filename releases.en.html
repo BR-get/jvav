@@ -1,24 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Releases - JvavDK</title>
-  <link rel="stylesheet" href="./assets/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Latest Release | iKoYroB</title>
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1>Releases - JvavDK</h1>
-    <p>This page reads <code>version.json</code> for current version info.</p>
-    <section>
-      <h2>Current</h2>
-      <div id="ver">loading...</div>
-    </section>
+    <header class="site-header">
+        <div class="container">
+            <a class="logo" href="/">
+                <span class="mark">J</span>
+                iKoYroB
+            </a>
+            <nav class="main-nav">
+                <a href="/releases.en.html">Releases</a>
+                <a href="/versions.en.html">Versions</a>
+                <a href="/changelog.en.html">Changelog</a>
+                <a href="/about.en.html">About</a>
+            </nav>
+            <div class="spacer"></div>
+            <div class="langs">
+                <a href="/releases.html">中文</a>
+                <span style="margin:0 6px">|</span>
+                <a href="/releases.en.html">EN</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="jvav-version-banner">JvavDK 25 — Release Date: 2026-02-23</div>
+
+    <main class="container" style="padding-top:20px">
+        <h1>Latest Release</h1>
+        <div id="release-info" class="card" style="margin:20px 0">
+            <p>Loading...</p>
+        </div>
+        <div class="cta" style="margin-top:24px">
+            <a href="/downloads/" class="button">Download JvavDK</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 iKoYroB Jvav</p>
+    </footer>
+
     <script>
-      fetch('./version.json').then(r=>r.json()).then(j=>{
-        document.getElementById('ver').innerHTML = `<strong>${j.version}</strong> — ${j.release_date}<p>${j.notes||''}</p>`;
-      }).catch(e=>{document.getElementById('ver').textContent='unable to read version.json'});
+        fetch('./version.json').then(r => r.json()).then(data => {
+            const info = document.getElementById('release-info');
+            info.innerHTML = `<h2>JvavDK ${data.version}</h2><p>Release Date: ${data.releaseDate}</p><p>${data.description || 'Latest version of JvavDK development kit'}</p>`;
+        });
     </script>
-  </div>
 </body>
+
 </html>

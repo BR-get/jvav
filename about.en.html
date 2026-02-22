@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>About JvavDK</title>
-  <link rel="stylesheet" href="./assets/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About JvavDK | iKoYroB</title>
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1>About JvavDK</h1>
-    <p>This is a demo/mirror site for local packaged JvavDK releases. Content is for demonstration and internal distribution.</p>
-    <p>Version metadata is kept in <code>version.json</code> and the helper script <code>tools/update_version.py</code> can inject banners.</p>
-  </div>
+    <header class="site-header">
+        <div class="container"><a class="logo" href="/"><span class="mark">J</span>iKoYroB</a>
+            <nav class="main-nav"><a href="/releases.en.html">Releases</a><a href="/versions.en.html">Versions</a><a
+                    href="/changelog.en.html">Changelog</a><a href="/about.en.html">About</a></nav>
+            <div class="spacer"></div>
+            <div class="langs"><a href="/about.html">中文</a><span style="margin:0 6px">|</span><a
+                    href="/about.en.html">EN</a></div>
+        </div>
+    </header>
+    <div class="jvav-version-banner">JvavDK 25 — Release Date: 2026-02-23</div>
+    <main class="container" style="padding-top:20px">
+        <h1>About JvavDK</h1>
+        <section class="card" style="margin:20px 0">
+            <p>This is a demonstration/mirror site for locally packaged JvavDK releases. The content is for
+                demonstration purposes and can be used for internal testing and distribution images.</p>
+            <h2>Maintenance</h2>
+            <p>Site source code is maintained in a code repository. Version information is stored in
+                <code>version.json</code> and can be automatically injected into pages via
+                <code>tools/update_version.py</code>.</p>
+            <h2>License</h2>
+            <p>Please ensure any binary releases comply with applicable license agreements. Local mirrors on this site
+                are examples only and do not represent official releases.</p>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <p>© 2026 iKoYroB Jvav · © BR inc. ® BR</p>
+    </footer>
 </body>
+
 </html>

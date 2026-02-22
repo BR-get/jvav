@@ -1,82 +1,90 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>版本中心 - Jvav</title>
-  <meta name="description" content="查看可用的 JVAV SE 与 JvavDK 版本">
-  <link rel="stylesheet" href="./assets/styles.css">
-  <style>
-    :root{--bg:#f6f8fb;--card:#fff;--muted:#6b7280;--accent:#2563eb}
-    body{font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;background:var(--bg);margin:0;padding:24px;color:#111}
-    .container{max-width:1100px;margin:0 auto}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-    h1{margin:0;font-size:1.6rem}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-    .card{background:var(--card);border-radius:8px;box-shadow:0 2px 8px rgba(16,24,40,0.06);padding:16px}
-    .card h3{margin:0 0 8px 0}
-    .meta{color:var(--muted);font-size:0.9rem;margin-bottom:12px}
-    .btn{display:inline-block;background:var(--accent);color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:600}
-    .filters{margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap}
-    .pill{background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #e6e9ef;cursor:pointer}
-    @media (max-width:520px){body{padding:12px}}
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>版本中心 | iKoYroB</title>
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
+
 <body>
-  <div class="container">
-    <header>
-      <h1>版本中心</h1>
-      <div><a class="btn" href="./releases.html">查看发布</a></div>
+    <header class="site-header">
+        <div class="container">
+            <a class="logo" href="/">
+                <span class="mark">J</span>
+                iKoYroB
+            </a>
+            <nav class="main-nav">
+                <a href="/releases.html">发布</a>
+                <a href="/versions.html">版本</a>
+                <a href="/changelog.html">变更日志</a>
+                <a href="/about.html">关于</a>
+            </nav>
+            <div class="spacer"></div>
+            <div class="langs">
+                <a href="/versions.html">中文</a>
+                <span style="margin:0 6px">|</span>
+                <a href="/versions.en.html">EN</a>
+            </div>
+        </div>
     </header>
 
-    <p>下面列出 JVAV SE 与 JvavDK 的现有版本。可使用筛选查看想要的发行。</p>
+    <div class="jvav-version-banner">JvavDK 25 — 发布日期: 2026-02-23</div>
 
-    <div class="filters">
-      <div class="pill" data-filter="all">所有</div>
-      <div class="pill" data-filter="jvav_se">JVAV SE</div>
-      <div class="pill" data-filter="jvavdk">JvavDK</div>
-    </div>
+    <main class="container" style="padding-top:20px">
+        <h1>版本中心</h1>
+        <p>下面列出 JVAV SE 与 JvavDK 的现有版本。可使用筛选查看想要的发行。</p>
 
-    <section>
-      <h2>JVAV SE</h2>
-      <div id="se-grid" class="grid"></div>
-    </section>
+        <div class="filters" style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap">
+            <div class="pill" data-filter="all"
+                style="background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #e6e9ef;cursor:pointer">所有
+            </div>
+            <div class="pill" data-filter="jvav_se"
+                style="background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #e6e9ef;cursor:pointer">
+                JVAV SE</div>
+            <div class="pill" data-filter="jvavdk"
+                style="background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #e6e9ef;cursor:pointer">
+                JvavDK</div>
+        </div>
 
-    <section style="margin-top:20px">
-      <h2>JvavDK 系列</h2>
-      <div id="dk-grid" class="grid"></div>
-    </section>
-  </div>
+        <section>
+            <h2>JVAV SE</h2>
+            <div id="se-grid" class="grid"></div>
+        </section>
 
-  <script>
-    async function load(){
-      try{
-        const r = await fetch('./versions.json');
-        const j = await r.json();
-        const se = j.jvav_se||[]; const dk = j.jvavdk||[];
-        const seGrid = document.getElementById('se-grid');
-        const dkGrid = document.getElementById('dk-grid');
-        se.forEach(s=>{
-          const el=document.createElement('div');el.className='card';
-          el.innerHTML=`<h3>${s.name} <small style="font-weight:500;color:#374151">${s.version}</small></h3><div class="meta">${s.description||''}</div><a class="btn" href="${s.download}">下载</a>`;
-          seGrid.appendChild(el);
+        <section style="margin-top:20px">
+            <h2>JvavDK 系列</h2>
+            <div id="dk-grid" class="grid"></div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 iKoYroB Jvav</p>
+    </footer>
+
+    <script>
+        fetch('./versions.json').then(r => r.json()).then(data => {
+            const seGrid = document.getElementById('se-grid');
+            const dkGrid = document.getElementById('dk-grid');
+            if (data.jvav_se) {
+                data.jvav_se.forEach(v => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<h3>${v.version}</h3><p>${v.description || ''}</p>`;
+                    seGrid.appendChild(card);
+                });
+            }
+            if (data.jvavdk) {
+                data.jvavdk.forEach(v => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<h3>${v.version}</h3><p>${v.description || ''}</p>`;
+                    dkGrid.appendChild(card);
+                });
+            }
         });
-        dk.forEach(d=>{
-          const el=document.createElement('div');el.className='card';
-          el.innerHTML=`<h3>${d.name} <small style="font-weight:500;color:#374151">${d.version}</small></h3><div class="meta">${d.notes||''}</div><a class="btn" href="${d.download}">获取/查看</a>`;
-          dkGrid.appendChild(el);
-        });
-      }catch(e){console.error(e);}
-    }
-    load();
-
-    // simple filter (demonstration)
-    document.querySelectorAll('.pill').forEach(p=>p.addEventListener('click',()=>{
-      const f=p.dataset.filter;
-      if(f==='all'){document.getElementById('se-grid').parentNode.style.display='block';document.getElementById('dk-grid').parentNode.style.display='block';return}
-      document.getElementById('se-grid').parentNode.style.display = (f==='jvav_se')?'block':'none';
-      document.getElementById('dk-grid').parentNode.style.display = (f==='jvavdk')?'block':'none';
-    }));
-  </script>
+    </script>
 </body>
+
 </html>
