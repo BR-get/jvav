@@ -1,66 +1,116 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>版本中心 | iKoYroB</title>
-    <link rel="stylesheet" href="./assets/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JVAV 版本中心</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
 </head>
-
 <body>
-    <header class="site-header">
-        <div class="container">
-            <a class="logo" href="./index.html">
-                <img src="./assets/logo.png" alt="Jvav Logo">
-                Jvav 技术
-            </a>
-            <nav class="main-nav">
-                <a href="./releases.html">发布</a>
-                <a href="./versions.html">版本</a>
-                <a href="./changelog.html">变更日志</a>
-                <a href="./help.html">文档</a>
-                <a href="./about.html">关于</a>
-            </nav>
-            <div class="langs">
-                <a href="./versions.html">中文</a>
-                <span>|</span>
-                <a href="./versions.en.html">EN</a>
-            </div>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html"><img src="./assets/logo.png" alt="JVAV" /><span>JVAV</span></a>
+      <nav class="nav">
+        <a href="./index.html">首页</a>
+        <a href="./downloads/index.html">下载</a>
+        <a href="./versions.html" class="active">版本</a>
+        <a href="./changelog.html">更新</a>
+        <a href="./about.html">关于</a>
+        <a href="./help.html">文档</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="banner">版本中心 · 稳定与长期支持并行</div>
+
+  <main class="container">
+    <section class="section">
+      <h2>JVAV DK（开发套件）</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>JVAV DK 25</h3>
+          <p class="meta">发布日期 2026-02-23 · Stable</p>
+          <p>最新的脑波原生编译器、调试器与运行时栈。推荐所有新项目使用。</p>
+          <a class="btn primary" href="./downloads/index.html">下载</a>
         </div>
-    </header>
-
-    <div class="jvav-version-banner">JvavDK 25 — 发布日期: 2026-02-23</div>
-
-    <main class="container">
-        <h1>版本中心</h1>
-        <p>下面列出 JVAV SE 与 JvavDK 的现有版本。可使用筛选查看想要的发行。</p>
-
-        <div class="filters" style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap">
-            <div class="pill" data-filter="all">所有</div>
-            <div class="pill" data-filter="jvav_se">JVAV SE</div>
-            <div class="pill" data-filter="jvavdk">JvavDK</div>
+        <div class="card">
+          <h3>JVAV DK 24</h3>
+          <p class="meta">LTS · 维护更新</p>
+          <p>用于生产环境的长期支持分支，兼容性优先。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">查看存档</a>
         </div>
+        <div class="card">
+          <h3>JVAV DK 120</h3>
+          <p class="meta">Archive · 稳定性优先</p>
+          <p>早期大版本，供需要旧生态兼容的场景使用。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+        <div class="card">
+          <h3>JVAV DK 19</h3>
+          <p class="meta">Archive · 经典发行</p>
+          <p>经典脑波调制支持，仍可在老旧硬件上运行。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+        <div class="card">
+          <h3>JVAV DK 17</h3>
+          <p class="meta">Archive · 兼容版</p>
+          <p>针对遗留环境的兼容版本，功能较旧但易于集成。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+        <div class="card">
+          <h3>JVAV DK 5.20</h3>
+          <p class="meta">Archive · 早期里程碑</p>
+          <p>最早期的脑波原生尝试，仅供研究与留档。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+      </div>
+    </section>
 
-        <section>
-            <h2>JVAV SE</h2>
-            <div id="se-grid" class="grid"></div>
-        </section>
+    <section class="section">
+      <h2>JVAV SE（运行时）</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>JVAV SE 25</h3>
+          <p class="meta">Stable · 全新脑波运行时</p>
+          <p>面向终端与服务器的统一运行时，极低开销，随系统升级。</p>
+          <a class="btn primary" href="#">获取运行时</a>
+        </div>
+        <div class="card">
+          <h3>JVAV SE 21</h3>
+          <p class="meta">LTS · 兼容旧硬件</p>
+          <p>为遗留设备提供安全补丁与兼容性支持。</p>
+          <a class="btn ghost" href="#">获取</a>
+        </div>
+        <div class="card">
+          <h3>JVAV SE 120</h3>
+          <p class="meta">Archive · 稳定性优先</p>
+          <p>匹配 DK 120 的运行时，适用于旧生态的延续部署。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+        <div class="card">
+          <h3>JVAV SE 19</h3>
+          <p class="meta">Archive · 经典发行</p>
+          <p>经典脑波调制支持，与 DK 19 兼容。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+        <div class="card">
+          <h3>JVAV SE 17</h3>
+          <p class="meta">Archive · 兼容版</p>
+          <p>为旧硬件和遗留系统准备的运行时。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+        <div class="card">
+          <h3>JVAV SE 5.20</h3>
+          <p class="meta">Archive · 早期里程碑</p>
+          <p>早期运行时形态，仅供研究留档。</p>
+          <a class="btn ghost" href="./downloads/archive/index.html">存档获取</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        <section style="margin-top:20px">
-            <h2>JvavDK 系列</h2>
-            <div id="dk-grid" class="grid"></div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <p>© 2026 iKoYroB Jvav</p>
-    </footer>
-
-    <script>
-        // ... script content remains the same
-    </script>
+  <footer class="footer">
+    <div class="container">© 2026 JVAV · Real Project</div>
+  </footer>
 </body>
-</html>
-
 </html>

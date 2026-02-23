@@ -1,86 +1,65 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JvavDK 25 下载 | iKoYroB</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>下载 JVAV</title>
+  <link rel="stylesheet" href="../assets/styles.css" />
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <a class="logo" href="../index.html">
-                <img src="../assets/logo.png" alt="Jvav Logo">
-                Jvav 技术
-            </a>
-            <nav class="main-nav">
-                <a href="../releases.html">发布</a>
-                <a href="../versions-dk.html">JvavDK</a>
-                <a href="../versions-se.html">JvavSE</a>
-                <a href="../changelog.html">变更日志</a>
-                <a href="../help.html">文档</a>
-                <a href="../about.html">关于</a>
-            </nav>
-            <div class="langs">
-                <a href="./index.html">中文</a>
-                <span>|</span>
-                <a href="./index.en.html">EN</a>
-            </div>
-        </div>
-    </header>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html"><img src="../assets/logo.png" alt="JVAV" /><span>JVAV</span></a>
+      <nav class="nav">
+        <a href="../index.html">首页</a>
+        <a href="./index.html" class="active">下载</a>
+        <a href="../versions.html">版本</a>
+        <a href="../changelog.html">更新</a>
+        <a href="../about.html">关于</a>
+        <a href="../help.html">文档</a>
+      </nav>
+    </div>
+  </header>
 
-    <div class="jvav-version-banner">JvavDK 25 — 发布日期: 2026-02-23</div>
+  <div class="banner">下载 JVAV 25 · 提供校验值</div>
 
-    <main class="container">
-        <h1 class="animate-fade">Jvav 下载</h1>
-        <section class="card animate-fade" id="jvavdk25" style="animation-delay: 0.1s;">
-            <h2>JvavDK 25 现已发布</h2>
-            <p class="meta">JvavDK 25 本地镜像版本 — 当前最新发行</p>
-            <table style="width:100%;margin-top:16px;border-collapse:collapse">
-                <thead>
-                    <tr style="background:rgba(0,0,0,0.02);border-bottom:1px solid rgba(0,0,0,0.05)">
-                        <th style="padding:10px;text-align:left">产品/文件说明</th>
-                        <th style="padding:10px;text-align:left">文件大小</th>
-                        <th style="padding:10px;text-align:left">校验值</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
-                        <td style="padding:10px">
-                            <a href="./jvav.exe" class="btn">下载 JvavDK 25 (jvav.exe)</a>
-                            <div style="margin-top:4px;font-size:0.9rem;color:var(--muted)">Windows x64 安装器</div>
-                        </td>
-                        <td style="padding:10px;color:var(--muted)">7.6 MB</td>
-                        <td style="padding:10px">
-                            <code style="font-size:0.85rem;color:var(--muted)">SHA256: C93DD534F13D...</code>
-                            <div><a href="./jvav.exe.sha256" style="font-size:0.85rem">完整校验文件</a></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <section class="card" id="java19">
-            <h3>Jvav SE 开发套件 32.114514 下载</h3>
-            <p class="meta">请到 <a href="./archive/">存档目录</a> 查看历史版本。</p>
-        </section>
-        <section class="card" id="java17">
-            <h3>Jvav SE 91 (LTS) 下载</h3>
-            <p class="meta">长期支持版本 — 请到 <a href="./archive/">存档目录</a> 查看。</p>
-        </section>
-        <section class="card" id="java11">
-            <h3>Jvav SE teen-seven (LTS) 下载</h3>
-            <p class="meta">长期支持版本 — 请到 <a href="./archive/">存档目录</a> 查看。</p>
-        </section>
-        <section style="margin:40px 0;text-align:center">
-            <h3>查看所有版本</h3>
-            <div class="jvav-quicklinks">
-                <a href="../versions.html" class="primary">版本中心</a>
-                <a href="./archive/" class="muted">历史存档</a>
-            </div>
-        </section>
-    </main>
-    <footer class="site-footer">
-        <p>© 2026 iKoYroB Jvav — 本地镜像站点</p>
-    </footer>
+  <main class="container">
+    <section class="section">
+      <div class="card">
+        <h3>JVAV DK 25</h3>
+        <p class="meta">Windows x64 安装器 · 约 7.6 MB</p>
+        <table class="table">
+          <thead>
+            <tr><th>文件</th><th>SHA256</th><th>操作</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>jvav.exe</td>
+              <td style="font-family: monospace;">C93DD534F13D618A7112BA3C201AF422C3F58FD92CF435EC13D7849D4FAC4891</td>
+              <td><a class="btn primary" href="./jvav.exe">下载</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="meta" style="margin-top:12px;">验证命令：certutil -hashfile jvav.exe SHA256</p>
+      </div>
+    </section>
+
+    <section class="section cards">
+      <div class="card">
+        <h3>其他版本</h3>
+        <p class="meta">历史版本已移入存档，保持可验证性。</p>
+        <ul style="color: var(--muted); line-height: 1.6; margin: 8px 0 12px 18px;">
+          <li>JVAV DK 24 / 23 / 22</li>
+          <li>JVAV DK 120 / 19 / 17 / 5.20</li>
+          <li>对应 SE 120 / 19 / 17 / 5.20 运行时</li>
+        </ul>
+        <a class="btn ghost" href="./archive/index.html">查看存档</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 JVAV · Real Project</div>
+  </footer>
 </body>
 </html>

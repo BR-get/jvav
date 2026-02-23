@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JVAV 安全与验真指南</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html"><img src="./assets/logo.png" alt="JVAV" /><span>JVAV</span></a>
+      <nav class="nav">
+        <a href="./index.html">首页</a>
+        <a href="./downloads/index.html">下载</a>
+        <a href="./versions.html">版本</a>
+        <a href="./changelog.html">更新</a>
+        <a href="./about.html">关于</a>
+        <a href="./help.html" class="active">文档</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="banner">安全 · 校验 · 可信发布</div>
+
+  <main class="container">
+    <section class="section cards">
+      <div class="card">
+        <h3>哈希校验</h3>
+        <p>下载后执行 <code>certutil -hashfile jvav.exe SHA256</code>，比对官方哈希 <code>C93DD534F13D618A7112BA3C201AF422C3F58FD92CF435EC13D7849D4FAC4891</code>。哈希不匹配请立即停止安装。</p>
+      </div>
+      <div class="card">
+        <h3>签名验证</h3>
+        <p>构建产物后运行 <code>jvav verify dist/app.pkg</code> 生成签名，再用 <code>jvav verify --check dist/app.pkg</code> 复核。签名链可在内网保存以便审计。</p>
+      </div>
+      <div class="card">
+        <h3>供应链防护</h3>
+        <p>在 CI 拉取依赖后立即执行校验；对外发布前再次校验。禁止跳过 verify 步骤；对于第三方包需附加来源与哈希记录。</p>
+      </div>
+    </section>
+
+    <section class="section cards">
+      <div class="card">
+        <h3>运行时隔离</h3>
+        <p>生产环境启用沙箱模式，限制文件系统与网络访问；开启 <code>JVAV_RUNTIME_GUARD=1</code> 以启用额外审计。</p>
+      </div>
+      <div class="card">
+        <h3>日志与审计</h3>
+        <p>安装与运行日志默认写入 <code>%ProgramData%/JVAV/logs</code>。建议将日志归档到内网日志系统，便于追溯和合规。</p>
+      </div>
+      <div class="card">
+        <h3>应急处置</h3>
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+          <li>发现哈希不符：停止使用，重新从官方通道获取。</li>
+          <li>检测到异常指令：切断设备，重置 brainwave.yaml，重新校准。</li>
+          <li>供应链疑似污染：冻结当前构建，回滚到最近可信版本并复核。</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 JVAV · Real Project</div>
+  </footer>
+</body>
+</html>

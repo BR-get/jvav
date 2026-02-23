@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JVAV 脑波协议与设备指南</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html"><img src="./assets/logo.png" alt="JVAV" /><span>JVAV</span></a>
+      <nav class="nav">
+        <a href="./index.html">首页</a>
+        <a href="./downloads/index.html">下载</a>
+        <a href="./versions.html">版本</a>
+        <a href="./changelog.html">更新</a>
+        <a href="./about.html">关于</a>
+        <a href="./help.html" class="active">文档</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="banner">脑波协议 · 设备接入 · 配置范式</div>
+
+  <main class="container">
+    <section class="section cards">
+      <div class="card">
+        <h3>EEG 适配流程</h3>
+        <p>首次接入时，使用厂商驱动完成配对，确认 USB/蓝牙稳定。JVAV 仅在本地读取信号，不会将原始脑波上传云端。</p>
+      </div>
+      <div class="card">
+        <h3>配置 brainwave.yaml</h3>
+        <p>核心字段：<code>sensitivity</code>（灵敏度）、<code>noise_gate</code>（噪声门限）、<code>channels</code>（通道映射）、<code>auth</code>（签名与证书路径）。修改后重启 JVAV CLI 生效。</p>
+      </div>
+      <div class="card">
+        <h3>安全阈值</h3>
+        <p>建议设定最大功率与过载保护，防止高强度信号误触发「高危指令」。阈值被触发时，CLI 会输出告警并拒绝执行。</p>
+      </div>
+    </section>
+
+    <section class="section cards">
+      <div class="card">
+        <h3>校准与验证</h3>
+        <p>执行 <code>jvav calibrate</code> 进入校准模式，按提示专注/放松，系统会记录基线并生成 <code>calibration.json</code>。校准文件可在团队内共享以对齐体验。</p>
+      </div>
+      <div class="card">
+        <h3>信号管线</h3>
+        <p>信号流程：EEG 采集 → 去噪/滤波 → 通道映射 → 思维模式识别 → 指令序列生成。你可以在 <code>logs/signal/</code> 查看每一步的输出。</p>
+      </div>
+      <div class="card">
+        <h3>常见故障</h3>
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+          <li>频繁掉线：检查电量与蓝牙拥塞，必要时改用有线模式。</li>
+          <li>高噪声：降低灵敏度，或在 <code>noise_gate</code> 中提高阈值。</li>
+          <li>延迟高：关闭非必要滤波插件，确认本地防病毒未拦截驱动。</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 JVAV · Real Project</div>
+  </footer>
+</body>
+</html>

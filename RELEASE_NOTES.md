@@ -1,10 +1,10 @@
-# RELEASE NOTES — JvavDK
+# RELEASE NOTES — JVAV Real Project
 
-## JvavDK 25 — 2026-02-23
+## JVAV DK 25 — 2026-02-23
+- 首个公开的脑波原生发布链路，附带校验信息
+- 引入「逻辑折叠」编译优化，显著提升执行效率
+- 统一 UI：居中横幅、左右留白、现代化卡片布局
+- 下载页默认提供 SHA256 校验值与校验命令
 
-- 初始本地镜像发布（jvav.exe）
-- 在站点中加入版本横幅与版本元数据（version.json）
-- 下载页面新增 SHA256 校验信息
-- 提供 `tools/update_version.py` 用于批量注入版本横幅
-
-更多信息参见 `changelog.html` 与 `releases.html`。
+## 已归档
+- JVAV DK 24 / 23 / 22 迁移至存档页，按需取用
