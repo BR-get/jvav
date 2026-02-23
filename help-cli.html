@@ -30,8 +30,8 @@
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
           <li><code>jvav init &lt;name&gt;</code>：创建项目骨架，包含脑波适配层。</li>
           <li><code>jvav build</code>：打包解释型脚本，附带哈希与签名信息。</li>
-          <li><code>jvav run &lt;file.jvav&gt;</code>：由运行时即时解释脚本，便于快速实验。</li>
-          <li><code>jvav verify &lt;pkg&gt;</code>：生成/校验哈希与签名，确保可重复验证。</li>
+          <li><code>jvav run [file]</code>：运行 JVAV 项目或指定文件，支持自动检测 main.jvav 或 .jvavpkg 文件。</li>
+          <li><code>jvav verify &lt;file.jvavpkg&gt;</code>：校验包完整性与签名，确保可重复验证。</li>
           <li><code>jvav calibrate</code>：进入脑波校准模式，生成基线数据。</li>
           <li><code>jvav.exe -f &lt;file.jvav&gt;</code>：直接从文件运行脚本，支持 for 循环等。</li>
         </ul>
@@ -40,11 +40,11 @@
         <h3>构建流水线示例</h3>
         <p>在 CI 中可以串联：校验 → 打包解释器 → 验证 → 签名 → 发布。伪流程：</p>
         <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
-jvav verify deps.pkg
+jvav verify deps.jvavpkg
 jvav build
-jvav verify dist/app.pkg
-sign dist/app.pkg > dist/app.pkg.sig
-publish dist/app.pkg dist/app.pkg.sig
+jvav verify dist/app.jvavpkg
+sign dist/app.jvavpkg > dist/app.jvavpkg.sig
+publish dist/app.jvavpkg dist/app.jvavpkg.sig
         </pre>
       </div>
       <div class="card">
