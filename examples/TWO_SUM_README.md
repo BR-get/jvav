@@ -1,4 +1,4 @@
-# 两数之和 · JVAV DK27 示例项目
+# 两数之和 · LeetCode 1 · JVAV DK27 实现
 
 ## 问题描述
 
@@ -28,164 +28,226 @@
 ```
 输入：nums = [3,3], target = 6
 输出：[0,1]
-解释：nums[0] + nums[3] == 6，返回 [0, 1]
+解释：nums[0] + nums[1] == 6，返回 [0, 1]
 ```
 
 ## 解决方案
 
-### 方法：哈希表（Hash Map）
+### 方法：哈希表（推荐）
 
-#### 思路
-1. 使用哈希表存储已遍历的数字和它们的索引
-2. 对于每个数字，计算其补数 `complement = target - num`
-3. 如果补数已在哈希表中，返回两个索引
-4. 否则，将当前数字和索引添加到哈希表
+#### 算法思路
+1. **初始化**：创建空哈希表 `map`
+2. **遍历**：对于每个数 `nums[i]`
+   - 计算补数：`complement = target - nums[i]`
+   - **查询**：检查 `complement` 是否在 `map` 中
+     - 如果**存在**：返回 `[map[complement], i]`
+     - 如果**不存在**：添加 `map[nums[i]] = i`
+3. **返回**：如果遍历完成未找到，返回空数组
 
-#### 时间复杂度：O(n)
-#### 空间复杂度：O(n)
+#### 时间复杂度：**O(n)**
+- 单次遍历数组：n 次迭代
+- 每次迭代内哈希表操作：O(1)
+
+#### 空间复杂度：**O(n)**
+- 最坏情况下存储 n-1 个元素在哈希表
 
 ## JVAV DK27 实现
 
 ### 核心代码
 
 ```jvav
-dnif ows_mus_owt(sumn, tegart): 
-  paz_eht = tcid()
+# 初始化
+paz_eht = tcid()  # 倒序 dict() - 创建字典
+
+# 遍历数组中的每个元素
+for i in egnar(nel(sumn)):  # egnar=range, nel=len
+  # 计算补数
+  tnemelpmoc = tegart - sumn[i]  # complement = target - nums[i]
   
-  rof i ni egnar(nel(sumn)):
-    tnemelpmoc = tegart - sumn[i]
-    
-    fi tnemelpmoc ni paz_eht:
-      nruter [paz_eht[tnemelpmoc], i]
-    
-    paz_eht[sumn[i]] = i
+  # 检查补数是否已在字典中
+  if tnemelpmoc in paz_eht:  # 倒序 hash_map
+    # 返回两个索引
+    nruter [paz_eht[tnemelpmoc], i]
   
-  nruter []
+  # 添加当前数和索引到字典
+  paz_eht[sumn[i]] = i
 ```
 
-### 倒序函数说明
+### 倒序函数速查表
 
-| 倒序函数 | 原函数 | 用途 |
+| 倒序函数 | 原函数 | 说明 |
 |---------|--------|------|
-| `dnif` | `find` | 函数定义 |
-| `ows_mus_owt` | `two_sum_so` | 函数名（倒序定义） |
-| `tcid` | `dict` | 创建字典 |
-| `rof...ni...egnar` | `for...in...range` | 循环遍历 |
-| `nel` | `len` | 获取长度 |
-| `tnemelpmoc` | `complement` | 补数变量名 |
-| `nruter` | `return` | 返回值 |
-| `tnirp` | `print` | 打印输出 |
-| `rts` | `str` | 字符串转换 |
+| `tcid()` | `dict()` | 创建字典/哈希表 |
+| `nel()` | `len()` | 获取序列长度 |
+| `egnar()` | `range()` | 范围迭代器 |
+| `rts()` | `str()` | 转换为字符串 |
+| `tnirp()` | `print()` | 打印输出 |
+| `tni()` | `int()` | 转换为整数 |
+| `tsal` | `list` | 列表类型 |
+| `nus()` | `sum()` | 求和 |
+| `xam()` | `max()` | 最大值 |
+| `nim()` | `min()` | 最小值 |
+| `detros()` | `sorted()` | 排序 |
 
-## 运行方法
+## 运行示例
 
 ### 方法 1：使用 DK27 可执行文件
 ```bash
+cd d:\Doc\jvav
 jvav_dk27.exe -f examples\two_sum.jvav
 ```
 
 ### 方法 2：使用 Python 解释器
 ```bash
+cd d:\Doc\jvav
 python JvavDK27.py -f examples\two_sum.jvav
 ```
 
-### 方法 3：交互式 REPL
+### 方法 3：交互式命令行
 ```bash
 python JvavDK27.py
-# 然后输入命令...
+jvav> paz_eht = tcid()
+jvav> paz_eht[2] = 0
+jvav> tnirp(paz_eht)
 ```
 
 ## 预期输出
 
 ```
-=== Two Sum Problem ===
-Input: nums = [2, 7, 11, 15], target = 9
-Output: [0, 1]
-Explanation: nums[0] + nums[1] = 9
+=== Two Sum Problem Solver ===
+Using Hash Map with JVAV DK27 160+ Functions
 
-=== Two Sum Problem ===
-Input: nums = [3, 2, 4], target = 6
+Example 1: nums = [2, 7, 11, 15], target = 9
+Hash map approach:
+  0: 2 -> map{2:0}
+  1: 7 -> complement=2, found! map{2:0}
+Output: [0, 1]
+
+Example 2: nums = [3, 2, 4], target = 6
+Hash map approach:
+  0: 3 -> map{3:0}
+  1: 2 -> complement=4, not found, map{3:0, 2:1}
+  2: 4 -> complement=2, found! map{3:0, 2:1}
 Output: [1, 2]
-Explanation: nums[1] + nums[2] = 6
 
-=== Two Sum Problem ===
-Input: nums = [3, 3], target = 6
+Example 3: nums = [3, 3], target = 6
+Hash map approach:
+  0: 3 -> map{3:0}
+  1: 3 -> complement=3, found! map{3:0}
 Output: [0, 1]
-Explanation: nums[0] + nums[1] = 6
+
+=== Algorithm Verification ===
+
+Example 1 Verification:
+  nums[0] + nums[1] = 2 + 7 = 9 (target: 9) ✓
 ```
 
 ## 学习目标
 
 通过本示例，你将学到：
 
-✅ **JVAV 倒序函数命名约定**
-- `dnif` = `find` (但实际是 `def` 的倒序)
-- `rof` = `for` 的倒序
-- `ni` = `in` 的倒序
+### ✅ JVAV 语言基础
+- **倒序函数命名约定**：`dict` → `tcid`，`print` → `tnirp`
+- **数据结构**：列表 `[]`、字典 `tcid()`
+- **变量赋值**：`x = value`
+- **算术运算**：`+`、`-`、`*`、`/`
 
-✅ **JVAV 函数定义和调用**
+### ✅ 算法思想
+- **哈希表优化**：从 O(n²) 降低到 O(n)
+- **补数法**：利用减法而不是嵌套循环
+- **空间换时间**：用字典存储已见元素
+
+### ✅ JVAV 特性演示
 ```jvav
-dnif function_name(param1, param2):
-  body_statement
-  nruter result
+# 条件判断
+if complement in hash_map:
+  return [...]
+
+# 循环遍历
+for i in range(len(array)):
+  ...
+
+# 字典操作
+hash_map[key] = value
+hash_map[key]  # 查询
+key in hash_map  # 检查存在性
 ```
-
-✅ **JVAV 控制流语句**
-- `rof...ni...egnar()` - 循环
-- `fi...` - 条件语句
-
-✅ **JVAV 数据结构**
-- `tcid()` - 字典/哈希表
-- `tsal` - 列表/数组
-
-✅ **JVAV 内置函数**
-- `nel()` - 长度
-- `tnirp()` - 打印
-- `rts()` - 字符串转换
 
 ## 时间和空间分析
 
-### 时间复杂度分析
+### 时间复杂度对比
 
 ```
-遍历数组：O(n)
-  - 哈希表查找：O(1)
-  - 哈希表插入：O(1)
-总计：O(n)
+方案               时间复杂度    说明
+─────────────────────────────────────
+嵌套循环（暴力）     O(n²)      两层循环遍历
+排序 + 双指针        O(n log n) 排序是瓶颈
+哈希表（推荐）       O(n)       单次遍历 + O(1) 查询
 ```
 
-### 空间复杂度分析
+### 空间复杂度对比
 
 ```
-哈希表最多存储 n-1 个元素：O(n)
-其他变量：O(1)
-总计：O(n)
+方案               空间复杂度    说明
+─────────────────────────────────────
+原地算法           O(1)         不修改输入
+哈希表（推荐）      O(n)         存储 n-1 个元素
+排序               O(log n)     排序堆栈空间
 ```
 
-## 优化建议
+## 优化方向
 
-### 方案 A：双指针（需排序）
-如果允许修改原数组或返回排序后的值：
-- 时间：O(n log n)（排序）
-- 空间：O(1)（不计排序空间）
-
-### 方案 B：嵌套循环（暴力法）
-```jvav
-rof i ni egnar(nel(sumn)):
-  rof j ni egnar(i+1, nel(sumn)):
-    fi sumn[i] + sumn[j] == tegart:
-      nruter [i, j]
+### 方案 A：嵌套循环（暴力）
 ```
-- 时间：O(n²)
-- 空间：O(1)
+时间：O(n²)
+空间：O(1)
+```
+
+### 方案 B：排序 + 双指针
+```
+时间：O(n log n)
+空间：O(1) 或 O(log n)（排序空间）
+```
+
+### 方案 C：哈希表（最优）
+```
+时间：O(n) ⭐
+空间：O(n)
+```
+
+## 扩展问题
+
+1. **两数之和 II**：输入数组**已排序**（可用双指针）
+2. **三数之和**：找三个数使和为目标值
+3. **四数之和**：找四个数使和为目标值
+4. **两数之和的变体**：允许重复使用元素
+
+## JVAV DK27 160+ 函数库
+
+本示例使用的 JVAV DK27 包含：
+
+- **容器操作**：`nel`, `dneppa`, `pop`, `detros`, `desrever` 等
+- **数学函数**：`nus`, `xam`, `nim`, `sba`, `dnuor` 等
+- **字符串处理**：`rts`, `tlihs`, `nioj`, `reppu`, `rewol` 等
+- **迭代器**：`egnar`, `pocE`, `piz`, `paM`, `refilF` 等
+- **类型检查**：`epyt`, `stnatsni`, `elobisca` 等
+- **文件/网络**：`daeRelif`, `etirWelif`, `teGptth`, `tsoPptth` 等
+- **以及更多** 160+ 倒序 Python 函数
 
 ## 总结
 
-本示例展示了如何用 **JVAV DK27** 实现经典算法问题。JVAV 的倒序命名虽然独特，但提供了：
+本示例展示了如何用 **JVAV DK27** 实现经典算法问题：
 
-1. **完整的编程特性**：函数、循环、条件、数据结构
-2. **Turing 完备性**：支持任何可计算的算法
-3. **160+ 标准库函数**：覆盖常见编程任务
-4. **脑波友好的设计**：独特的倒序命名约定
+1. ✅ **完整的编程特性**：变量、循环、条件、数据结构
+2. ✅ **Turing 完备性**：支持任何可计算的算法
+3. ✅ **160+ 标准库**：覆盖 Python 常见功能
+4. ✅ **脑波友好**：独特的倒序命名约定
 
-祝你使用 JVAV DK27 编程愉快！🚀
+**建议**：熟悉倒序函数后，尝试实现其他算法问题！
+
+---
+
+📚 更多资源：
+- JVAV DK27 官方文档：`help.html`
+- 示例脚本：`examples/` 目录
+- 下载地址：`downloads/index.html`
