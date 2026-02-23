@@ -52,6 +52,8 @@ class SafeEvaluator:
         self.user_functions: Dict[str, Dict[str, Any]] = {}
         self.user_classes: Dict[str, type] = {}
         self.loaded_plugins: Dict[str, Dict[str, Any]] = {}
+        # input provider can be overridden to avoid blocking during file runs
+        self._input_provider: Callable[[str], str] = input
         self._install_reversed_helpers()
         self._install_extended_stdlib()
         self._load_builtin_plugins()
@@ -66,11 +68,13 @@ class SafeEvaluator:
         self.plugins['datetime'] = self._create_datetime_plugin()
         # Math extensions plugin
         self.plugins['math_ext'] = self._create_math_plugin()
+        # Console (keyboard/screen) plugin
+        self.plugins['console'] = self._create_console_plugin()
         # System operations plugin
         self.plugins['system'] = self._create_system_plugin()
 
         # Auto-load essential plugins
-        for plugin_name in ['file_ops', 'datetime', 'math_ext']:
+        for plugin_name in ['file_ops', 'datetime', 'math_ext', 'console']:
             self.load_plugin(plugin_name)
 
     def _create_file_plugin(self) -> Callable:
@@ -208,6 +212,94 @@ class SafeEvaluator:
             }
         return system_plugin
 
+    def _create_console_plugin(self) -> Callable:
+        """Create console plugin for keyboard and screen control (cross-platform)."""
+        def console_plugin():
+            try:
+                import msvcrt
+
+                def get_key_nonblocking():
+                    try:
+                        if msvcrt.kbhit():
+                            ch = msvcrt.getwch()
+                            return ch
+                        return ''
+                    except Exception:
+                        return ''
+
+                def get_key_blocking():
+                    try:
+                        return msvcrt.getwch()
+                    except Exception:
+                        return ''
+
+                def cls():
+                    os.system('cls')
+
+                def put(s):
+                    print(s, end='', flush=True)
+
+                def move(x, y):
+                    # ANSI cursor move
+                    print(f"\x1b[{y};{x}H", end='', flush=True)
+
+                def hide_cursor():
+                    print("\x1b[?25l", end='', flush=True)
+
+                def show_cursor():
+                    print("\x1b[?25h", end='', flush=True)
+
+                return {
+                    'get_key': get_key_nonblocking,
+                    'get_key_block': get_key_blocking,
+                    'cls': cls,
+                    'put': put,
+                    'move': move,
+                    'hide_cursor': hide_cursor,
+                    'show_cursor': show_cursor,
+                    'log': lambda msg, fn='jvav_run.log': open(fn, 'a', encoding='utf-8').write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n"),
+                }
+            except Exception:
+                # Fallback for POSIX
+                import sys, select, tty, termios
+
+                def _get_key_nonblocking_posix():
+                    dr, dw, de = select.select([sys.stdin], [], [], 0)
+                    if dr:
+                        return sys.stdin.read(1)
+                    return ''
+
+                def _get_key_blocking_posix():
+                    return sys.stdin.read(1)
+
+                def _cls_posix():
+                    os.system('clear')
+
+                def _put_posix(s):
+                    print(s, end='', flush=True)
+
+                def _move_posix(x, y):
+                    print(f"\x1b[{y};{x}H", end='', flush=True)
+
+                def _hide_cursor_posix():
+                    print("\x1b[?25l", end='', flush=True)
+
+                def _show_cursor_posix():
+                    print("\x1b[?25h", end='', flush=True)
+
+                return {
+                    'get_key': _get_key_nonblocking_posix,
+                    'get_key_block': _get_key_blocking_posix,
+                    'cls': _cls_posix,
+                    'put': _put_posix,
+                    'move': _move_posix,
+                    'hide_cursor': _hide_cursor_posix,
+                    'show_cursor': _show_cursor_posix,
+                    'log': lambda msg, fn='jvav_run.log': open(fn, 'a', encoding='utf-8').write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n"),
+                }
+
+        return console_plugin
+
     def load_plugin(self, plugin_name: str) -> bool:
         """Load a plugin by name."""
         if plugin_name in self.plugins:
@@ -246,7 +338,12 @@ class SafeEvaluator:
             print(*args, **kwargs)
 
         def _input(prompt: str = "") -> str:
-            return input(prompt)
+            # use overridable input provider so file runs won't block
+            try:
+                return self._input_provider(prompt)
+            except Exception:
+                # on any problem, return empty string to keep non-interactive runs moving
+                return ''
 
         # Math functions
         def _sum(iterable: Any) -> Any:
@@ -383,8 +480,22 @@ class SafeEvaluator:
             "piz": _zip,
             "etemarenume": _enumerate,
             "desrever": _reversed,
+            # set environment variable: tes(key, value)
+            "setenv": lambda k, v: self.env.__setitem__(k, v),
+            # shorthand reversed name for setting env
+            "setne": lambda k, v: self.env.__setitem__(k, v),
         }
         self.env.update(helpers)
+
+    def set_input_provider(self, provider: Callable[[str], str]) -> None:
+        """Set a custom input provider callable(prompt) -> str.
+
+        Use this to prevent blocking calls to input() during non-interactive file runs.
+        """
+        self._input_provider = provider
+        # also update env binding if tupni already set
+        if 'tupni' in self.env:
+            self.env['tupni'] = provider
 
     def _install_extended_stdlib(self) -> None:
         """Install extended standard library functions."""
@@ -431,53 +542,82 @@ class SafeEvaluator:
         if not code or code.startswith("#"):
             return None
 
-        # Check for advanced statements
+        # support a simple single-line break command inside loops
+        if code == "break":
+            # mark a break flag that loop handlers will check
+            self.env['__BREAK__'] = True
+            return None
+
+        # Check for advanced single-line control statements first
         if code.startswith("def "):
             return self._exec_function_def(code)
-        elif code.startswith("class "):
+        if code.startswith("class "):
             return self._exec_class_def(code)
-        elif code.startswith("if "):
+        if code.startswith("if "):
             return self._exec_if_statement(code)
-        elif code.startswith("try:"):
+        if code.startswith("try:"):
             return self._exec_try_statement(code)
-        elif code.startswith("import "):
+        if code.startswith("import "):
             return self._exec_import(code)
-        elif code.startswith("from "):
+        if code.startswith("from "):
             return self._exec_from_import(code)
-        elif code.startswith("for "):
+        if code.startswith("for "):
             return self._exec_for_loop(code)
-        elif code.startswith("plugin "):
+        if code.startswith("while "):
+            return self._exec_while(code)
+        if code.startswith("plugin "):
             return self._exec_plugin_command(code)
-        # Detect simple assignment
-        elif "=" in code and not code.startswith("==") and not code.lstrip().startswith("=="):
-            return self._exec_assignment(code)
-        else:
-            return self._eval_expression(code)
+
+        # Attempt to parse as an expression first, then as exec (assignment or statements).
+        try:
+            node = ast.parse(code, mode='eval')
+            self._validate_ast(node, mode='eval')
+            return eval(compile(node, '<input>', 'eval'), {'__builtins__': {}}, self.env)
+        except SyntaxError:
+            # not an expression, try exec
+            node = ast.parse(code, mode='exec')
+            self._validate_ast(node, mode='exec')
+            exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
+            return None
 
     def _exec_function_def(self, code: str) -> Any:
-        """Execute function definition: def name(params): body"""
-        # This is a simplified implementation
-        # In a full implementation, you'd need proper AST parsing
-        print(f"[info] Function definition syntax recognized: {code[:50]}...")
-        print("[note] Function definitions are planned for future versions")
+        """Execute function definition: def name(params): body
+
+        The file preprocessor converts multi-line defs into single-line statements
+        like: "def foo(): stmt1; stmt2". We validate and exec the definition so it
+        becomes available in the evaluator environment.
+        """
+        node = ast.parse(code, mode='exec')
+        self._validate_ast(node, mode='exec')
+        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
         return None
 
     def _exec_class_def(self, code: str) -> Any:
-        """Execute class definition: class Name: body"""
-        print(f"[info] Class definition syntax recognized: {code[:50]}...")
-        print("[note] Class definitions are planned for future versions")
+        """Execute class definition: class Name: body
+
+        Accepts single-line combined class definitions and execs them into env.
+        """
+        node = ast.parse(code, mode='exec')
+        self._validate_ast(node, mode='exec')
+        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
         return None
 
     def _exec_if_statement(self, code: str) -> Any:
-        """Execute if statement: if condition: body [elif condition: body] [else: body]"""
-        print(f"[info] If statement syntax recognized: {code[:50]}...")
-        print("[note] Control flow statements are planned for future versions")
+        """Execute an if/elif/else single-line statement produced by preprocessor.
+
+        The preprocessor converts indented blocks into a single line where the
+        body statements are joined with ';'. We validate and exec that code.
+        """
+        node = ast.parse(code, mode='exec')
+        self._validate_ast(node, mode='exec')
+        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
         return None
 
     def _exec_try_statement(self, code: str) -> Any:
-        """Execute try statement: try: body except: handler"""
-        print(f"[info] Try statement syntax recognized: {code[:50]}...")
-        print("[note] Exception handling is planned for future versions")
+        """Execute a try/except single-line statement after validation."""
+        node = ast.parse(code, mode='exec')
+        self._validate_ast(node, mode='exec')
+        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
         return None
 
     def _exec_import(self, code: str) -> Any:
@@ -568,7 +708,7 @@ class SafeEvaluator:
     # Internal helpers -----------------------------------------------------
     def _eval_expression(self, expr: str) -> Any:
         node = ast.parse(expr, mode="eval")
-        self._validate_ast(node)
+        self._validate_ast(node, mode='eval')
         return eval(compile(node, "<input>", "eval"), {"__builtins__": {}}, self.env)
 
     def _exec_for_loop(self, stmt: str) -> Any:
@@ -599,6 +739,14 @@ class SafeEvaluator:
             self.env[var_name] = item
             try:
                 self.eval_line(body)
+                # If body set the special break flag, exit loop early
+                if self.env.get('__BREAK__'):
+                    # consume and clear the break flag
+                    try:
+                        del self.env['__BREAK__']
+                    except KeyError:
+                        pass
+                    break
             finally:
                 if old_value is not None:
                     self.env[var_name] = old_value
@@ -606,27 +754,91 @@ class SafeEvaluator:
                     del self.env[var_name]
         return None
 
+    def _exec_while(self, stmt: str) -> Any:
+        """Execute a simple single-line while loop: while condition: statement1; statement2; ..."""
+        # Basic parsing: while condition: body
+        if not stmt.startswith("while ") or ": " not in stmt:
+            raise ValueError("Invalid while loop syntax")
+        parts = stmt.split(": ", 1)
+        if len(parts) != 2:
+            raise ValueError("Invalid while loop syntax")
+        condition_part = parts[0].strip()
+        body = parts[1].strip()
+
+        # Parse condition: remove leading 'while '
+        condition = condition_part[len('while '):].strip()
+
+        # Loop until condition is false or break flag is set
+        while True:
+            cond_val = self._eval_expression(condition)
+            if not cond_val:
+                break
+
+            # Execute statements in body separated by ';'
+            statements = [s.strip() for s in body.split(';') if s.strip()]
+            for st in statements:
+                self.eval_line(st)
+                if self.env.get('__BREAK__'):
+                    try:
+                        del self.env['__BREAK__']
+                    except KeyError:
+                        pass
+                    return None
+        return None
+
     def _exec_assignment(self, stmt: str) -> Any:
         node = ast.parse(stmt, mode="exec")
-        self._validate_ast(node)
+        self._validate_ast(node, mode='exec')
         exec(compile(node, "<input>", "exec"), {"__builtins__": {}}, self.env)
         return None
 
-    def _validate_ast(self, node: ast.AST) -> None:
-        """Reject import, attribute access, and other risky nodes."""
-        forbidden = (ast.Import, ast.ImportFrom, ast.Attribute, ast.Lambda, ast.FunctionDef, ast.ClassDef)
+    def _validate_ast(self, node: ast.AST, mode: str = 'eval') -> None:
+        """Validate an AST node for safety.
+
+        mode: 'eval' or 'exec'.
+        - In 'eval' mode we perform tighter checks: no attribute access, all
+          called functions must already exist in the environment.
+        - In 'exec' mode we allow definitions (FunctionDef/ClassDef) but still
+          forbid dangerous constructs such as lambda and direct dunder access.
+        Note: imports must be performed via the dedicated import commands
+        (lines starting with "import " / "from ").
+        """
+        if mode not in ('eval', 'exec'):
+            raise ValueError("Invalid mode for AST validation")
+
         for n in ast.walk(node):
-            if isinstance(n, forbidden):
-                raise ValueError(f"Forbidden syntax: {type(n).__name__}")
-            if isinstance(n, ast.Call):
-                if isinstance(n.func, ast.Name):
-                    if n.func.id not in self.env:
-                        raise ValueError(f"Unknown function: {n.func.id}")
-                else:
-                    raise ValueError("Only simple function names are allowed")
-            if isinstance(n, ast.Name):
-                if n.id.startswith("__"):
-                    raise ValueError("Access to dunder names is blocked")
+            # common forbidden nodes
+            if isinstance(n, ast.Lambda):
+                raise ValueError("Forbidden syntax: Lambda")
+
+            # disallow access to dunder names everywhere
+            if isinstance(n, ast.Name) and n.id.startswith("__"):
+                raise ValueError("Access to dunder names is blocked")
+
+            if mode == 'eval':
+                # In eval mode we don't allow attribute access or imports
+                if isinstance(n, ast.Attribute):
+                    raise ValueError("Attribute access is blocked in expressions")
+                if isinstance(n, (ast.Import, ast.ImportFrom)):
+                    raise ValueError("Import statements are not allowed in expressions")
+                # Calls: only allow simple Name calls where function exists in env
+                if isinstance(n, ast.Call):
+                    if isinstance(n.func, ast.Name):
+                        if n.func.id not in self.env:
+                            raise ValueError(f"Unknown function: {n.func.id}")
+                    else:
+                        raise ValueError("Only simple function names are allowed in calls")
+
+            else:  # exec mode
+                # Restrict imports in exec statements to be handled via top-level
+                # import handler; disallow Import/ImportFrom here to avoid
+                # executing arbitrary imports inside compiled exec blocks.
+                if isinstance(n, (ast.Import, ast.ImportFrom)):
+                    raise ValueError("Use the top-level import command: 'import <module>'")
+                # Attribute access in exec mode is still blocked to keep the
+                # environment simple and safer.
+                if isinstance(n, ast.Attribute):
+                    raise ValueError("Attribute access is blocked in statements")
 
 
 def run_repl(evaluator: SafeEvaluator) -> int:
@@ -679,20 +891,82 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
 
             # Extract main file content
             main_content = package["files"]["main.jvav"]
-            lines = main_content.split('\n')
+            raw_lines = main_content.split('\n')
         else:
             # Regular .jvav file
             with open(file_path, 'r', encoding='utf-8') as f:
-                lines = f.readlines()
+                raw_lines = f.readlines()
+
+        # Preprocess lines into logical single-line statements
+        def _preprocess_lines(lines: list[str]) -> list[str]:
+            logical: list[str] = []
+            i = 0
+            n = len(lines)
+            while i < n:
+                raw = lines[i].rstrip('\n')
+                # skip blank and comment lines in output
+                if not raw.strip() or raw.lstrip().startswith('#'):
+                    i += 1
+                    continue
+
+                line = raw
+                # handle backslash line continuation: join subsequent lines
+                while line.rstrip().endswith('\\'):
+                    line = line.rstrip()
+                    line = line[:-1]
+                    i += 1
+                    if i < n:
+                        nxt = lines[i].lstrip('\n')
+                        line = line + ' ' + nxt.lstrip()
+                    else:
+                        break
+
+                # handle simple indented block following a header ending with ':'
+                if line.rstrip().endswith(':'):
+                    indent = len(raw) - len(raw.lstrip(' '))
+                    body_parts: list[str] = []
+                    j = i + 1
+                    while j < n:
+                        nxt = lines[j].rstrip('\n')
+                        if not nxt.strip():
+                            j += 1
+                            continue
+                        nxt_indent = len(nxt) - len(nxt.lstrip(' '))
+                        if nxt_indent > indent:
+                            body_parts.append(nxt.strip())
+                            j += 1
+                        else:
+                            break
+                    if body_parts:
+                        joined = '; '.join(body_parts)
+                        logical.append(line.strip() + ' ' + joined)
+                        i = j
+                        continue
+
+                logical.append(line.strip())
+                i += 1
+
+            return logical
+
+        lines = _preprocess_lines(raw_lines)
+
+        # When running a file non-interactively, avoid blocking input() calls by
+        # providing a simple default input provider. Returning '1' is a safe
+        # numeric default for command-line guessing examples and avoids ValueError
+        # from int('') in many simple scripts. For more control, callers can set
+        # a custom input provider on the evaluator before calling run_file.
+        evaluator.set_input_provider(lambda prompt='': '1')
 
         for line in lines:
-            line = line.strip()
             if not line or line.startswith("#"):
                 continue
             try:
                 result = evaluator.eval_line(line)
                 if result is not None:
                     print(result)
+            except KeyboardInterrupt:
+                print("\n[info] Run interrupted by user")
+                return 1
             except Exception as exc:  # noqa: BLE001
                 print(f"[error] {exc}")
         return 0

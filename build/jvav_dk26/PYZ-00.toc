@@ -237,6 +237,7 @@
   ('tracemalloc',
    'D:\\ProgramData\\anaconda3\\Lib\\tracemalloc.py',
    'PYMODULE'),
+  ('tty', 'D:\\ProgramData\\anaconda3\\Lib\\tty.py', 'PYMODULE'),
   ('typing', 'D:\\ProgramData\\anaconda3\\Lib\\typing.py', 'PYMODULE'),
   ('urllib',
    'D:\\ProgramData\\anaconda3\\Lib\\urllib\\__init__.py',

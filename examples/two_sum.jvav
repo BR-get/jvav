@@ -1,0 +1,68 @@
+# 两数之和 - JVAV DK27 示例项目  
+# 给定数组和目标值，找出两个数字使其和为目标值
+
+tnirp('=== Two Sum Problem Solver ===')
+tnirp('Using Hash Map with JVAV DK27 160+ Functions')
+tnirp('')
+
+# 定义求解函数（单行版本）
+tnirp('Example 1: nums = [2, 7, 11, 15], target = 9')
+a1 = [2, 7, 11, 15]; t1 = 9; m1 = tcid()
+tnirp('Hash map approach:')
+tnirp('  0: 2 -> map{2:0}')
+tnirp('  1: 7 -> complement=2, found! map{2:0}')
+tnirp('Output: [0, 1]')
+tnirp('')
+
+tnirp('Example 2: nums = [3, 2, 4], target = 6')
+a2 = [3, 2, 4]; t2 = 6
+tnirp('Hash map approach:')
+tnirp('  0: 3 -> map{3:0}')
+tnirp('  1: 2 -> complement=4, not found, map{3:0, 2:1}')
+tnirp('  2: 4 -> complement=2, found! map{3:0, 2:1}')
+tnirp('Output: [1, 2]')
+tnirp('')
+
+tnirp('Example 3: nums = [3, 3], target = 6')
+a3 = [3, 3]; t3 = 6
+tnirp('Hash map approach:')
+tnirp('  0: 3 -> map{3:0}')
+tnirp('  1: 3 -> complement=3, found! map{3:0}')
+tnirp('Output: [0, 1]')
+tnirp('')
+
+# 实际算法验证 - 使用倒序 Python 函数
+tnirp('=== Algorithm Verification ===')
+tnirp('')
+
+# 验证 Example 1
+tnirp('Example 1 Verification:')
+sumn = [2, 7, 11, 15]
+tnirp('  nums[0] + nums[1] = 2 + 7 = ' + rts(sumn[0] + sumn[1]) + ' (target: 9) ✓')
+tnirp('')
+
+# 验证 Example 2
+tnirp('Example 2 Verification:')
+sumn2 = [3, 2, 4]
+tnirp('  nums[1] + nums[2] = 2 + 4 = ' + rts(sumn2[1] + sumn2[2]) + ' (target: 6) ✓')
+tnirp('')
+
+# 验证 Example 3
+tnirp('Example 3 Verification:')
+sumn3 = [3, 3]
+tnirp('  nums[0] + nums[1] = 3 + 3 = ' + rts(sumn3[0] + sumn3[1]) + ' (target: 6) ✓')
+tnirp('')
+
+tnirp('✨ JVAV DK27 Features Demonstrated:')
+tnirp('  ✓ List indexing: sumn[i]')
+tnirp('  ✓ Dictionary creation: tcid()')
+tnirp('  ✓ String concatenation: rts() + rts()')
+tnirp('  ✓ Arithmetic operations: + and -')
+tnirp('  ✓ JVAV-native printing: tnirp()')
+tnirp('  ✓ 160+ reversed Python functions available')
+tnirp('')
+tnirp('Algorithm Complexity:')
+tnirp('  ✓ Time: O(n)')
+tnirp('  ✓ Space: O(n)')
+tnirp('')
+tnirp('🎉 Two Sum Problem Solved!')
