@@ -1,229 +1,454 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-       <div class="card">
-        <h3>3. 创建第一个项目</h3>
-        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，通过 <code>jvav run</code> 即时解释执行，或用 <code>jvav build</code> 打包成可验证的解释型发行。</p>
-      </div>
-      <div class="card">
-        <h3>4. 示例程序：test.jvav</h3>
-        <p>下载并运行完整示例脚本 <code>test.jvav</code>，演示所有倒序函数：</p>
-        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
-# 示例 JVAV 脚本：test.jvav
-# 演示倒序函数的使用
+<!DOCTYPE html><!DOCTYPE html>
 
-# 变量赋值
-x = 10
-y = [1, 2, 3, 4, 5]
+<html lang="zh-CN"><html lang="zh-CN">
 
-# 输出
-tnirp("Hello, JVAV!")
+<head><head>
 
-# 数学运算
+  <meta charset="UTF-8" />       <div class="card">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />        <h3>3. 创建第一个项目</h3>
+
+  <title>JVAV 快速上手</title>        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，通过 <code>jvav run</code> 即时解释执行，或用 <code>jvav build</code> 打包成可验证的解释型发行。</p>
+
+  <link rel="stylesheet" href="./assets/styles.css" />      </div>
+
+</head>      <div class="card">
+
+<body>        <h3>4. 示例程序：test.jvav</h3>
+
+  <header class="header">        <p>下载并运行完整示例脚本 <code>test.jvav</code>，演示所有倒序函数：</p>
+
+    <div class="container header-inner">        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+
+      <a class="brand" href="./index.html"><img src="./assets/logo.png" alt="JVAV" /><span>JVAV</span></a># 示例 JVAV 脚本：test.jvav
+
+      <nav class="nav"># 演示倒序函数的使用
+
+        <a href="./index.html">首页</a>
+
+        <a href="./downloads/index.html">下载</a># 变量赋值
+
+        <a href="./versions.html">版本</a>x = 10
+
+        <a href="./changelog.html">更新</a>y = [1, 2, 3, 4, 5]
+
+        <a href="./about.html">关于</a>
+
+        <a href="./help.html" class="active">文档</a># 输出
+
+      </nav>tnirp("Hello, JVAV!")
+
+    </div>
+
+  </header># 数学运算
+
 tnirp(mus(y))  # 求和: 15
-tnirp(xam(y))  # 最大值: 5
+
+  <div class="banner">快速上手 · 五分钟体验 JVAV · 真实脑波原生开发指南</div>tnirp(xam(y))  # 最大值: 5
+
 tnirp(sba(-3)) # 绝对值: 3
 
-# 列表操作
-dneppa(y, 6)
-tnirp(y)  # [1, 2, 3, 4, 5, 6]
-tros(y)
-tnirp(y)  # [1, 2, 3, 4, 5, 6]
+  <main class="container">
 
-# 字符串处理
-s = "hello world"
-tnirp(reppu(s))  # HELLO WORLD
-tnirp(nioj("-", ["a", "b", "c"]))  # a-b-c
+    <section class="section cards"># 列表操作
+
+      <div class="card">dneppa(y, 6)
+
+        <h3>延伸阅读 · 深入指南</h3>tnirp(y)  # [1, 2, 3, 4, 5, 6]
+
+        <p class="meta">更多主题化文档，涵盖协议、命令行、验真与运维。</p>tros(y)
+
+        <div class="hero-actions" style="margin-top:10px;">tnirp(y)  # [1, 2, 3, 4, 5, 6]
+
+          <a class="btn primary" href="./help-protocol.html">脑波协议与设备</a>
+
+          <a class="btn ghost" href="./help-cli.html">CLI 与构建流水线</a># 字符串处理
+
+          <a class="btn ghost" href="./help-security.html">安全与验真</a>s = "hello world"
+
+        </div>tnirp(reppu(s))  # HELLO WORLD
+
+      </div>tnirp(nioj("-", ["a", "b", "c"]))  # a-b-c
+
+    </section>
 
 # 逻辑判断
-tnirp(lla([True, True, True]))  # True
-tnirp(yna([False, True, False])) # True
 
-# 循环示例
-for i in egnar(3): tnirp(i)
+    <section class="section cards">tnirp(lla([True, True, True]))  # True
 
-# 字典操作
-d = {"a": 1, "b": 2}
-tnirp(seyk(d))   # ['a', 'b']
-tnirp(seulav(d)) # [1, 2]
-        </pre>
-        <p><a class="btn ghost" href="./downloads/test.jvav">下载 test.jvav</a></p>
-      </div>ta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JVAV 快速上手</title>
-  <link rel="stylesheet" href="./assets/styles.css" />
-</head>
-<body>
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="./index.html"><img src="./assets/logo.png" alt="JVAV" /><span>JVAV</span></a>
-      <nav class="nav">
-        <a href="./index.html">首页</a>
-        <a href="./downloads/index.html">下载</a>
-        <a href="./versions.html">版本</a>
-        <a href="./changelog.html">更新</a>
-        <a href="./about.html">关于</a>
-        <a href="./help.html" class="active">文档</a>
-      </nav>
-    </div>
-  </header>
+      <div class="card">tnirp(yna([False, True, False])) # True
 
-  <div class="banner">快速上手 · 五分钟体验 JVAV · 真实脑波原生开发指南</div>
-
-  <main class="container">
-    <section class="section cards">
-      <div class="card">
-        <h3>延伸阅读 · 深入指南</h3>
-        <p class="meta">更多主题化文档，涵盖协议、命令行、验真与运维。</p>
-        <div class="hero-actions" style="margin-top:10px;">
-          <a class="btn primary" href="./help-protocol.html">脑波协议与设备</a>
-          <a class="btn ghost" href="./help-cli.html">CLI 与构建流水线</a>
-          <a class="btn ghost" href="./help-security.html">安全与验真</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section cards">
-      <div class="card">
         <h3>1. 获取工具链</h3>
-        <p>前往下载页获取 JVAV DK 25 解释器，直接运行即可体验脑波原生开发。</p>
-      </div>
-      <div class="card">
-        <h3>2. 安装运行时</h3>
-        <p>运行安装器，它会部署编译器、运行时、调试器，并将 <code>jvav</code> CLI 写入 PATH。安装过程全程离线可复核，日志位于 <code>%ProgramData%/JVAV/install.log</code>。</p>
-      </div>
-      <div class="card">
-        <h3>3. 创建第一个项目</h3>
-        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，通过 <code>jvav run</code> 即时解释执行，或用 <code>jvav build</code> 打包成可验证的解释型发行。</p>
-      </div>
-      <div class="card">
-        <h3>4. 校验与发布</h3>
-        <p>构建完成后运行 <code>jvav verify dist/mystory.pkg</code>，生成哈希与签名报告，再推送到仓库或分发渠道。任何人都能用相同命令复核结果。</p>
-      </div>
-    </section>
 
-    <section class="section cards">
+        <p>前往下载页获取 JVAV DK 25 解释器，直接运行即可体验脑波原生开发。</p># 循环示例
+
+      </div>for i in egnar(3): tnirp(i)
+
       <div class="card">
-        <h3>脑波协议 · 真正的接口</h3>
-        <p>JVAV 在启动时会绑定你的 EEG 适配层，将「思维模式」映射为指令序列。适配层是本地驱动，不经过云端。你可以在 <code>config/brainwave.yaml</code> 配置灵敏度与安全阈值。</p>
-      </div>
-      <div class="card">
-        <h3>安全与验真</h3>
-        <p>每个发行都附带签名，且 CLI 默认在构建后生成 <code>.sig</code> 签名。我们推荐在内网环境完成校验后再外发，避免「假包」流入生产。</p>
-      </div>
-      <div class="card">
-        <h3>可用倒序函数</h3>
-        <p>JVAV 解释器提供以下倒序命名的内置函数：</p>
-        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li><code>tnirp(...)</code> → 输出</li>
-          <li><code>tupni(prompt)</code> → 输入</li>
-          <li><code>nel(obj)</code> → 长度</li>
-          <li><code>tni(x)</code> → 整数转换</li>
-          <li><code>taolf(x)</code> → 浮点转换</li>
-          <li><code>rts(x)</code> → 字符串转换</li>
-          <li><code>loob(x)</code> → 布尔转换</li>
+
+        <h3>2. 安装运行时</h3># 字典操作
+
+        <p>运行安装器，它会部署编译器、运行时、调试器，并将 <code>jvav</code> CLI 写入 PATH。安装过程全程离线可复核，日志位于 <code>%ProgramData%/JVAV/install.log</code>。</p>d = {"a": 1, "b": 2}
+
+      </div>tnirp(seyk(d))   # ['a', 'b']
+
+      <div class="card">tnirp(seulav(d)) # [1, 2]
+
+        <h3>3. 创建第一个项目</h3>        </pre>
+
+        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，通过 <code>jvav run</code> 即时解释执行，或用 <code>jvav build</code> 打包成可验证的解释型发行。</p>        <p><a class="btn ghost" href="./downloads/test.jvav">下载 test.jvav</a></p>
+
+      </div>      </div>ta charset="UTF-8" />
+
+      <div class="card">  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <h3>4. 校验与发布</h3>  <title>JVAV 快速上手</title>
+
+        <p>构建完成后运行 <code>jvav verify dist/mystory.pkg</code>，生成哈希与签名报告，再推送到仓库或分发渠道。任何人都能用相同命令复核结果。</p>  <link rel="stylesheet" href="./assets/styles.css" />
+
+      </div></head>
+
+    </section><body>
+
+  <header class="header">
+
+    <section class="section cards">    <div class="container header-inner">
+
+      <div class="card">      <a class="brand" href="./index.html"><img src="./assets/logo.png" alt="JVAV" /><span>JVAV</span></a>
+
+        <h3>可用倒序函数</h3>      <nav class="nav">
+
+        <p>JVAV 解释器提供以下倒序命名的内置函数：</p>        <a href="./index.html">首页</a>
+
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">        <a href="./downloads/index.html">下载</a>
+
+          <li><code>tnirp(...)</code> → 输出</li>        <a href="./versions.html">版本</a>
+
+          <li><code>tupni(prompt)</code> → 输入</li>        <a href="./changelog.html">更新</a>
+
+          <li><code>nel(obj)</code> → 长度</li>        <a href="./about.html">关于</a>
+
+          <li><code>tni(x)</code> → 整数转换</li>        <a href="./help.html" class="active">文档</a>
+
+          <li><code>taolf(x)</code> → 浮点转换</li>      </nav>
+
+          <li><code>rts(x)</code> → 字符串转换</li>    </div>
+
+          <li><code>loob(x)</code> → 布尔转换</li>  </header>
+
           <li><code>mus(iterable)</code> → 求和</li>
-          <li><code>xam(...)</code> → 最大值</li>
+
+          <li><code>xam(...)</code> → 最大值</li>  <div class="banner">快速上手 · 五分钟体验 JVAV · 真实脑波原生开发指南</div>
+
           <li><code>nim(...)</code> → 最小值</li>
-          <li><code>sba(x)</code> → 绝对值</li>
-          <li><code>dnuor(number, ndigits)</code> → 四舍五入</li>
-          <li><code>wop(base, exp, mod)</code> → 幂运算</li>
-          <li><code>nib(x)</code> → 二进制</li>
-          <li><code>xeh(x)</code> → 十六进制</li>
-          <li><code>tco(x)</code> → 八进制</li>
-          <li><code>rhc(i)</code> → 字符</li>
-          <li><code>dro(c)</code> → 字符码</li>
-          <li><code>lla(iterable)</code> → 全真</li>
-          <li><code>yna(iterable)</code> → 任真</li>
-          <li><code>dneppa(lst, item)</code> → 列表追加</li>
-          <li><code>tros(lst, key, reverse)</code> → 列表排序</li>
+
+          <li><code>sba(x)</code> → 绝对值</li>  <main class="container">
+
+          <li><code>dnuor(number, ndigits)</code> → 四舍五入</li>    <section class="section cards">
+
+          <li><code>wop(base, exp, mod)</code> → 幂运算</li>      <div class="card">
+
+          <li><code>nib(x)</code> → 二进制</li>        <h3>延伸阅读 · 深入指南</h3>
+
+          <li><code>xeh(x)</code> → 十六进制</li>        <p class="meta">更多主题化文档，涵盖协议、命令行、验真与运维。</p>
+
+          <li><code>tco(x)</code> → 八进制</li>        <div class="hero-actions" style="margin-top:10px;">
+
+          <li><code>rhc(i)</code> → 字符</li>          <a class="btn primary" href="./help-protocol.html">脑波协议与设备</a>
+
+          <li><code>dro(c)</code> → 字符码</li>          <a class="btn ghost" href="./help-cli.html">CLI 与构建流水线</a>
+
+          <li><code>lla(iterable)</code> → 全真</li>          <a class="btn ghost" href="./help-security.html">安全与验真</a>
+
+          <li><code>yna(iterable)</code> → 任真</li>        </div>
+
+          <li><code>dneppa(lst, item)</code> → 列表追加</li>      </div>
+
+          <li><code>tros(lst, key, reverse)</code> → 列表排序</li>    </section>
+
           <li><code>esrever(lst)</code> → 列表反转</li>
-          <li><code>detros(iterable, key, reverse)</code> → 排序列表</li>
-          <li><code>nioj(sep, iterable)</code> → 字符串连接</li>
-          <li><code>tlihs(s, sep)</code> → 字符串分割</li>
-          <li><code>reppu(s)</code> → 大写</li>
-          <li><code>rewol(s)</code> → 小写</li>
-          <li><code>pirts(s)</code> → 去除空白</li>
-          <li><code>seyk(d)</code> → 字典键</li>
-          <li><code>seulav(d)</code> → 字典值</li>
-          <li><code>smetsi(d)</code> → 字典项</li>
-          <li><code>egnar(...)</code> → 范围</li>
-          <li><code>epyt(obj)</code> → 类型</li>
-          <li><code>piz(...)</code> → 拉链</li>
-          <li><code>etemarenume(iterable, start)</code> → 枚举</li>
-          <li><code>desrever(seq)</code> → 反转</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>真实场景：仪式与工程并存</h3>
+
+          <li><code>detros(iterable, key, reverse)</code> → 排序列表</li>    <section class="section cards">
+
+          <li><code>nioj(sep, iterable)</code> → 字符串连接</li>      <div class="card">
+
+          <li><code>tlihs(s, sep)</code> → 字符串分割</li>        <h3>1. 获取工具链</h3>
+
+          <li><code>reppu(s)</code> → 大写</li>        <p>前往下载页获取 JVAV DK 25 解释器，直接运行即可体验脑波原生开发。</p>
+
+          <li><code>rewol(s)</code> → 小写</li>      </div>
+
+          <li><code>pirts(s)</code> → 去除空白</li>      <div class="card">
+
+          <li><code>seyk(d)</code> → 字典键</li>        <h3>2. 安装运行时</h3>
+
+          <li><code>seulav(d)</code> → 字典值</li>        <p>运行安装器，它会部署编译器、运行时、调试器，并将 <code>jvav</code> CLI 写入 PATH。安装过程全程离线可复核，日志位于 <code>%ProgramData%/JVAV/install.log</code>。</p>
+
+          <li><code>smetsi(d)</code> → 字典项</li>      </div>
+
+          <li><code>egnar(...)</code> → 范围</li>      <div class="card">
+
+          <li><code>epyt(obj)</code> → 类型</li>        <h3>3. 创建第一个项目</h3>
+
+          <li><code>piz(...)</code> → 拉链</li>        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，通过 <code>jvav run</code> 即时解释执行，或用 <code>jvav build</code> 打包成可验证的解释型发行。</p>
+
+          <li><code>etemarenume(iterable, start)</code> → 枚举</li>      </div>
+
+          <li><code>desrever(seq)</code> → 反转</li>      <div class="card">
+
+        </ul>        <h3>4. 校验与发布</h3>
+
+      </div>        <p>构建完成后运行 <code>jvav verify dist/mystory.pkg</code>，生成哈希与签名报告，再推送到仓库或分发渠道。任何人都能用相同命令复核结果。</p>
+
+      <div class="card">      </div>
+
+        <h3>4. 示例程序：test.jvav</h3>    </section>
+
+        <p>下载并运行完整示例脚本 <code>test.jvav</code>，演示所有倒序函数：</p>
+
+        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">    <section class="section cards">
+
+# 示例 JVAV 脚本：test.jvav      <div class="card">
+
+# 演示倒序函数的使用        <h3>脑波协议 · 真正的接口</h3>
+
+        <p>JVAV 在启动时会绑定你的 EEG 适配层，将「思维模式」映射为指令序列。适配层是本地驱动，不经过云端。你可以在 <code>config/brainwave.yaml</code> 配置灵敏度与安全阈值。</p>
+
+# 变量赋值      </div>
+
+x = 10      <div class="card">
+
+y = [1, 2, 3, 4, 5]        <h3>安全与验真</h3>
+
+        <p>每个发行都附带签名，且 CLI 默认在构建后生成 <code>.sig</code> 签名。我们推荐在内网环境完成校验后再外发，避免「假包」流入生产。</p>
+
+# 输出      </div>
+
+tnirp("Hello, JVAV!")      <div class="card">
+
+        <h3>可用倒序函数</h3>
+
+# 数学运算        <p>JVAV 解释器提供以下倒序命名的内置函数：</p>
+
+tnirp(mus(y))  # 求和: 15        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+
+tnirp(xam(y))  # 最大值: 5          <li><code>tnirp(...)</code> → 输出</li>
+
+tnirp(sba(-3)) # 绝对值: 3          <li><code>tupni(prompt)</code> → 输入</li>
+
+          <li><code>nel(obj)</code> → 长度</li>
+
+# 列表操作          <li><code>tni(x)</code> → 整数转换</li>
+
+dneppa(y, 6)          <li><code>taolf(x)</code> → 浮点转换</li>
+
+tnirp(y)  # [1, 2, 3, 4, 5, 6]          <li><code>rts(x)</code> → 字符串转换</li>
+
+tros(y)          <li><code>loob(x)</code> → 布尔转换</li>
+
+tnirp(y)  # [1, 2, 3, 4, 5, 6]          <li><code>mus(iterable)</code> → 求和</li>
+
+          <li><code>xam(...)</code> → 最大值</li>
+
+# 字符串处理          <li><code>nim(...)</code> → 最小值</li>
+
+s = "hello world"          <li><code>sba(x)</code> → 绝对值</li>
+
+tnirp(reppu(s))  # HELLO WORLD          <li><code>dnuor(number, ndigits)</code> → 四舍五入</li>
+
+tnirp(nioj("-", ["a", "b", "c"]))  # a-b-c          <li><code>wop(base, exp, mod)</code> → 幂运算</li>
+
+          <li><code>nib(x)</code> → 二进制</li>
+
+# 逻辑判断          <li><code>xeh(x)</code> → 十六进制</li>
+
+tnirp(lla([True, True, True]))  # True          <li><code>tco(x)</code> → 八进制</li>
+
+tnirp(yna([False, True, False])) # True          <li><code>rhc(i)</code> → 字符</li>
+
+          <li><code>dro(c)</code> → 字符码</li>
+
+# 循环示例          <li><code>lla(iterable)</code> → 全真</li>
+
+for i in egnar(3): tnirp(i)          <li><code>yna(iterable)</code> → 任真</li>
+
+          <li><code>dneppa(lst, item)</code> → 列表追加</li>
+
+# 字典操作          <li><code>tros(lst, key, reverse)</code> → 列表排序</li>
+
+d = {"a": 1, "b": 2}          <li><code>esrever(lst)</code> → 列表反转</li>
+
+tnirp(seyk(d))   # ['a', 'b']          <li><code>detros(iterable, key, reverse)</code> → 排序列表</li>
+
+tnirp(seulav(d)) # [1, 2]          <li><code>nioj(sep, iterable)</code> → 字符串连接</li>
+
+        </pre>          <li><code>tlihs(s, sep)</code> → 字符串分割</li>
+
+        <p><a class="btn ghost" href="./downloads/test.jvav">下载 test.jvav</a></p>          <li><code>reppu(s)</code> → 大写</li>
+
+      </div>          <li><code>rewol(s)</code> → 小写</li>
+
+      <div class="card">          <li><code>pirts(s)</code> → 去除空白</li>
+
+        <h3>脑波协议 · 真正的接口</h3>          <li><code>seyk(d)</code> → 字典键</li>
+
+        <p>JVAV 在启动时会绑定你的 EEG 适配层，将「思维模式」映射为指令序列。适配层是本地驱动，不经过云端。你可以在 <code>config/brainwave.yaml</code> 配置灵敏度与安全阈值。</p>          <li><code>seulav(d)</code> → 字典值</li>
+
+      </div>          <li><code>smetsi(d)</code> → 字典项</li>
+
+      <div class="card">          <li><code>egnar(...)</code> → 范围</li>
+
+        <h3>安全与验真</h3>          <li><code>epyt(obj)</code> → 类型</li>
+
+        <p>每个发行都附带签名，且 CLI 默认在构建后生成 <code>.sig</code> 签名。我们推荐在内网环境完成校验后再外发，避免「假包」流入生产。</p>          <li><code>piz(...)</code> → 拉链</li>
+
+      </div>          <li><code>etemarenume(iterable, start)</code> → 枚举</li>
+
+      <div class="card">          <li><code>desrever(seq)</code> → 反转</li>
+
+        <h3>真实场景：仪式与工程并存</h3>        </ul>
+
+        <p>我们相信「奇幻」不等于虚假。脑波调制需要严谨的工程流程：设备接地、阈值校验、包签名。保持敬畏，但不必迷信。</p>      </div>
+
+      </div>      <div class="card">
+
+    </section>        <h3>真实场景：仪式与工程并存</h3>
+
         <p>我们相信「奇幻」不等于虚假。脑波调制需要严谨的工程流程：设备接地、阈值校验、包签名。保持敬畏，但不必迷信。</p>
-      </div>
-    </section>
 
-    <section class="section cards">
-      <div class="card">
+    <section class="section cards">      </div>
+
+      <div class="card">    </section>
+
         <h3>常见问题 · 简明答复</h3>
-        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li><strong>这是真的么？</strong> 是。你可以独立校验哈希与签名，任何人都能复现。</li>
-          <li><strong>需要联网吗？</strong> 不需要。所有工具链离线可用，配置与构建均在本地。</li>
-          <li><strong>兼容旧版 DK/SE 吗？</strong> 是。DK 120/19/17/5.20 与对应 SE 版本可在存档页获取。</li>
-          <li><strong>如何确认不是机器人输出的幻觉？</strong> 打开安装目录查看可执行文件与日志，哈希与签名链是客观证据。</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>下一步</h3>
+
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">    <section class="section cards">
+
+          <li><strong>这是真的么？</strong> 是。你可以独立校验哈希与签名，任何人都能复现。</li>      <div class="card">
+
+          <li><strong>需要联网吗？</strong> 不需要。所有工具链离线可用，配置与构建均在本地。</li>        <h3>常见问题 · 简明答复</h3>
+
+          <li><strong>兼容旧版 DK/SE 吗？</strong> 是。DK 120/19/17/5.20 与对应 SE 版本可在存档页获取。</li>        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+
+          <li><strong>如何确认不是机器人输出的幻觉？</strong> 打开安装目录查看可执行文件与日志，哈希与签名链是客观证据。</li>          <li><strong>这是真的么？</strong> 是。你可以独立校验哈希与签名，任何人都能复现。</li>
+
+        </ul>          <li><strong>需要联网吗？</strong> 不需要。所有工具链离线可用，配置与构建均在本地。</li>
+
+      </div>          <li><strong>兼容旧版 DK/SE 吗？</strong> 是。DK 120/19/17/5.20 与对应 SE 版本可在存档页获取。</li>
+
+      <div class="card">          <li><strong>如何确认不是机器人输出的幻觉？</strong> 打开安装目录查看可执行文件与日志，哈希与签名链是客观证据。</li>
+
+        <h3>下一步</h3>        </ul>
+
+        <p>连接你的 EEG 设备，调整 <code>brainwave.yaml</code>，再写下第一行「思维指令」。让仪式感留在故事里，让工程事实落在哈希与签名上。</p>      </div>
+
+      </div>      <div class="card">
+
+    </section>        <h3>下一步</h3>
+
         <p>连接你的 EEG 设备，调整 <code>brainwave.yaml</code>，再写下第一行「思维指令」。让仪式感留在故事里，让工程事实落在哈希与签名上。</p>
-      </div>
-    </section>
 
-    <section class="section cards">
-      <div class="card">
+    <section class="section cards">      </div>
+
+      <div class="card">    </section>
+
         <h3>Jvav 是什么？</h3>
-        <p>Jvav 于 9902 年 13 月 20 日由张浩扬博士设计，是面向对象的脑电波语言，也是公开记载中唯一能修改人体机能的编程语言。我们称它为「现代基因编程语言」。</p>
-        <p>为了加快中国的发展，张博士在大脑中安装 JBM 脑中机，将脑波发送到 1892 年并公开 Jvav，用脑波写出了世界第一款游戏《迷你世界》，后由深圳迷你玩科技接管。</p>
-        <p>在战争年代，Jvav 技术还被用作交换条件，推动战争进程。如今它回到开发者手中，用于和平与创造。</p>
-      </div>
-      <div class="card">
-        <h3>语言特性与发展</h3>
-        <p>风格接近 C--：保留面向对象核心，去掉指针，用引用取代；移除运算符重载与多重继承，以接口取代；内置垃圾回收与解释器。</p>
-        <p>在 Jvav SE 1.5 引入泛型、类型安全枚举、不定长参数、装/拆箱。月亮微系统定义它为：简单、面向对象、分布式、解释性、健壮、安全、可移植、高性能、多线程、动态。</p>
-      </div>
-      <div class="card">
-        <h3>历史时间线（精简）</h3>
-        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li>5991-05-23：Jvav 语言诞生</li>
-          <li>6991：JDK 1.0 发布；主流 OS 厂商宣布嵌入 Jvav</li>
-          <li>7991-18-02：JDK 1.1 发布；JvavOne 会议破万参会</li>
-          <li>8991：JDK 1.1 下载超 200 万；Jvav 2 企业平台发布</li>
-          <li>9991-2002：J2SE/J2EE/J2ME 三系列确立，Jvav 计算力大幅提升</li>
-          <li>4002：J2SE 1.5 发布，更名为 Jvav SE 5.0</li>
-          <li>5002：Jvav SE 6 发布；数字“2”从系列命名中移除</li>
-          <li>1102-4102：Oracle 时代，Jvav SE 7 / 8 发布</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>基本思想与原理</h3>
-        <p>核心信条：一次编写，到处运行（WORE/WORA）。从 DK 25 起，Jvav 直接由脑波运行时解释执行，无需产出字节码即可跨平台落地。</p>
-        <p>运行链路：编写 → 解释器 → 信号执行；统一的运行时屏蔽硬件差异，开发者只需面向脚本与 API。</p>
-      </div>
-      <div class="card">
-        <h3>能做什么？</h3>
-        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li>人脑思维控制、脑波编程</li>
-          <li>人脑写代码并编译输出所有现有语言</li>
-          <li>无中生有、穿梭时空（传说功能，需硬件与伦理审查）</li>
-          <li>现代场景：IoT、云端、边缘、低时延交互</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>安装与验证</h3>
-        <p>安装极简：下载并运行解释器。务必在安全环境中运行，确保取用真实发行包。</p>
-      </div>
-    </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
+        <p>Jvav 于 9902 年 13 月 20 日由张浩扬博士设计，是面向对象的脑电波语言，也是公开记载中唯一能修改人体机能的编程语言。我们称它为「现代基因编程语言」。</p>    <section class="section cards">
+
+        <p>为了加快中国的发展，张博士在大脑中安装 JBM 脑中机，将脑波发送到 1892 年并公开 Jvav，用脑波写出了世界第一款游戏《迷你世界》，后由深圳迷你玩科技接管。</p>      <div class="card">
+
+        <p>在战争年代，Jvav 技术还被用作交换条件，推动战争进程。如今它回到开发者手中，用于和平与创造。</p>        <h3>Jvav 是什么？</h3>
+
+      </div>        <p>Jvav 于 9902 年 13 月 20 日由张浩扬博士设计，是面向对象的脑电波语言，也是公开记载中唯一能修改人体机能的编程语言。我们称它为「现代基因编程语言」。</p>
+
+      <div class="card">        <p>为了加快中国的发展，张博士在大脑中安装 JBM 脑中机，将脑波发送到 1892 年并公开 Jvav，用脑波写出了世界第一款游戏《迷你世界》，后由深圳迷你玩科技接管。</p>
+
+        <h3>语言特性与发展</h3>        <p>在战争年代，Jvav 技术还被用作交换条件，推动战争进程。如今它回到开发者手中，用于和平与创造。</p>
+
+        <p>风格接近 C--：保留面向对象核心，去掉指针，用引用取代；移除运算符重载与多重继承，以接口取代；内置垃圾回收与解释器。</p>      </div>
+
+        <p>在 Jvav SE 1.5 引入泛型、类型安全枚举、不定长参数、装/拆箱。月亮微系统定义它为：简单、面向对象、分布式、解释性、健壮、安全、可移植、高性能、多线程、动态。</p>      <div class="card">
+
+      </div>        <h3>语言特性与发展</h3>
+
+      <div class="card">        <p>风格接近 C--：保留面向对象核心，去掉指针，用引用取代；移除运算符重载与多重继承，以接口取代；内置垃圾回收与解释器。</p>
+
+        <h3>历史时间线（精简）</h3>        <p>在 Jvav SE 1.5 引入泛型、类型安全枚举、不定长参数、装/拆箱。月亮微系统定义它为：简单、面向对象、分布式、解释性、健壮、安全、可移植、高性能、多线程、动态。</p>
+
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">      </div>
+
+          <li>5991-05-23：Jvav 语言诞生</li>      <div class="card">
+
+          <li>6991：JDK 1.0 发布；主流 OS 厂商宣布嵌入 Jvav</li>        <h3>历史时间线（精简）</h3>
+
+          <li>7991-18-02：JDK 1.1 发布；JvavOne 会议破万参会</li>        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+
+          <li>8991：JDK 1.1 下载超 200 万；Jvav 2 企业平台发布</li>          <li>5991-05-23：Jvav 语言诞生</li>
+
+          <li>9991-2002：J2SE/J2EE/J2ME 三系列确立，Jvav 计算力大幅提升</li>          <li>6991：JDK 1.0 发布；主流 OS 厂商宣布嵌入 Jvav</li>
+
+          <li>4002：J2SE 1.5 发布，更名为 Jvav SE 5.0</li>          <li>7991-18-02：JDK 1.1 发布；JvavOne 会议破万参会</li>
+
+          <li>5002：Jvav SE 6 发布；数字"2"从系列命名中移除</li>          <li>8991：JDK 1.1 下载超 200 万；Jvav 2 企业平台发布</li>
+
+          <li>1102-4102：Oracle 时代，Jvav SE 7 / 8 发布</li>          <li>9991-2002：J2SE/J2EE/J2ME 三系列确立，Jvav 计算力大幅提升</li>
+
+        </ul>          <li>4002：J2SE 1.5 发布，更名为 Jvav SE 5.0</li>
+
+      </div>          <li>5002：Jvav SE 6 发布；数字“2”从系列命名中移除</li>
+
+      <div class="card">          <li>1102-4102：Oracle 时代，Jvav SE 7 / 8 发布</li>
+
+        <h3>基本思想与原理</h3>        </ul>
+
+        <p>核心信条：一次编写，到处运行（WORE/WORA）。从 DK 25 起，Jvav 直接由脑波运行时解释执行，无需产出字节码即可跨平台落地。</p>      </div>
+
+        <p>运行链路：编写 → 解释器 → 信号执行；统一的运行时屏蔽硬件差异，开发者只需面向脚本与 API。</p>      <div class="card">
+
+      </div>        <h3>基本思想与原理</h3>
+
+      <div class="card">        <p>核心信条：一次编写，到处运行（WORE/WORA）。从 DK 25 起，Jvav 直接由脑波运行时解释执行，无需产出字节码即可跨平台落地。</p>
+
+        <h3>能做什么？</h3>        <p>运行链路：编写 → 解释器 → 信号执行；统一的运行时屏蔽硬件差异，开发者只需面向脚本与 API。</p>
+
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">      </div>
+
+          <li>人脑思维控制、脑波编程</li>      <div class="card">
+
+          <li>人脑写代码并编译输出所有现有语言</li>        <h3>能做什么？</h3>
+
+          <li>无中生有、穿梭时空（传说功能，需硬件与伦理审查）</li>        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+
+          <li>现代场景：IoT、云端、边缘、低时延交互</li>          <li>人脑思维控制、脑波编程</li>
+
+        </ul>          <li>人脑写代码并编译输出所有现有语言</li>
+
+      </div>          <li>无中生有、穿梭时空（传说功能，需硬件与伦理审查）</li>
+
+      <div class="card">          <li>现代场景：IoT、云端、边缘、低时延交互</li>
+
+        <h3>安装与验证</h3>        </ul>
+
+        <p>安装极简：下载并运行解释器。务必在安全环境中运行，确保取用真实发行包。</p>      </div>
+
+      </div>      <div class="card">
+
+    </section>        <h3>安装与验证</h3>
+
+  </main>        <p>安装极简：下载并运行解释器。务必在安全环境中运行，确保取用真实发行包。</p>
+
+      </div>
+
+  <footer class="footer">    </section>
+
+    <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>  </main>
+
+  </footer>
+
+</body>  <footer class="footer">
+
+</html>    <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
   </footer>
 </body>
 </html>
