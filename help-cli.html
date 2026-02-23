@@ -29,15 +29,16 @@
         <h3>核心命令</h3>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
           <li><code>jvav init &lt;name&gt;</code>：创建项目骨架，包含脑波适配层。</li>
-          <li><code>jvav build</code>：编译 .jvav 源并产出可验证包。</li>
-          <li><code>jvav run &lt;file.jvav&gt;</code>：直接运行脚本，便于快速实验。</li>
+          <li><code>jvav build</code>：打包解释型脚本，附带哈希与签名信息。</li>
+          <li><code>jvav run &lt;file.jvav&gt;</code>：由运行时即时解释脚本，便于快速实验。</li>
           <li><code>jvav verify &lt;pkg&gt;</code>：生成/校验哈希与签名，确保可重复验证。</li>
           <li><code>jvav calibrate</code>：进入脑波校准模式，生成基线数据。</li>
+          <li><code>jvav.exe -f &lt;file.jvav&gt;</code>：直接从文件运行脚本，支持 for 循环等。</li>
         </ul>
       </div>
       <div class="card">
         <h3>构建流水线示例</h3>
-        <p>在 CI 中可以串联：校验 → 构建 → 验证 → 签名 → 发布。伪流程：</p>
+        <p>在 CI 中可以串联：校验 → 打包解释器 → 验证 → 签名 → 发布。伪流程：</p>
         <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
 jvav verify deps.pkg
 jvav build
@@ -55,7 +56,7 @@ publish dist/app.pkg dist/app.pkg.sig
     <section class="section cards">
       <div class="card">
         <h3>集成到现有项目</h3>
-        <p>你可以仅使用 JVAV 的脑波输入层，把指令输出到已有后端。通过 <code>jvav run --pipe</code> 将指令序列输出到标准输出，再由你的系统消费。</p>
+        <p>你可以仅使用 JVAV 的脑波输入层，把指令输出到已有后端：解释器直接驱动后端流程。通过 <code>jvav run --pipe</code> 将指令序列输出到标准输出，再由你的系统消费。</p>
       </div>
       <div class="card">
         <h3>调试技巧</h3>
@@ -66,14 +67,14 @@ publish dist/app.pkg dist/app.pkg.sig
         </ul>
       </div>
       <div class="card">
-        <h3>发布注意事项</h3>
-        <p>每个发布物务必附带 <code>.sha256</code> 与 <code>.sig</code>；在内网完成验真后再外发。若需离线分发，可将 <code>jvav.exe</code>、校验文件与签名包打成同一介质。</p>
+        <h3>扩展函数支持</h3>
+        <p>解释器现支持更多倒序函数，如 <code>mus</code>（求和）、<code>xam</code>（最大值）、<code>nioj</code>（连接）等，便于复杂逻辑表达。</p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">© 2026 JVAV · Real Project</div>
+    <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
   </footer>
 </body>
 </html>

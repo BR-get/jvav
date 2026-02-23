@@ -49,18 +49,14 @@
         <p>信号流程：EEG 采集 → 去噪/滤波 → 通道映射 → 思维模式识别 → 指令序列生成。你可以在 <code>logs/signal/</code> 查看每一步的输出。</p>
       </div>
       <div class="card">
-        <h3>常见故障</h3>
-        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li>频繁掉线：检查电量与蓝牙拥塞，必要时改用有线模式。</li>
-          <li>高噪声：降低灵敏度，或在 <code>noise_gate</code> 中提高阈值。</li>
-          <li>延迟高：关闭非必要滤波插件，确认本地防病毒未拦截驱动。</li>
-        </ul>
+        <h3>函数集成</h3>
+        <p>脑波协议现与扩展函数库无缝集成，支持在思维指令中调用倒序函数，如 <code>mus</code> 用于数据聚合。</p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">© 2026 JVAV · Real Project</div>
+    <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
   </footer>
 </body>
 </html>

@@ -1,0 +1,37 @@
+# 示例 JVAV 脚本：test.jvav
+# 演示倒序函数的使用
+
+# 变量赋值
+x = 10
+y = [1, 2, 3, 4, 5]
+
+# 输出
+tnirp("Hello, JVAV!")
+
+# 数学运算
+tnirp(mus(y))  # 求和: 15
+tnirp(xam(y))  # 最大值: 5
+tnirp(sba(-3)) # 绝对值: 3
+
+# 列表操作
+dneppa(y, 6)
+tnirp(y)  # [1, 2, 3, 4, 5, 6]
+tros(y)
+tnirp(y)  # [1, 2, 3, 4, 5, 6]
+
+# 字符串处理
+s = "hello world"
+tnirp(reppu(s))  # HELLO WORLD
+tnirp(nioj("-", ["a", "b", "c"]))  # a-b-c
+
+# 逻辑判断
+tnirp(lla([True, True, True]))  # True
+tnirp(yna([False, True, False])) # True
+
+# 循环示例（使用 range 和 enumerate）
+for i in egnar(3): tnirp(i)
+
+# 字典操作
+d = {"a": 1, "b": 2}
+tnirp(seyk(d))   # ['a', 'b']
+tnirp(seulav(d)) # [1, 2]

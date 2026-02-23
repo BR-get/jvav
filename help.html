@@ -1,7 +1,54 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
+       <div class="card">
+        <h3>3. 创建第一个项目</h3>
+        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，通过 <code>jvav run</code> 即时解释执行，或用 <code>jvav build</code> 打包成可验证的解释型发行。</p>
+      </div>
+      <div class="card">
+        <h3>4. 示例程序：test.jvav</h3>
+        <p>下载并运行完整示例脚本 <code>test.jvav</code>，演示所有倒序函数：</p>
+        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# 示例 JVAV 脚本：test.jvav
+# 演示倒序函数的使用
+
+# 变量赋值
+x = 10
+y = [1, 2, 3, 4, 5]
+
+# 输出
+tnirp("Hello, JVAV!")
+
+# 数学运算
+tnirp(mus(y))  # 求和: 15
+tnirp(xam(y))  # 最大值: 5
+tnirp(sba(-3)) # 绝对值: 3
+
+# 列表操作
+dneppa(y, 6)
+tnirp(y)  # [1, 2, 3, 4, 5, 6]
+tros(y)
+tnirp(y)  # [1, 2, 3, 4, 5, 6]
+
+# 字符串处理
+s = "hello world"
+tnirp(reppu(s))  # HELLO WORLD
+tnirp(nioj("-", ["a", "b", "c"]))  # a-b-c
+
+# 逻辑判断
+tnirp(lla([True, True, True]))  # True
+tnirp(yna([False, True, False])) # True
+
+# 循环示例
+for i in egnar(3): tnirp(i)
+
+# 字典操作
+d = {"a": 1, "b": 2}
+tnirp(seyk(d))   # ['a', 'b']
+tnirp(seulav(d)) # [1, 2]
+        </pre>
+        <p><a class="btn ghost" href="./downloads/test.jvav">下载 test.jvav</a></p>
+      </div>ta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JVAV 快速上手</title>
   <link rel="stylesheet" href="./assets/styles.css" />
@@ -39,7 +86,7 @@
     <section class="section cards">
       <div class="card">
         <h3>1. 获取工具链</h3>
-        <p>前往下载页获取 JVAV DK 25 安装包，并验证 SHA256：<code>C93DD534F13D618A7112BA3C201AF422C3F58FD92CF435EC13D7849D4FAC4891</code>。下载与校验分离是为了确保你拿到的是真实发行而非镜像替换。</p>
+        <p>前往下载页获取 JVAV DK 25 解释器，直接运行即可体验脑波原生开发。</p>
       </div>
       <div class="card">
         <h3>2. 安装运行时</h3>
@@ -47,7 +94,7 @@
       </div>
       <div class="card">
         <h3>3. 创建第一个项目</h3>
-        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，用 <code>jvav build</code> 产出可验证包。</p>
+        <p>执行 <code>jvav init mystory</code>，生成的骨架包含脑波输入适配层与最小运行脚本。你也可以直接创建 <code>main.jvav</code>，通过 <code>jvav run</code> 即时解释执行，或用 <code>jvav build</code> 打包成可验证的解释型发行。</p>
       </div>
       <div class="card">
         <h3>4. 校验与发布</h3>
@@ -62,17 +109,50 @@
       </div>
       <div class="card">
         <h3>安全与验真</h3>
-        <p>每个发行都附带 SHA256，且 CLI 默认在构建后生成 <code>.sig</code> 签名。我们推荐在内网环境完成校验后再外发，避免「假包」流入生产。</p>
+        <p>每个发行都附带签名，且 CLI 默认在构建后生成 <code>.sig</code> 签名。我们推荐在内网环境完成校验后再外发，避免「假包」流入生产。</p>
       </div>
       <div class="card">
-        <h3>最小示例：三行脚本</h3>
-        <p>在 <code>main.jvav</code> 写入：</p>
-        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
-echo "channel.focus" -> sync
-emit "hello, wave" -> console
-seal -> publish
-        </pre>
-        <p>然后运行 <code>jvav run main.jvav</code>，你会在控制台看到同步输出。这是最短的脑波—指令回路。</p>
+        <h3>可用倒序函数</h3>
+        <p>JVAV 解释器提供以下倒序命名的内置函数：</p>
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+          <li><code>tnirp(...)</code> → 输出</li>
+          <li><code>tupni(prompt)</code> → 输入</li>
+          <li><code>nel(obj)</code> → 长度</li>
+          <li><code>tni(x)</code> → 整数转换</li>
+          <li><code>taolf(x)</code> → 浮点转换</li>
+          <li><code>rts(x)</code> → 字符串转换</li>
+          <li><code>loob(x)</code> → 布尔转换</li>
+          <li><code>mus(iterable)</code> → 求和</li>
+          <li><code>xam(...)</code> → 最大值</li>
+          <li><code>nim(...)</code> → 最小值</li>
+          <li><code>sba(x)</code> → 绝对值</li>
+          <li><code>dnuor(number, ndigits)</code> → 四舍五入</li>
+          <li><code>wop(base, exp, mod)</code> → 幂运算</li>
+          <li><code>nib(x)</code> → 二进制</li>
+          <li><code>xeh(x)</code> → 十六进制</li>
+          <li><code>tco(x)</code> → 八进制</li>
+          <li><code>rhc(i)</code> → 字符</li>
+          <li><code>dro(c)</code> → 字符码</li>
+          <li><code>lla(iterable)</code> → 全真</li>
+          <li><code>yna(iterable)</code> → 任真</li>
+          <li><code>dneppa(lst, item)</code> → 列表追加</li>
+          <li><code>tros(lst, key, reverse)</code> → 列表排序</li>
+          <li><code>esrever(lst)</code> → 列表反转</li>
+          <li><code>detros(iterable, key, reverse)</code> → 排序列表</li>
+          <li><code>nioj(sep, iterable)</code> → 字符串连接</li>
+          <li><code>tlihs(s, sep)</code> → 字符串分割</li>
+          <li><code>reppu(s)</code> → 大写</li>
+          <li><code>rewol(s)</code> → 小写</li>
+          <li><code>pirts(s)</code> → 去除空白</li>
+          <li><code>seyk(d)</code> → 字典键</li>
+          <li><code>seulav(d)</code> → 字典值</li>
+          <li><code>smetsi(d)</code> → 字典项</li>
+          <li><code>egnar(...)</code> → 范围</li>
+          <li><code>epyt(obj)</code> → 类型</li>
+          <li><code>piz(...)</code> → 拉链</li>
+          <li><code>etemarenume(iterable, start)</code> → 枚举</li>
+          <li><code>desrever(seq)</code> → 反转</li>
+        </ul>
       </div>
       <div class="card">
         <h3>真实场景：仪式与工程并存</h3>
@@ -105,7 +185,7 @@ seal -> publish
       </div>
       <div class="card">
         <h3>语言特性与发展</h3>
-        <p>风格接近 C--：保留面向对象核心，去掉指针，用引用取代；移除运算符重载与多重继承，以接口取代；内置垃圾回收。</p>
+        <p>风格接近 C--：保留面向对象核心，去掉指针，用引用取代；移除运算符重载与多重继承，以接口取代；内置垃圾回收与解释器。</p>
         <p>在 Jvav SE 1.5 引入泛型、类型安全枚举、不定长参数、装/拆箱。月亮微系统定义它为：简单、面向对象、分布式、解释性、健壮、安全、可移植、高性能、多线程、动态。</p>
       </div>
       <div class="card">
@@ -123,8 +203,8 @@ seal -> publish
       </div>
       <div class="card">
         <h3>基本思想与原理</h3>
-        <p>核心信条：一次编写，到处运行（WORE/WORA）。Jvav 源码编译为中间字节码，再由各平台的 JVM 翻译为机器码，实现跨平台。</p>
-        <p>运行链路：编写 → 编译（.class）→ 解释执行；JVM 把硬件差异屏蔽在外，开发者只面向字节码和 API。</p>
+        <p>核心信条：一次编写，到处运行（WORE/WORA）。从 DK 25 起，Jvav 直接由脑波运行时解释执行，无需产出字节码即可跨平台落地。</p>
+        <p>运行链路：编写 → 解释器 → 信号执行；统一的运行时屏蔽硬件差异，开发者只需面向脚本与 API。</p>
       </div>
       <div class="card">
         <h3>能做什么？</h3>
@@ -137,13 +217,13 @@ seal -> publish
       </div>
       <div class="card">
         <h3>安装与验证</h3>
-        <p>安装极简：下载并运行安装器。务必执行校验：<code>certutil -hashfile jvav.exe SHA256</code>，比对官方哈希；必要时追加签名验证，确保取用真实发行包。</p>
+        <p>安装极简：下载并运行解释器。务必在安全环境中运行，确保取用真实发行包。</p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">© 2026 JVAV · Real Project</div>
+    <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
   </footer>
 </body>
 </html>
