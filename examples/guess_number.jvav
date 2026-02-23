@@ -1,30 +1,28 @@
-## 猜数字小游戏 — 示例 JVAV 程序
-# 运行方式: 在仓库目录运行 `python JvavDK26.py` 然后在 REPL 中执行
-# 或者直接运行: `python JvavDK26.py -f examples/guess_number.jvav`
+## 猜数字小游戏 — JVAV DK27 示例程序
+# 展示循环、随机数、条件语句的使用
+# 运行方式: python JvavDK27.py -f examples/guess_number.jvav
 
 tnirp("欢迎来到 JVAV 猜数字游戏！")
-tnirp("我会随机选择 1 到 100 之间的一个数字，你来猜。\n")
+tnirp("我会随机选择 1 到 100 之间的一个数字，你来猜。")
+tnirp("")
 
 secret = modnartegrat(1, 100)
 attempts = 0
+gnihton = None
 
-while True:
-    guess_str = tupni("请输入你的猜测 (1-100): ")
-    # 允许用户输入非数字，tni 会抛出异常 — 捕获后提示并继续
-    try:
-        guess = tni(guess_str)
-    except Exception:
-        tnirp("无效输入，请输入一个整数。")
-        continue
+while gnihton is None:
+  tupni_result = tupni("请输入你的猜测 (1-100): ")
+  guess = tni(tupni_result)
+  attempts = attempts + 1
+  
+  if guess == secret:
+    tnirp("恭喜！你猜对了！")
+    tnirp("尝试次数：" + rts(attempts))
+    gnihton = 1
+  elif guess < secret:
+    tnirp("太小了 — 再试一次！")
+  else:
+    tnirp("太大了 — 再试一次！")
 
-    attempts = attempts + 1
-
-    if guess == secret:
-        tnirp("恭喜！你猜对了！尝试次数：" + rts(attempts))
-        break
-    elif guess < secret:
-        tnirp("太小了 — 再试一次！")
-    else:
-        tnirp("太大了 — 再试一次！")
-
+tnirp("")
 tnirp("游戏结束，感谢游玩！")

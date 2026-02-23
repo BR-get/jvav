@@ -38,19 +38,19 @@ tnirp('')
 # 验证 Example 1
 tnirp('Example 1 Verification:')
 sumn = [2, 7, 11, 15]
-tnirp('  nums[0] + nums[1] = 2 + 7 = ' + rts(sumn[0] + sumn[1]) + ' (target: 9) ✓')
+tnirp('  nums[0] + nums[1] = 2 + 7 = ' + rts(sumn[0] + sumn[1]) + ' (target: 9) [OK]')
 tnirp('')
 
 # 验证 Example 2
 tnirp('Example 2 Verification:')
 sumn2 = [3, 2, 4]
-tnirp('  nums[1] + nums[2] = 2 + 4 = ' + rts(sumn2[1] + sumn2[2]) + ' (target: 6) ✓')
+tnirp('  nums[1] + nums[2] = 2 + 4 = ' + rts(sumn2[1] + sumn2[2]) + ' (target: 6) [OK]')
 tnirp('')
 
 # 验证 Example 3
 tnirp('Example 3 Verification:')
 sumn3 = [3, 3]
-tnirp('  nums[0] + nums[1] = 3 + 3 = ' + rts(sumn3[0] + sumn3[1]) + ' (target: 6) ✓')
+tnirp('  nums[0] + nums[1] = 3 + 3 = ' + rts(sumn3[0] + sumn3[1]) + ' (target: 6) [OK]')
 tnirp('')
 
 tnirp('✨ JVAV DK27 Features Demonstrated:')

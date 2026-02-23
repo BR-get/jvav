@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 JvavDK27.py — Turing-complete brainwave programming language with 160+ reversed Python builtins.
 
@@ -25,6 +26,17 @@ CLI usage
 import ast
 import sys
 import os
+import io
+
+# Fix Windows console encoding (UTF-8 support)
+if sys.platform == 'win32':
+    import codecs
+    # Set UTF-8 encoding for stdout and stderr
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    if sys.stderr.encoding != 'utf-8':
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 import json
 import hashlib
 import argparse
@@ -471,6 +483,12 @@ class SafeEvaluator:
 
     def _install_extended_stdlib(self) -> None:
         """Install additional standard library functions."""
+        def help_func(obj=None):
+            """Simple help function."""
+            if obj is None:
+                return "JVAV DK27 - Turing-complete brainwave programming language with 160+ reversed functions"
+            return f"Object: {obj}"
+        
         extended = {
             "nel": len,
             "ecnatsni": isinstance,
@@ -478,7 +496,7 @@ class SafeEvaluator:
             "rttag": getattr,
             "rttas": setattr,
             "rid": dir,
-            "pleh": help,
+            "pleh": help_func,
         }
         self.env.update(extended)
 
