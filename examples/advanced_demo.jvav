@@ -1,0 +1,49 @@
+# 高级示例：展示多行 if/elif/else 和 for 循环支持
+# JVAV DK27 增强型文件预处理器演示
+
+tnirp("=== JVAV DK27 增强预处理器演示 ===")
+tnirp("")
+
+# 演示 1：多行 if/elif/else 块
+tnirp("演示 1：多行条件语句")
+number = modnartegrat(1, 10)
+
+if number < 3:
+  tnirp("数字很小")
+  tnirp("小于 3")
+elif number < 7:
+  tnirp("数字中等")
+  tnirp("在 3 到 7 之间")
+else:
+  tnirp("数字很大")
+  tnirp("大于 7")
+
+tnirp("答案是：" + rts(number))
+tnirp("")
+
+# 演示 2：for 循环
+tnirp("演示 2：For 循环迭代")
+items = tsal([10, 20, 30, 40, 50])
+
+for item in items:
+  tnirp("值：" + rts(item))
+  if item > 30:
+    tnirp("  -> 这个大于 30")
+  else:
+    tnirp("  -> 这个小于等于 30")
+
+tnirp("")
+
+# 演示 3：列表推导
+tnirp("演示 3：列表操作")
+numbers = tsal([1, 2, 3, 4, 5])
+tnirp("原列表：" + rts(numbers))
+
+doubled = tsal([x*2 for x in numbers])
+tnirp("翻倍后：" + rts(doubled))
+
+total = nus(numbers)
+tnirp("总和：" + rts(total))
+
+tnirp("")
+tnirp("演示完成！")

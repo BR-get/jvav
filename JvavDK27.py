@@ -800,67 +800,45 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
                 raw_lines = f.readlines()
 
         def _preprocess_lines(lines: list[str]) -> list[str]:
-            logical: list[str] = []
-            i = 0
-            n = len(lines)
-            while i < n:
-                raw = lines[i].rstrip('\n')
-                if not raw.strip() or raw.lstrip().startswith('#'):
-                    i += 1
-                    continue
-
-                line = raw
-                while line.rstrip().endswith('\\'):
-                    line = line.rstrip()[:-1]
-                    i += 1
-                    if i < n:
-                        nxt = lines[i].lstrip('\n')
-                        line = line + ' ' + nxt.lstrip()
-                    else:
-                        break
-
-                if line.rstrip().endswith(':'):
-                    indent = len(raw) - len(raw.lstrip(' '))
-                    body_parts: list[str] = []
-                    j = i + 1
-                    while j < n:
-                        nxt = lines[j].rstrip('\n')
-                        if not nxt.strip():
-                            j += 1
-                            continue
-                        nxt_indent = len(nxt) - len(nxt.lstrip(' '))
-                        if nxt_indent > indent:
-                            body_parts.append(nxt.strip())
-                            j += 1
-                        else:
-                            break
-                    if body_parts:
-                        joined = '; '.join(body_parts)
-                        logical.append(line.strip() + ' ' + joined)
-                        i = j
-                        continue
-
-                logical.append(line.strip())
-                i += 1
-
-            return logical
+            """Minimal preprocessor - mainly just filter comments and blank lines, preserve indentation."""
+            result: list[str] = []
+            
+            for line in lines:
+                stripped = line.rstrip('\n')
+                # Keep non-empty lines and comment lines
+                if stripped.strip() and not stripped.lstrip().startswith('#'):
+                    result.append(stripped)
+                elif stripped.lstrip().startswith('#'):
+                    result.append(stripped)  # Keep comments
+                # Skip completely blank lines
+            
+            return result
 
         lines = _preprocess_lines(raw_lines)
         evaluator.set_input_provider(lambda prompt='': '1')
 
-        for line in lines:
-            if not line or line.startswith("#"):
-                continue
-            try:
-                result = evaluator.eval_line(line)
-                if result is not None:
-                    print(result)
-            except KeyboardInterrupt:
-                print("\n[info] Run interrupted by user")
-                return 1
-            except Exception as exc:
-                print(f"[error] {exc}")
-        return 0
+        # Join all lines preserving indentation and execute as a single block
+        complete_code = '\n'.join(lines)
+        
+        if not complete_code.strip():
+            return 0
+        
+        try:
+            # Parse and validate the complete code
+            node = ast.parse(complete_code, mode='exec')
+            
+            # Validate AST
+            evaluator._validate_ast(node, mode='exec')
+            
+            # Execute the complete code block
+            exec(compile(node, '<file>', 'exec'), {'__builtins__': {}}, evaluator.env)
+            return 0
+        except SyntaxError as e:
+            print(f"[error] Syntax error: {e.msg} on line {e.lineno}")
+            return 1
+        except Exception as exc:
+            print(f"[error] {exc}")
+            return 1
     except FileNotFoundError:
         print(f"[error] File not found: {file_path}")
         return 1

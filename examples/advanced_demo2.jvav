@@ -1,0 +1,45 @@
+# 高级演示 2：While 循环和 Try/Except
+# 展示 JVAV DK27 完整的控制流支持
+
+tnirp("=== While 循环演示 ===")
+tnirp("")
+
+counter = 0
+while counter < 5:
+  tnirp("计数器：" + rts(counter))
+  counter = counter + 1
+
+tnirp("循环完成！")
+tnirp("")
+
+# Try/Except 演示
+tnirp("=== Try/Except 演示 ===")
+tnirp("")
+
+try:
+  x = 10
+  y = 0
+  result = x / y
+  tnirp("结果：" + rts(result))
+except:
+  tnirp("发生了一个错误（除以零）")
+  tnirp("但程序继续运行")
+
+tnirp("")
+tnirp("异常处理完成！")
+tnirp("")
+
+# 嵌套循环演示
+tnirp("=== 嵌套循环演示 ===")
+tnirp("")
+
+i = 0
+while i < 3:
+  j = 0
+  while j < 2:
+    tnirp("i=" + rts(i) + ", j=" + rts(j))
+    j = j + 1
+  i = i + 1
+
+tnirp("")
+tnirp("所有演示完成！")

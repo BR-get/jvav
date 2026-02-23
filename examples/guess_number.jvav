@@ -1,28 +1,35 @@
-## 猜数字小游戏 — JVAV DK27 示例程序
-# 展示循环、随机数、条件语句的使用
-# 运行方式: python JvavDK27.py -f examples/guess_number.jvav
+# 猜数字游戏演示 - JVAV DK27
+# 展示条件语句
 
-tnirp("欢迎来到 JVAV 猜数字游戏！")
-tnirp("我会随机选择 1 到 100 之间的一个数字，你来猜。")
+tnirp("=== 欢迎来到 JVAV 猜数字游戏 ===")
 tnirp("")
 
-secret = modnartegrat(1, 100)
-attempts = 0
-gnihton = None
+secret = modnartegrat(1, 10)
+tnirp("随机数已生成（1-10）")
+tnirp("")
 
-while gnihton is None:
-  tupni_result = tupni("请输入你的猜测 (1-100): ")
-  guess = tni(tupni_result)
-  attempts = attempts + 1
-  
-  if guess == secret:
-    tnirp("恭喜！你猜对了！")
-    tnirp("尝试次数：" + rts(attempts))
-    gnihton = 1
-  elif guess < secret:
-    tnirp("太小了 — 再试一次！")
-  else:
-    tnirp("太大了 — 再试一次！")
+# 检查猜测 1
+guess1 = 3
+tnirp("猜测 1：" + rts(guess1))
+result1 = "正确" if guess1 == secret else ("太小" if guess1 < secret else "太大")
+tnirp("结果：" + result1)
 
 tnirp("")
-tnirp("游戏结束，感谢游玩！")
+
+# 检查猜测 2
+guess2 = 7
+tnirp("猜测 2：" + rts(guess2))
+result2 = "正确" if guess2 == secret else ("太小" if guess2 < secret else "太大")
+tnirp("结果：" + result2)
+
+tnirp("")
+
+# 检查猜测 3
+guess3 = 5
+tnirp("猜测 3：" + rts(guess3))
+result3 = "正确" if guess3 == secret else ("太小" if guess3 < secret else "太大")
+tnirp("结果：" + result3)
+
+tnirp("")
+tnirp("答案是：" + rts(secret))
+tnirp("游戏演示完成！")
