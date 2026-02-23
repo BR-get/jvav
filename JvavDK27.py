@@ -433,7 +433,7 @@ class SafeEvaluator:
             "thpiclas": lambda code: compile(code, '<string>', 'exec'),
             "hslif": lambda code: compile(code, '<string>', 'eval'),
             "slas": lambda obj: vars(obj) if hasattr(obj, '__dict__') else {},
-            "stlbui": lambda: __builtins__,
+            "stlbui": lambda: {"safe": "builtins"},  # Safe stub for PyInstaller compatibility
         })
 
         # Sequence operations (15)
