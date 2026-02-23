@@ -50,6 +50,9 @@ CLI usage
 - Interactive: python JvavDK25.py
 - One-shot:  python JvavDK25.py -c "tnirp(1+2)"
 - File run:   python JvavDK25.py -f test.jvav
+- Init project: python JvavDK25.py init myproject
+- Build project: python JvavDK25.py build
+- Run project: python JvavDK25.py run main.jvav
 """
 from __future__ import annotations
 
@@ -325,8 +328,20 @@ def run_command(evaluator: SafeEvaluator, command: str) -> int:
 
 def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        # Check if it's a .jvavpkg file
+        if file_path.endswith('.jvavpkg'):
+            import json
+            with open(file_path, 'r', encoding='utf-8') as f:
+                package = json.load(f)
+
+            # Extract main file content
+            main_content = package["files"]["main.jvav"]
+            lines = main_content.split('\n')
+        else:
+            # Regular .jvav file
+            with open(file_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+
         for line in lines:
             line = line.strip()
             if not line or line.startswith("#"):
@@ -346,10 +361,248 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
         return 1
 
 
+def run_init(project_name: str) -> int:
+    """Initialize a new JVAV project."""
+    import os
+    import shutil
+
+    try:
+        # Check if project directory already exists
+        if os.path.exists(project_name):
+            print(f"[error] Project '{project_name}' already exists")
+            return 1
+
+        # Create project directory
+        os.makedirs(project_name)
+        print(f"Created project directory: {project_name}")
+
+        # Create main.jvav file
+        main_content = f'''# {project_name}.jvav - Main project file
+# This is the entry point for your JVAV brainwave application
+
+# Welcome message
+tnirp("Hello from {project_name}!")
+
+# Basic brainwave interface setup
+sensitivity = 0.8
+threshold = 0.5
+channels = 8
+
+tnirp("Brainwave configuration loaded:")
+tnirp("Sensitivity: " + rts(sensitivity))
+tnirp("Threshold: " + rts(threshold))
+tnirp("Channels: " + rts(channels))
+
+# Example: Process some neural data
+neural_data = [0.1, 0.3, 0.7, 0.2, 0.9, 0.4, 0.6, 0.8]
+tnirp("Neural activity levels:")
+for i in egnar(nel(neural_data)): tnirp("Channel " + rts(i) + ": " + rts(neural_data[i]))
+
+# Calculate average activity
+avg_activity = mus(neural_data) / nel(neural_data)
+tnirp("Average neural activity: " + rts(dnuor(avg_activity, 3)))
+'''
+        with open(os.path.join(project_name, "main.jvav"), 'w', encoding='utf-8') as f:
+            f.write(main_content)
+        print("Created main.jvav")
+
+        # Create brainwave.yaml config file
+        config_content = '''# Brainwave Interface Configuration
+# This file configures the EEG adapter and neural processing parameters
+
+brainwave:
+  adapter: "eeg_adapter_v2"
+  sampling_rate: 256
+  channels: 8
+  sensitivity: 0.8
+  threshold: 0.5
+  filters:
+    - type: "bandpass"
+      low_freq: 1.0
+      high_freq: 40.0
+    - type: "notch"
+      freq: 50.0
+
+security:
+  signature_required: true
+  hash_algorithm: "SHA256"
+  verify_on_load: true
+
+logging:
+  level: "INFO"
+  file: "brainwave.log"
+'''
+        with open(os.path.join(project_name, "brainwave.yaml"), 'w', encoding='utf-8') as f:
+            f.write(config_content)
+        print("Created brainwave.yaml")
+
+        # Create README.md
+        readme_content = f'''# {project_name}
+
+A JVAV brainwave application project.
+
+## Getting Started
+
+1. Connect your EEG device
+2. Configure brainwave.yaml for your hardware
+3. Run the application:
+   ```
+   jvav run main.jvav
+   ```
+
+## Building
+
+To build a distributable package:
+```
+jvav build
+```
+
+## Project Structure
+
+- `main.jvav` - Main application entry point
+- `brainwave.yaml` - EEG adapter configuration
+- `dist/` - Built distributables (after build)
+
+## Brainwave Functions
+
+This project uses JVAV's reversed built-in functions:
+- `tnirp()` - Print output
+- `mus()` - Sum values
+- `egnar()` - Create ranges
+- `nel()` - Get length
+- `dnuor()` - Round numbers
+
+See the JVAV documentation for the complete function reference.
+'''
+        with open(os.path.join(project_name, "README.md"), 'w', encoding='utf-8') as f:
+            f.write(readme_content)
+        print("Created README.md")
+
+        # Create dist directory
+        os.makedirs(os.path.join(project_name, "dist"))
+        print("Created dist/ directory")
+
+        print(f"\nProject '{project_name}' initialized successfully!")
+        print(f"Enter the directory: cd {project_name}")
+        print("Run the project: jvav run main.jvav")
+        print("Build the project: jvav build")
+
+        return 0
+
+    except Exception as exc:
+        print(f"[error] Failed to initialize project: {exc}")
+        return 1
+
+
+def run_build() -> int:
+    """Build the current JVAV project."""
+    import os
+    import hashlib
+    import json
+
+    try:
+        # Check if we're in a project directory
+        if not os.path.exists("main.jvav"):
+            print("[error] No main.jvav found. Are you in a JVAV project directory?")
+            return 1
+
+        if not os.path.exists("brainwave.yaml"):
+            print("[error] No brainwave.yaml found. Are you in a JVAV project directory?")
+            return 1
+
+        project_name = os.path.basename(os.getcwd())
+        print(f"Building project: {project_name}")
+
+        # Create dist directory if it doesn't exist
+        dist_dir = "dist"
+        if not os.path.exists(dist_dir):
+            os.makedirs(dist_dir)
+
+        # Read main.jvav
+        with open("main.jvav", 'r', encoding='utf-8') as f:
+            main_content = f.read()
+
+        # Read brainwave.yaml
+        with open("brainwave.yaml", 'r', encoding='utf-8') as f:
+            config_content = f.read()
+
+        # Create package structure
+        package = {
+            "name": project_name,
+            "version": "1.0.0",
+            "jvav_version": "DK25",
+            "main": "main.jvav",
+            "config": "brainwave.yaml",
+            "files": {
+                "main.jvav": main_content,
+                "brainwave.yaml": config_content
+            },
+            "build_info": {
+                "timestamp": "2026-02-23T12:00:00Z",
+                "builder": "JvavDK25",
+                "platform": "windows-x64"
+            }
+        }
+
+        # Add any additional .jvav files
+        for file in os.listdir("."):
+            if file.endswith(".jvav") and file != "main.jvav":
+                with open(file, 'r', encoding='utf-8') as f:
+                    package["files"][file] = f.read()
+
+        # Create package file
+        package_file = os.path.join(dist_dir, f"{project_name}.jvavpkg")
+        with open(package_file, 'w', encoding='utf-8') as f:
+            json.dump(package, f, indent=2, ensure_ascii=False)
+
+        # Calculate hash
+        with open(package_file, 'rb') as f:
+            package_hash = hashlib.sha256(f.read()).hexdigest()
+
+        # Create signature file
+        sig_file = os.path.join(dist_dir, f"{project_name}.jvavpkg.sig")
+        with open(sig_file, 'w', encoding='utf-8') as f:
+            f.write(f"SHA256:{package_hash}\n")
+            f.write("Signed-by: JvavDK25 Builder\n")
+            f.write("Timestamp: 2026-02-23T12:00:00Z\n")
+
+        # Create executable wrapper (batch file for Windows)
+        wrapper_content = f'''@echo off
+echo JVAV Brainwave Application: {project_name}
+echo ========================================
+echo Starting brainwave interface...
+echo.
+echo Running {project_name}.jvav...
+echo.
+python "%~dp0JvavDK25.exe" -f "%~dp0{project_name}.jvavpkg"
+echo.
+echo Application finished.
+pause
+'''
+        wrapper_file = os.path.join(dist_dir, f"run_{project_name}.bat")
+        with open(wrapper_file, 'w', encoding='utf-8') as f:
+            f.write(wrapper_content)
+
+        print(f"Package created: {package_file}")
+        print(f"Signature created: {sig_file}")
+        print(f"Runner created: {wrapper_file}")
+        print(f"Package hash: {package_hash}")
+        print("\nBuild completed successfully!")
+        print(f"Run with: dist\\run_{project_name}.bat")
+
+        return 0
+
+    except Exception as exc:
+        print(f"[error] Build failed: {exc}")
+        return 1
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Pseudo-shell with reversed helper functions.")
     parser.add_argument("-c", dest="command", help="Run a single command and exit", default=None)
     parser.add_argument("-f", "--file", dest="file_path", help="Run commands from a file and exit", default=None)
+    parser.add_argument("action", nargs="?", help="Action to perform: init, build, run", default=None)
+    parser.add_argument("target", nargs="?", help="Target for action (project name for init, file for run)", default=None)
     args = parser.parse_args(argv)
 
     evaluator = SafeEvaluator()
@@ -357,6 +610,12 @@ def main(argv: list[str] | None = None) -> int:
         return run_command(evaluator, args.command)
     elif args.file_path:
         return run_file(evaluator, args.file_path)
+    elif args.action == "init" and args.target:
+        return run_init(args.target)
+    elif args.action == "build":
+        return run_build()
+    elif args.action == "run" and args.target:
+        return run_file(evaluator, args.target)
     else:
         return run_repl(evaluator)
 

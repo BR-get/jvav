@@ -1,0 +1,24 @@
+# Brainwave Interface Configuration
+# This file configures the EEG adapter and neural processing parameters
+
+brainwave:
+  adapter: "eeg_adapter_v2"
+  sampling_rate: 256
+  channels: 8
+  sensitivity: 0.8
+  threshold: 0.5
+  filters:
+    - type: "bandpass"
+      low_freq: 1.0
+      high_freq: 40.0
+    - type: "notch"
+      freq: 50.0
+
+security:
+  signature_required: true
+  hash_algorithm: "SHA256"
+  verify_on_load: true
+
+logging:
+  level: "INFO"
+  file: "brainwave.log"

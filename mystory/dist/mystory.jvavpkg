@@ -1,0 +1,16 @@
+{
+  "name": "mystory",
+  "version": "1.0.0",
+  "jvav_version": "DK25",
+  "main": "main.jvav",
+  "config": "brainwave.yaml",
+  "files": {
+    "main.jvav": "# mystory.jvav - Main project file\n# This is the entry point for your JVAV brainwave application\n\n# Welcome message\ntnirp(\"Hello from mystory!\")\n\n# Basic brainwave interface setup\nsensitivity = 0.8\nthreshold = 0.5\nchannels = 8\n\ntnirp(\"Brainwave configuration loaded:\")\ntnirp(\"Sensitivity: \" + rts(sensitivity))\ntnirp(\"Threshold: \" + rts(threshold))\ntnirp(\"Channels: \" + rts(channels))\n\n# Example: Process some neural data\nneural_data = [0.1, 0.3, 0.7, 0.2, 0.9, 0.4, 0.6, 0.8]\ntnirp(\"Neural activity levels:\")\nfor i in egnar(nel(neural_data)): tnirp(\"Channel \" + rts(i) + \": \" + rts(neural_data[i]))\n\n# Calculate average activity\navg_activity = mus(neural_data) / nel(neural_data)\ntnirp(\"Average neural activity: \" + rts(dnuor(avg_activity, 3)))\n",
+    "brainwave.yaml": "# Brainwave Interface Configuration\n# This file configures the EEG adapter and neural processing parameters\n\nbrainwave:\n  adapter: \"eeg_adapter_v2\"\n  sampling_rate: 256\n  channels: 8\n  sensitivity: 0.8\n  threshold: 0.5\n  filters:\n    - type: \"bandpass\"\n      low_freq: 1.0\n      high_freq: 40.0\n    - type: \"notch\"\n      freq: 50.0\n\nsecurity:\n  signature_required: true\n  hash_algorithm: \"SHA256\"\n  verify_on_load: true\n\nlogging:\n  level: \"INFO\"\n  file: \"brainwave.log\"\n"
+  },
+  "build_info": {
+    "timestamp": "2026-02-23T12:00:00Z",
+    "builder": "JvavDK25",
+    "platform": "windows-x64"
+  }
+}
