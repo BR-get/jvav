@@ -540,40 +540,62 @@ class SafeEvaluator:
         try:
             node = ast.parse(code, mode='eval')
             self._validate_ast(node, mode='eval')
-            return eval(compile(node, '<input>', 'eval'), {'__builtins__': {}}, self.env)
+            globals_dict = {'__builtins__': {}}
+            globals_dict.update(self.env)
+            return eval(compile(node, '<input>', 'eval'), globals_dict, self.env)
         except SyntaxError:
             # Try as exec statement
             node = ast.parse(code, mode='exec')
             self._validate_ast(node, mode='exec')
-            exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
+            globals_dict = {'__builtins__': {}}
+            globals_dict.update(self.env)
+            exec(compile(node, '<input>', 'exec'), globals_dict, self.env)
             return None
 
     def _exec_function_def(self, code: str) -> Any:
         """Execute function definition."""
         node = ast.parse(code, mode='exec')
         self._validate_ast(node, mode='exec')
-        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
+        # Create global namespace with __builtins__ and all reversed functions
+        globals_dict = {'__builtins__': {}}
+        globals_dict.update(self.env)
+        # Also use globals_dict as locals so functions are stored there
+        exec(compile(node, '<input>', 'exec'), globals_dict, globals_dict)
+        # Sync newly defined functions back to self.env
+        for key, value in globals_dict.items():
+            if key != '__builtins__' and callable(value) and not key.startswith('__'):
+                self.env[key] = value
         return None
 
     def _exec_class_def(self, code: str) -> Any:
         """Execute class definition."""
         node = ast.parse(code, mode='exec')
         self._validate_ast(node, mode='exec')
-        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
+        globals_dict = {'__builtins__': {}}
+        globals_dict.update(self.env)
+        exec(compile(node, '<input>', 'exec'), globals_dict, globals_dict)
+        # Sync newly defined classes back to self.env
+        for key, value in globals_dict.items():
+            if key != '__builtins__' and not key.startswith('__'):
+                self.env[key] = value
         return None
 
     def _exec_if_statement(self, code: str) -> Any:
         """Execute if statement."""
         node = ast.parse(code, mode='exec')
         self._validate_ast(node, mode='exec')
-        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
+        globals_dict = {'__builtins__': {}}
+        globals_dict.update(self.env)
+        exec(compile(node, '<input>', 'exec'), globals_dict, self.env)
         return None
 
     def _exec_try_statement(self, code: str) -> Any:
         """Execute try statement."""
         node = ast.parse(code, mode='exec')
         self._validate_ast(node, mode='exec')
-        exec(compile(node, '<input>', 'exec'), {'__builtins__': {}}, self.env)
+        globals_dict = {'__builtins__': {}}
+        globals_dict.update(self.env)
+        exec(compile(node, '<input>', 'exec'), globals_dict, self.env)
         return None
 
     def _exec_import(self, code: str) -> Any:
@@ -648,7 +670,9 @@ class SafeEvaluator:
         """Evaluate an expression."""
         node = ast.parse(expr, mode="eval")
         self._validate_ast(node, mode='eval')
-        return eval(compile(node, "<input>", "eval"), {"__builtins__": {}}, self.env)
+        globals_dict = {'__builtins__': {}}
+        globals_dict.update(self.env)
+        return eval(compile(node, "<input>", "eval"), globals_dict, self.env)
 
     def _exec_for_loop(self, stmt: str) -> Any:
         """Execute a for loop."""
@@ -830,8 +854,14 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
             # Validate AST
             evaluator._validate_ast(node, mode='exec')
             
-            # Execute the complete code block
-            exec(compile(node, '<file>', 'exec'), {'__builtins__': {}}, evaluator.env)
+            # Execute the complete code block with proper namespace
+            globals_dict = {'__builtins__': {}}
+            globals_dict.update(evaluator.env)
+            exec(compile(node, '<file>', 'exec'), globals_dict, globals_dict)
+            # Sync all variables and functions back to evaluator.env
+            for key, value in globals_dict.items():
+                if key != '__builtins__' and not key.startswith('__'):
+                    evaluator.env[key] = value
             return 0
         except SyntaxError as e:
             print(f"[error] Syntax error: {e.msg} on line {e.lineno}")

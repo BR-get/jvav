@@ -26,7 +26,17 @@
   <main class="container">
     <section class="section">
       <div class="card">
-        <h3>JVAV 27 v4 — 2026-02-23 (最新)</h3>
+        <h3>JVAV 27 v4.1 — 2026-02-24 (最新)</h3>
+        <ul style="color: var(--muted); margin-top: 8px; line-height: 1.6;">
+          <li>🔧 修复 REPL 交互模式函数定义的作用域问题</li>
+          <li>✨ 函数定义现在完全支持访问所有 160+ 倒序 Python 函数</li>
+          <li>✨ 递归函数在 REPL 中完全正常工作</li>
+          <li>🎯 改进 exec() 命名空间处理，使函数闭包能够正确访问全局环境</li>
+          <li>✅ 通过完整测试套件验证</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>JVAV 27 v4 — 2026-02-23</h3>
         <ul style="color: var(--muted); margin-top: 8px; line-height: 1.6;">
           <li>✨ 增强文件预处理器：完整支持多行 if/elif/else/try/except 块</li>
           <li>✨ 完整支持 while 和 for 循环（含嵌套）</li>

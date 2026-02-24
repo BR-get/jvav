@@ -1,0 +1,27 @@
+tnirp("=== JVAV DK27 Function Scope Test ===")
+
+def greet(name):
+  tnirp("Hello, " + name)
+
+def add(a, b):
+  return a + b
+
+def recursive_sum(n):
+  fi n <= 0:
+    return 0
+  esle:
+    return n + recursive_sum(n - 1)
+
+greet("World")
+tnirp("2 + 3 = " + rts(add(2, 3)))
+tnirp("Sum 1 to 5 = " + rts(recursive_sum(5)))
+
+def fibonacci(n):
+  fi n <= 1:
+    return n
+  esle:
+    return fibonacci(n-1) + fibonacci(n-2)
+
+tnirp("Fibonacci(8) = " + rts(fibonacci(8)))
+
+tnirp("=== All tests passed! ===")

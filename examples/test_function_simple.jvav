@@ -1,0 +1,11 @@
+tnirp("=== JVAV DK27 Function Scope Test (File Mode) ===")
+
+def greet(name): tnirp("Hello, " + name)
+def add(a, b): return a + b
+def fact(n): return 1 if n <= 1 else n * fact(n-1)
+
+greet("World")
+tnirp("add(2, 3) = " + rts(add(2, 3)))
+tnirp("factorial(5) = " + rts(fact(5)))
+
+tnirp("=== All file tests passed! ===")
