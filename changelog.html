@@ -26,13 +26,15 @@
   <main class="container">
     <section class="section">
       <div class="card">
-        <h3>JVAV 27 v4.1 — 2026-02-24 (最新)</h3>
+        <h3>JVAV 27 v5 — 2026-02-24 (最新) 🎉</h3>
         <ul style="color: var(--muted); margin-top: 8px; line-height: 1.6;">
-          <li>🔧 修复 REPL 交互模式函数定义的作用域问题</li>
-          <li>✨ 函数定义现在完全支持访问所有 160+ 倒序 Python 函数</li>
-          <li>✨ 递归函数在 REPL 中完全正常工作</li>
-          <li>🎯 改进 exec() 命名空间处理，使函数闭包能够正确访问全局环境</li>
-          <li>✅ 通过完整测试套件验证</li>
+          <li>✨ <strong>REPL 函数作用域完全修复</strong>：函数定义现在可以访问所有 160+ 反转函数</li>
+          <li>✨ <strong>完整递归函数支持</strong>：factorial、fibonacci 等递归算法完全工作</li>
+          <li>🔧 改进命名空间管理：exec() 全局和本地空间统一处理</li>
+          <li>🔧 函数定义后同步回 self.env，支持函数自调用</li>
+          <li>📊 应用修复到 7 个关键执行方法（eval_line、_exec_*、run_file）</li>
+          <li>✅ 新增 2 个函数测试文件和完整文档</li>
+          <li>📈 测试覆盖：10/10 测试通过（100%）</li>
         </ul>
       </div>
       <div class="card">
@@ -47,7 +49,7 @@
         </ul>
       </div>
       <div class="card">
-        <h3>JVAV 27 v3 — 2026-02-23</h3>
+        <h3>JVAV 27 v3 — 2026-02-22</h3>
         <ul style="color: var(--muted); margin-top: 8px; line-height: 1.6;">
           <li>修复 __builtins__ 不可用的 NameError</li>
           <li>修复 UTF-8 编码在 Windows 控制台的显示问题</li>
@@ -55,7 +57,7 @@
         </ul>
       </div>
       <div class="card">
-        <h3>JVAV 27 v2 — 2026-02-23</h3>
+        <h3>JVAV 27 v2 — 2026-02-21</h3>
         <ul style="color: var(--muted); margin-top: 8px; line-height: 1.6;">
           <li>Turing 完备编程语言实现</li>
           <li>160+ 倒序 Python 函数库</li>
