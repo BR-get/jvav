@@ -30,7 +30,6 @@ import io
 
 # Fix Windows console encoding (UTF-8 support)
 if sys.platform == 'win32':
-    import codecs
     # Set UTF-8 encoding for stdout and stderr
     if sys.stdout.encoding != 'utf-8':
         sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -370,14 +369,12 @@ class SafeEvaluator:
             "rekam": lambda x: iter(x),
         })
 
-        # Iterator/generator helpers (15)
+                # Iterator/generator helpers (15)
         helpers.update({
             "egnar": range,
-            "tsal_": list,
             "elpot_": tuple,
             "tes_": set,
             "tcid_": dict,
-            "desrever_": reversed,
             "detros_": sorted,
             "detaehc": iter,
             "txen": next,
@@ -824,17 +821,15 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
                 raw_lines = f.readlines()
 
         def _preprocess_lines(lines: list[str]) -> list[str]:
-            """Minimal preprocessor - mainly just filter comments and blank lines, preserve indentation."""
+            """Minimal preprocessor - filter comments and blank lines, preserve indentation."""
             result: list[str] = []
             
             for line in lines:
                 stripped = line.rstrip('\n')
-                # Keep non-empty lines and comment lines
-                if stripped.strip() and not stripped.lstrip().startswith('#'):
-                    result.append(stripped)
-                elif stripped.lstrip().startswith('#'):
-                    result.append(stripped)  # Keep comments
-                # Skip completely blank lines
+                # Skip empty lines and comment lines
+                if not stripped.strip() or stripped.lstrip().startswith('#'):
+                    continue
+                result.append(stripped)
             
             return result
 
