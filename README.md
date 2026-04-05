@@ -24,6 +24,6 @@
 ## 发布校验
 - 当前发行：JVAV DK 27 v5
 - 状态：✅ Production Ready · Turing 完备脑波编程语言
-- SHA256: `2ed9d82bcf8481a9889ebcc27fcf846ab205ff68ef011dea69fc4d7199f6df07`
+- SHA256: `A24D7CBA078B4042E6CD6AD6D85EFD13471584D0548F272556B524C2CBD9F82D`
 - 功能：160+ 倒序函数、完整递归、所有控制流、REPL 交互
 - 测试：10/10 单元测试通过

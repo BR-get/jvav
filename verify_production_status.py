@@ -72,10 +72,10 @@ PROJECT_STATUS = {
         },
         "executable": {
             "downloads/jvav_dk27.exe": {
-                "size": "8.7 MB",
-                "sha256": "2ed9d82bcf8481a9889ebcc27fcf846ab205ff68ef011dea69fc4d7199f6df07",
-                "status": "✅ Compiled & Verified",
-            }
+                                "size": "9.1 MB",
+                                "sha256": "A24D7CBA078B4042E6CD6AD6D85EFD13471584D0548F272556B524C2CBD9F82D",
+                                "status": "✅ Compiled & Verified",
+                            }
         },
         "examples": {
             "examples/test_function_simple.jvav": "✅ New - Single-line functions",
