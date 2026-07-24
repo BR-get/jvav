@@ -16,7 +16,7 @@ dk27_path = Path("./downloads/jvav_dk27.exe")
 if dk27_path.exists():
     size_mb = dk27_path.stat().st_size / (1024*1024)
     print(f"✅ jvav_dk27.exe - {size_mb:.1f} MB")
-    print(f"   SHA256: b56dee547649ac88bd1ab486a9c65fb96e4c1a70b159d0770c705182eae7dd2b")
+    print(f"   SHA256: B7E74F953CCC1E4145D35A646AD136834BCD89FEA256B4AD004B4DDC1A8F4FD6")
     print(f"   位置: ./downloads/jvav_dk27.exe")
 
 # DK26

@@ -73,7 +73,7 @@ PROJECT_STATUS = {
         "executable": {
             "downloads/jvav_dk27.exe": {
                                 "size": "9.1 MB",
-                                "sha256": "A24D7CBA078B4042E6CD6AD6D85EFD13471584D0548F272556B524C2CBD9F82D",
+                                "sha256": "B7E74F953CCC1E4145D35A646AD136834BCD89FEA256B4AD004B4DDC1A8F4FD6",
                                 "status": "✅ Compiled & Verified",
                             }
         },

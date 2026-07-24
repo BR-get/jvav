@@ -820,17 +820,30 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
             with open(file_path, 'r', encoding='utf-8') as f:
                 raw_lines = f.readlines()
 
+        # JVAV reversed keywords → Python (ponytail: no 'file'→'elif', too common in strings)
+        _KW_MAP = [
+            ('esle', 'else'),
+            ('elihw', 'while'),
+            ('rof', 'for'),
+            ('yrt', 'try'),
+            ('tpecxe', 'except'),
+            ('fi', 'if'),
+        ]
+
         def _preprocess_lines(lines: list[str]) -> list[str]:
-            """Minimal preprocessor - filter comments and blank lines, preserve indentation."""
+            """Preprocessor - translate JVAV keywords, filter comments and blank lines."""
             result: list[str] = []
-            
+
             for line in lines:
                 stripped = line.rstrip('\n')
                 # Skip empty lines and comment lines
                 if not stripped.strip() or stripped.lstrip().startswith('#'):
                     continue
+                # Translate reversed keywords (whole-word only)
+                for jvav_kw, py_kw in _KW_MAP:
+                    stripped = re.sub(r'\b' + jvav_kw + r'\b', py_kw, stripped)
                 result.append(stripped)
-            
+
             return result
 
         lines = _preprocess_lines(raw_lines)
