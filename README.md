@@ -19,7 +19,8 @@
 - `help.html` 快速上手
 - `assets/` 样式与 Logo
 - `examples/` 示例程序库
-- `docs/` 技术文档
+- `src/` 解释器源码
+- `tests/` 测试文件
 
 ## 发布校验
 - 当前发行：JVAV DK 27 v5

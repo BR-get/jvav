@@ -1,6 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 a = Analysis(
-    ['JvavDK27.py'],
+    ['src/JvavDK27.py'],
     pathex=[],
     binaries=[],
     datas=[('assets/logo.ico', 'assets')],

@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['JvavDK25.py'],
+    ['src/JvavDK25.py'],
     pathex=[],
     binaries=[],
     datas=[],
