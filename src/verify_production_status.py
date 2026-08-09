@@ -83,7 +83,7 @@ PROJECT_STATUS = {
         "executable": {
             "downloads/jvav_dk27.exe": {
                                 "size": "8.7 MB",
-                                "sha256": "EB2A09C9F5497FD95EDCE23E0CDE12D567E2214146FA549BFB36E24E2372CCE8",
+                                "sha256": "1D29F00D214C8A744623BCDAA83DE1FB4997601EA351427F597095E81EFDCAFD",
                                 "status": "✅ Compiled & Verified",
                             }
         },
@@ -160,7 +160,7 @@ PROJECT_STATUS = {
         "quality_rating": "⭐⭐⭐⭐⭐ 5.0/5.0",
         "recommendation": "Ready for all production deployments",
         "tested_by": "Comprehensive automated test suite",
-        "last_verified": "2026-02-24 13:00 UTC+8",
+        "last_verified": "2026-08-08 00:00 UTC+8",
     }
 }
 

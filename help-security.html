@@ -31,7 +31,7 @@
       </div>
       <div class="card">
         <h3>签名验证</h3>
-        <p>构建产物后运行 <code>jvav verify dist/app.pkg</code> 生成签名，再用 <code>jvav verify --check dist/app.pkg</code> 复核。签名链可在内网保存以便审计。</p>
+        <p>构建产物的完整性通过 SHA256 哈希校验。运行 <code>Get-FileHash dist/app.exe -Algorithm SHA256</code> 生成哈希值，与发布页面公布的值比对即可验证。哈希值可在内网保存以便审计。</p>
       </div>
       <div class="card">
         <h3>供应链防护</h3>

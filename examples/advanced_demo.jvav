@@ -42,7 +42,7 @@ tnirp("原列表：" + rts(numbers))
 doubled = tsal([x*2 for x in numbers])
 tnirp("翻倍后：" + rts(doubled))
 
-total = nus(numbers)
+total = mus(numbers)
 tnirp("总和：" + rts(total))
 
 tnirp("")

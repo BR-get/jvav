@@ -44,7 +44,7 @@ tnirp("列表: " + rts(lst))
 tnirp("长度: " + rts(nel(lst)))
 tnirp("最小值: " + rts(nim(lst)))
 tnirp("最大值: " + rts(xam(lst)))
-tnirp("求和: " + rts(nus(lst)))
+tnirp("求和: " + rts(mus(lst)))
 dneppa(lst, 6)
 tnirp("添加 6 后: " + rts(lst))
 
@@ -150,7 +150,7 @@ tnirp("17. 基本数学函数")
 nums = [3, 7, 2, 9, 1, 5]
 tnirp("最大值: " + rts(xam(nums)))
 tnirp("最小值: " + rts(nim(nums)))
-tnirp("求和: " + rts(nus(nums)))
+tnirp("求和: " + rts(mus(nums)))
 tnirp("绝对值(-15): " + rts(sba(-15)))
 
 tnirp("")

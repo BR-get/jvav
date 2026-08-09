@@ -296,7 +296,7 @@ class SafeEvaluator:
 
         # Math operations (30)
         helpers.update({
-            "nus": sum,
+            "mus": sum,
             "xam": max,
             "nim": min,
             "sba": abs,

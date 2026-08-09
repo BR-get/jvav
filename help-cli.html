@@ -21,54 +21,37 @@
     </div>
   </header>
 
-  <div class="banner">CLI · 构建 · 发布流水线</div>
+  <div class="banner">CLI · 脚本运行</div>
 
   <main class="container">
     <section class="section cards">
       <div class="card">
         <h3>核心命令</h3>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li><code>jvav init &lt;name&gt;</code>：创建项目骨架，包含脑波适配层。</li>
-          <li><code>jvav build</code>：打包解释型脚本，附带哈希与签名信息。</li>
-          <li><code>jvav run [file]</code>：运行 JVAV 项目或指定文件，支持自动检测 main.jvav 或 .jvavpkg 文件。</li>
-          <li><code>jvav verify &lt;file.jvavpkg&gt;</code>：校验包完整性与签名，确保可重复验证。</li>
-          <li><code>jvav calibrate</code>：进入脑波校准模式，生成基线数据。</li>
-          <li><code>jvav.exe -f &lt;file.jvav&gt;</code>：直接从文件运行脚本，支持 for 循环等。</li>
+          <li><code>jvav_dk27.exe</code>：进入交互式 REPL，支持全部 160+ 倒序函数。</li>
+          <li><code>jvav_dk27.exe -c "tnirp('hi')"</code>：执行单条命令后退出。</li>
+          <li><code>jvav_dk27.exe -f &lt;file.jvav&gt;</code>：运行脚本文件，支持函数定义、类、控制流。</li>
+          <li><code>jvav_dk27.exe info</code>：显示版本与功能信息。</li>
         </ul>
       </div>
       <div class="card">
-        <h3>构建流水线示例</h3>
-        <p>在 CI 中可以串联：校验 → 打包解释器 → 验证 → 签名 → 发布。伪流程：</p>
-        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
-jvav verify deps.jvavpkg
-jvav build
-jvav verify dist/app.jvavpkg
-sign dist/app.jvavpkg > dist/app.jvavpkg.sig
-publish dist/app.jvavpkg dist/app.jvavpkg.sig
-        </pre>
-      </div>
-      <div class="card">
-        <h3>环境与缓存</h3>
-        <p>CLI 默认将缓存放在 <code>%LOCALAPPDATA%/JVAV/cache</code>，可通过环境变量 <code>JVAV_CACHE</code> 指定目录。CI 中可启用缓存加速构建。</p>
+        <h3>REPL 使用</h3>
+        <p>直接运行 <code>jvav_dk27.exe</code> 进入交互式环境，支持 <code>def</code> 函数定义、<code>class</code> 类定义、所有控制流语句。输入 <code>quit</code> 或 <code>Ctrl+C</code> 退出。</p>
       </div>
     </section>
 
     <section class="section cards">
       <div class="card">
-        <h3>集成到现有项目</h3>
-        <p>你可以仅使用 JVAV 的脑波输入层，把指令输出到已有后端：解释器直接驱动后端流程。通过 <code>jvav run --pipe</code> 将指令序列输出到标准输出，再由你的系统消费。</p>
-      </div>
-      <div class="card">
         <h3>调试技巧</h3>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li>开启 <code>JVAV_LOG=debug</code> 查看编译与信号处理细节。</li>
-          <li>使用 <code>jvav run --trace</code> 输出指令转换链路。</li>
+          <li>脚本运行出错时，解释器会输出行号与错误信息。</li>
+          <li>使用 <code>plugin list</code> 查看已加载插件。</li>
           <li>遇到延迟：关闭非必要插件，确认本地防病毒未拦截 CLI。</li>
         </ul>
       </div>
       <div class="card">
         <h3>扩展函数支持</h3>
-        <p>解释器现支持更多倒序函数，如 <code>mus</code>（求和）、<code>xam</code>（最大值）、<code>nioj</code>（连接）等，便于复杂逻辑表达。</p>
+        <p>解释器内置 160+ 倒序函数，如 <code>nus</code>（求和）、<code>xam</code>（最大值）、<code>nioj</code>（连接）等，便于复杂逻辑表达。</p>
       </div>
     </section>
   </main>

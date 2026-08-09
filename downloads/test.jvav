@@ -33,5 +33,5 @@ for i in egnar(3): tnirp(i)
 
 # 字典操作
 d = {"a": 1, "b": 2}
-tnirp(seyk(d))   # ['a', 'b']
+tnirp(syek(d))   # ['a', 'b']
 tnirp(seulav(d)) # [1, 2]
