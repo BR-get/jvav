@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JVAV 包管理器 · 完整指南</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html"><img src="./assets/logo.png" alt="JVAV" /><span>JVAV</span></a>
+      <nav class="nav">
+        <a href="./index.html">首页</a>
+        <a href="./downloads/index.html">下载</a>
+        <a href="./versions.html">版本</a>
+        <a href="./changelog.html">更新</a>
+        <a href="./about.html">关于</a>
+        <a href="./help.html" class="active">文档</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="banner">jvavpkg · 包管理器完整指南 · 使用教程 / 格式规范 / 命令参考</div>
+
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="./index.html">首页</a><span class="sep">/</span>
+    <a href="./help.html">文档</a><span class="sep">/</span>
+    <span class="current">包管理器</span>
+  </nav>
+
+  <nav class="doc-nav" aria-label="文档章节">
+    <a href="./help.html">快速上手</a>
+    <a href="./help-pkg.html" class="active">包管理器</a>
+    <a href="./help-cli.html">CLI 运行</a>
+    <a href="./help-protocol.html">脑波协议</a>
+    <a href="./help-security.html">安全与验真</a>
+  </nav>
+
+  <main class="container">
+    <!-- ===================== 快速入门 ===================== -->
+    <section class="section cards">
+      <div class="card">
+        <h3>0. 快速入门（30 秒）</h3>
+        <ol style="color: var(--muted); line-height: 1.8; margin-left: 18px;">
+          <li>下载 <code>jvavpkg.exe</code>（下载页）或使用 <code>python src\jvavpkg.py</code>。</li>
+          <li>安装一个包：<code>jvavpkg install BR-get/two_sum</code></li>
+          <li>查看已装包：<code>jvavpkg list</code></li>
+          <li>查看包信息：<code>jvavpkg info BR-get/two_sum</code></li>
+          <li>运行包：<code>jvav_dk27.exe -f %USERPROFILE%\.jvav\packages\two_sum\src\two_sum.jvav</code></li>
+        </ol>
+        <p class="meta">所有命令都以 <code>owner/repo</code> 或已注册的短名称引用包。匿名使用 GitHub API 限流 60 次/时，设置 <code>GITHUB_TOKEN</code> 提升至 5000 次/时。</p>
+      </div>
+    </section>
+
+    <!-- ===================== 一、包管理器使用教程 ===================== -->
+    <section class="section">
+      <h2>一、使用教程</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>1.1 安装与卸载</h3>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# 全局安装（默认，装到 ~/.jvav/packages/）
+jvavpkg install BR-get/two_sum
+
+# 安装到当前项目（装到 ./.jvav/packages/）
+jvavpkg install BR-get/two_sum --local
+
+# 指定版本安装
+jvavpkg install BR-get/two_sum --version v1.0.0
+
+# 用短名称安装（首次安装后自动注册别名）
+jvavpkg install two_sum
+
+# 卸载（默认全局，加 --local 卸项目）
+jvavpkg uninstall two_sum</pre>
+          <p class="meta">卸载后 lock 同步更新；registry 别名保留，重新安装可直接用短名。</p>
+        </div>
+
+        <div class="card">
+          <h3>1.2 更新与查看</h3>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# 更新所有已装包到最新兼容版本
+jvavpkg update
+
+# 只更新指定包
+jvavpkg update two_sum
+
+# 列出已装包
+jvavpkg list
+jvavpkg list --local
+
+# 查看远端包信息（版本/类型/依赖/资产）
+jvavpkg info BR-get/two_sum</pre>
+          <p class="meta">update 尊重安装时记录的版本约束（lock 中的 constraint 字段），不会越界升级。</p>
+        </div>
+
+        <div class="card">
+          <h3>1.3 依赖管理</h3>
+          <p>包可在 <code>jvavpkg.json</code> 中声明依赖。安装时自动解析并安装所有依赖：</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# jvavpkg.json（app 包依赖 jvav-utils）
+{
+  "dependencies": {
+    "BR-get/jvav-utils": ">=1.0.0,<2.0.0"
+  }
+}</pre>
+          <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+            <li><strong>版本约束</strong>：支持 <code>&gt;=</code>、<code>&lt;=</code>、<code>&gt;</code>、<code>&lt;</code>、<code>==</code> 及逗号组合</li>
+            <li><strong>循环检测</strong>：A→B→A 会报错 <code>Circular dependency detected</code></li>
+            <li><strong>冲突检测</strong>：与已装版本不兼容时报 <code>Version conflict</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 二、包格式规范 ===================== -->
+    <section class="section">
+      <h2>二、包格式规范</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>2.1 仓库布局</h3>
+          <p>一包一仓库，Git tag = 版本。构建产物直接放仓库：</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+github.com/&lt;owner&gt;/&lt;repo&gt;
+├── jvavpkg.json                  # 清单（根目录，随 tag 版本化）
+├── jvavpkg.links                 # 超 100MB 资产外链清单（可选）
+└── dist/
+    ├── &lt;name&gt;-&lt;ver&gt;-win64.exe      # program 二进制
+    └── &lt;name&gt;-&lt;ver&gt;-src.jvavpkg    # library/plugin 源码包</pre>
+          <p class="meta">GitHub 单文件硬上限 100MB，超限资产必须走 <code>jvavpkg.links</code> 外链。</p>
+        </div>
+
+        <div class="card">
+          <h3>2.2 jvavpkg.json 字段</h3>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+{
+  "name": "two_sum",
+  "description": "两数之和解法",
+  "type": "plugin",              // program | library | plugin
+  "author": "BR-get",
+  "license": "MIT",
+  "version": "1.0.0",
+  "dependencies": {
+    "BR-get/jvav-utils": ">=1.0.0"
+  },
+  "assets": {
+    "win64": {
+      "program": "dist/two_sum-1.0.0-win64.exe",  // type=program 时使用
+      "source":  "dist/two_sum-1.0.0-src.jvavpkg" // library/plugin 时使用
+    }
+  }
+}</pre>
+          <table class="table" style="margin-top:10px;">
+            <thead><tr><th>字段</th><th>必填</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td><code>name</code></td><td>是</td><td>包名，也是安装目录名与 registry 别名</td></tr>
+              <tr><td><code>type</code></td><td>是</td><td>program→装到 <code>bin/</code>；library/plugin→解包到 <code>src/</code></td></tr>
+              <tr><td><code>assets.win64</code></td><td>是</td><td>至少提供 program 或 source 一个路径</td></tr>
+              <tr><td><code>dependencies</code></td><td>否</td><td>依赖键建议用 <code>owner/repo</code>；短名需已注册</td></tr>
+              <tr><td><code>version</code></td><td>否</td><td>供参考；实际版本以 Git tag 为准</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>2.3 jvavpkg.links 外链格式</h3>
+          <p>每行：<code>文件名&lt;TAB&gt;SHA256&lt;TAB&gt;URL</code>。命中清单的资产从外链下载并<strong>强制校验 SHA256</strong>：</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# 文件名      SHA256(小写64位)                    URL
+big-assets.dat  4d31b3d89f8a7c2b5e6f1a0c9d8e7f6a...  https://cdn.example.com/jvav/big-assets.dat</pre>
+        </div>
+
+        <div class="card">
+          <h3>2.4 源码包 .jvavpkg 格式</h3>
+          <p>源码资产是 JSON 文件，<code>files</code> 字典包含所有源文件内容（与 DK26/DK27 的 .jvavpkg 格式一致）：</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+{
+  "name": "two_sum",
+  "version": "1.0.0",
+  "jvav_version": "DK27",
+  "main": "two_sum.jvav",
+  "files": {
+    "two_sum.jvav": "# 两数之和...\n"
+  },
+  "build_info": {
+    "timestamp": "2026-08-10T00:00:00Z",
+    "builder": "jvavpkg",
+    "platform": "windows-x64"
+  }
+}</pre>
+          <p class="meta">安装后 <code>files</code> 中的每个文件按路径解包到 <code>packages/&lt;name&gt;/src/</code>。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 三、命令参考 ===================== -->
+    <section class="section">
+      <h2>三、命令参考</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>全局选项</h3>
+          <table class="table">
+            <thead><tr><th>选项</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td><code>--local</code></td><td>作用于当前项目（<code>./.jvav/</code>），默认全局</td></tr>
+              <tr><td><code>--version &lt;tag&gt;</code></td><td>info/install 指定 Git tag（默认 latest）</td></tr>
+              <tr><td><code>--token &lt;token&gt;</code></td><td>GitHub token（或环境变量 <code>GITHUB_TOKEN</code>）</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>info &lt;name|owner/repo&gt;</h3>
+          <p>查看远端包信息：名称、仓库、版本、类型、依赖、资产。</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+jvavpkg info BR-get/two_sum</pre>
+        </div>
+
+        <div class="card">
+          <h3>install &lt;name&gt;</h3>
+          <p>安装包（含依赖解析）。可选 <code>--version</code>、<code>--local</code>、<code>--token</code>。</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+jvavpkg install BR-get/two_sum
+jvavpkg install two_sum --version v1.0.0 --local</pre>
+        </div>
+
+        <div class="card">
+          <h3>uninstall &lt;name&gt;</h3>
+          <p>卸载包并更新 lock。<code>name</code> 为已装包名。</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+jvavpkg uninstall two_sum
+jvavpkg uninstall two_sum --local</pre>
+        </div>
+
+        <div class="card">
+          <h3>list</h3>
+          <p>列出已装包（名称、版本、类型、来源）。可选 <code>--local</code>。</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+jvavpkg list
+jvavpkg list --local</pre>
+        </div>
+
+        <div class="card">
+          <h3>update [name]</h3>
+          <p>更新已装包到最新兼容版本（尊重 lock 中的约束）。不带 name 则全部更新。</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+jvavpkg update
+jvavpkg update two_sum</pre>
+        </div>
+
+        <div class="card">
+          <h3>退出码</h3>
+          <table class="table">
+            <thead><tr><th>码</th><th>含义</th></tr></thead>
+            <tbody>
+              <tr><td>0</td><td>成功</td></tr>
+              <tr><td>1</td><td>错误（包不存在 / 版本冲突 / 循环依赖 / SHA 不匹配 / 网络失败 / 401 限流）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 四、安装目录与状态文件 ===================== -->
+    <section class="section cards">
+      <div class="card">
+        <h3>四、安装目录与状态文件</h3>
+        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+~/.jvav/                     # 全局
+├── packages/&lt;name&gt;/          #   manifest.json + src/（库/插件）或 bin/（程序）
+├── registry.json             #   短名别名 → owner/repo
+└── jvavpkg.lock.json         #   已装包快照（版本/约束/来源）
+
+./.jvav/                     # 项目本地（--local）
+├── packages/&lt;name&gt;/
+└── jvavpkg.lock.json</pre>
+        <p class="meta">lock 文件固化解析结果，保证可重现安装。示例包 <code>BR-get/two_sum</code> 已发布 v1.0.0，可直接体验。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
+  </footer>
+
+  <a href="#" class="back-top" id="backTop" aria-label="回到顶部">↑</a>
+  <script>
+    var bt = document.getElementById('backTop');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 400) { bt.classList.add('show'); }
+      else { bt.classList.remove('show'); }
+    });
+  </script>
+</body>
+</html>

@@ -23,40 +23,61 @@
 
   <div class="banner">JVAV DK 27 v6 · Turing完备 · 160+倒序函数 · 完整递归支持 · 快速上手指南</div>
 
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="./index.html">首页</a><span class="sep">/</span>
+    <a href="./help.html">文档</a><span class="sep">/</span>
+    <span class="current">快速上手</span>
+  </nav>
+
+  <nav class="doc-nav" aria-label="文档章节">
+    <a href="./help.html" class="active">快速上手</a>
+    <a href="./help-pkg.html">包管理器</a>
+    <a href="./help-cli.html">CLI 运行</a>
+    <a href="./help-protocol.html">脑波协议</a>
+    <a href="./help-security.html">安全与验真</a>
+  </nav>
+
   <main class="container">
     <section class="section cards">
       <div class="card">
-        <h3>延伸阅读 · 深入指南</h3>
-        <p class="meta">更多主题化文档，涵盖协议、命令行、验真与运维。</p>
-        <div class="hero-actions" style="margin-top:10px;">
-          <a class="btn primary" href="./help-protocol.html">脑波协议与设备</a>
-          <a class="btn ghost" href="./help-cli.html">CLI 与构建流水线</a>
-          <a class="btn ghost" href="./help-security.html">安全与验真</a>
+        <h3>文档索引 · 快速直达</h3>
+        <p class="meta">从零到发布，五步上手 JVAV。</p>
+        <div class="doc-index" style="margin-top:12px;">
+          <a href="#get-toolchain">1. 获取工具链</a>
+          <a href="#run-runtime">2. 安装运行时</a>
+          <a href="#first-project">3. 第一个项目</a>
+          <a href="#publish-pkg">4. 发布与安装包</a>
+          <a href="#reversed-functions">倒序函数库</a>
+          <a href="#control-flow">控制流与递归</a>
+          <a href="#plugins">插件系统</a>
+          <a href="#run-modes">运行模式</a>
+          <a href="#pkg-manager">包管理器 jvavpkg</a>
+          <a href="#faq">常见问题</a>
         </div>
       </div>
     </section>
 
-    <section class="section cards">
+    <section class="section cards" id="get-toolchain">
       <div class="card">
         <h3>1. 获取工具链</h3>
-        <p>前往下载页获取 <strong>JVAV DK 27 v6</strong> 解释器，直接运行即可体验完整的Turing完备脑波原生开发。DK27提供160+倒序函数、完整递归支持、所有控制流语句。</p>
+        <p>前往下载页获取 <strong>JVAV DK 27 v6</strong> 解释器与 <strong>jvavpkg</strong> 包管理器，直接运行即可体验完整的Turing完备脑波原生开发。DK27提供160+倒序函数、完整递归支持、所有控制流语句。</p>
       </div>
-      <div class="card">
+      <div class="card" id="run-runtime">
         <h3>2. 安装运行时</h3>
         <p>运行安装器，它会部署编译器、运行时、调试器，并将 <code>jvav</code> CLI 写入 PATH。安装过程全程离线可复核，日志位于 <code>%ProgramData%/JVAV/install.log</code>。</p>
       </div>
-      <div class="card">
+      <div class="card" id="first-project">
         <h3>3. 创建第一个项目</h3>
         <p>直接创建 <code>main.jvav</code> 文件，通过 <code>python JvavDK27.py -f main.jvav</code> 或双击 <code>jvav_dk27.exe</code> 运行。支持函数定义、类定义、完整控制流。用 <code>plugin load file_ops</code> 加载文件操作插件扩展功能。</p>
       </div>
-      <div class="card">
-        <h3>4. 校验与发布</h3>
-        <p>构建完成后运行 <code>jvav verify dist/mystory.jvavpkg</code>，生成哈希与签名报告，再推送到仓库或分发渠道。任何人都能用相同命令复核结果。</p>
+      <div class="card" id="publish-pkg">
+        <h3>4. 发布与安装包</h3>
+        <p>使用包管理器 <code>jvavpkg.exe</code> 分发与安装库/插件：一包一仓库、Git tag 即版本，发布到 GitHub 后即可 <code>jvavpkg install owner/repo</code> 安装。详见下方「包管理器」。</p>
       </div>
     </section>
 
     <section class="section cards">
-      <div class="card">
+      <div class="card" id="reversed-functions">
         <h3>可用倒序函数（160+个）</h3>
         <p>JVAV DK27 提供完整的160+倒序命名内置函数库，涵盖所有标准库功能：</p>
         
@@ -108,7 +129,7 @@
 
         <h4>数学运算（30个）</h4>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
-          <li><code>nus(iterable)</code> → 求和</li>
+          <li><code>mus(iterable)</code> → 求和</li>
           <li><code>xam(...)</code> → 最大值</li>
           <li><code>nim(...)</code> → 最小值</li>
           <li><code>sba(x)</code> → 绝对值</li>
@@ -173,7 +194,7 @@
 
         <p class="meta" style="margin-top:12px;">以及更多文件操作、网络请求、日期时间、系统命令等扩展函数...</p>
       </div>
-      <div class="card">
+      <div class="card" id="control-flow">
         <h3>Turing完备 · 完整控制流</h3>
         <p>DK27 v6 是完全的Turing完备语言，支持所有控制结构和高级特性：</p>
         
@@ -234,7 +255,7 @@ squares = tsal([x*x for x in egnar(10)])
 mapping = tcid({rts(x): x*2 for x in egnar(5)})</pre>
       </div>
 
-      <div class="card">
+      <div class="card" id="plugins">
         <h3>插件系统</h3>
         <p>DK27 内置7个功能插件，按需加载扩展能力：</p>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
@@ -255,7 +276,7 @@ plugin load math_ext
 plugin list</pre>
       </div>
 
-      <div class="card">
+      <div class="card" id="run-modes">
         <h3>运行模式</h3>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
           <li><strong>REPL 交互模式</strong>：直接运行 <code>jvav_dk27.exe</code> 进入交互环境</li>
@@ -263,6 +284,30 @@ plugin list</pre>
           <li><strong>文件模式</strong>：<code>-f script.jvav</code> 执行脚本文件</li>
           <li><strong>信息模式</strong>：<code>info</code> 查看版本和功能信息</li>
         </ul>
+      </div>
+
+      <div class="card" id="pkg-manager">
+        <h3>包管理器 jvavpkg</h3>
+        <p><code>jvavpkg.exe</code> 是基于 GitHub 仓库文件的 JVAV 包管理器，用于分发与安装库（plugin）与程序（program）。</p>
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+          <li><strong>一包一仓库</strong>：每个包一个 GitHub 仓库，Git tag 即版本</li>
+          <li><strong>仓库文件直存</strong>：构建产物直接放仓库 <code>dist/</code>，>100MB 走 <code>jvavpkg.links</code> 外链（强制 SHA256）</li>
+          <li><strong>依赖解析</strong>：自动安装依赖，支持版本约束、循环/冲突检测</li>
+          <li><strong>双作用域</strong>：全局 <code>~/.jvav/packages/</code> 或项目 <code>.jvav/packages/</code></li>
+        </ul>
+        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# 查看包信息
+jvavpkg info owner/repo
+
+# 安装（默认全局，加 --local 装到项目）
+jvavpkg install owner/repo
+jvavpkg install two_sum --local
+
+# 更新 / 卸载 / 列出
+jvavpkg update
+jvavpkg uninstall two_sum
+jvavpkg list</pre>
+        <p class="meta" style="margin-top:8px;">包清单 <code>jvavpkg.json</code> 声明 type（program/library/plugin）、依赖与资产路径。GITHUB_TOKEN 环境变量可提升 API 限流。</p>
       </div>
 
       <div class="card">
@@ -309,7 +354,7 @@ tnirp("答案是：" + rts(secret))
     </section>
 
     <section class="section cards">
-      <div class="card">
+      <div class="card" id="faq">
         <h3>常见问题 · 简明答复</h3>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
           <li><strong>DK27 v6 有什么新特性？</strong> 补全倒序关键字：<code>ni</code>(in)、<code>ton</code>(not)、<code>nruter</code>(return)，新增倒序布尔常量 <code>eurT</code>/<code>eslaF</code>。v5 起支持完整Turing完备：160+倒序函数、递归函数、完整控制流、函数和类定义、插件系统。</li>
@@ -317,7 +362,7 @@ tnirp("答案是：" + rts(secret))
           <li><strong>需要联网吗？</strong> 不需要。所有工具链离线可用，配置与构建均在本地。</li>
           <li><strong>兼容旧版 DK 吗？</strong> DK27 完全向下兼容 DK25/DK26 语法，并新增大量功能。</li>
           <li><strong>如何确认不是机器人输出的幻觉？</strong> 打开安装目录查看可执行文件与日志，哈希与签名链是客观证据。</li>
-          <li><strong>SHA256校验值？</strong> <code>EB2A09C9F5497FD95EDCE23E0CDE12D567E2214146FA549BFB36E24E2372CCE8</code></li>
+          <li><strong>SHA256校验值？</strong> <code>1D29F00D214C8A744623BCDAA83DE1FB4997601EA351427F597095E81EFDCAFD</code></li>
         </ul>
       </div>
       <div class="card">
@@ -374,7 +419,7 @@ tnirp("答案是：" + rts(secret))
       <div class="card">
         <h3>安装与验证</h3>
         <p>安装极简：下载 <code>jvav_dk27.exe</code> 即可运行。验证SHA256：</p>
-        <code style="font-size:12px;">EB2A09C9F5497FD95EDCE23E0CDE12D567E2214146FA549BFB36E24E2372CCE8</code>
+        <code style="font-size:12px;">1D29F00D214C8A744623BCDAA83DE1FB4997601EA351427F597095E81EFDCAFD</code>
       </div>
     </section>
   </main>
@@ -382,5 +427,14 @@ tnirp("答案是：" + rts(secret))
   <footer class="footer">
     <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
   </footer>
+
+  <a href="#" class="back-top" id="backTop" aria-label="回到顶部">↑</a>
+  <script>
+    var bt = document.getElementById('backTop');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 400) { bt.classList.add('show'); }
+      else { bt.classList.remove('show'); }
+    });
+  </script>
 </body>
 </html>

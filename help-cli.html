@@ -23,6 +23,20 @@
 
   <div class="banner">CLI · 脚本运行</div>
 
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="./index.html">首页</a><span class="sep">/</span>
+    <a href="./help.html">文档</a><span class="sep">/</span>
+    <span class="current">CLI 运行</span>
+  </nav>
+
+  <nav class="doc-nav" aria-label="文档章节">
+    <a href="./help.html">快速上手</a>
+    <a href="./help-pkg.html">包管理器</a>
+    <a href="./help-cli.html" class="active">CLI 运行</a>
+    <a href="./help-protocol.html">脑波协议</a>
+    <a href="./help-security.html">安全与验真</a>
+  </nav>
+
   <main class="container">
     <section class="section cards">
       <div class="card">
@@ -51,7 +65,7 @@
       </div>
       <div class="card">
         <h3>扩展函数支持</h3>
-        <p>解释器内置 160+ 倒序函数，如 <code>nus</code>（求和）、<code>xam</code>（最大值）、<code>nioj</code>（连接）等，便于复杂逻辑表达。</p>
+        <p>解释器内置 160+ 倒序函数，如 <code>mus</code>（求和）、<code>xam</code>（最大值）、<code>nioj</code>（连接）等，便于复杂逻辑表达。</p>
       </div>
     </section>
   </main>
@@ -59,5 +73,14 @@
   <footer class="footer">
     <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
   </footer>
+
+  <a href="#" class="back-top" id="backTop" aria-label="回到顶部">↑</a>
+  <script>
+    var bt = document.getElementById('backTop');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 400) { bt.classList.add('show'); }
+      else { bt.classList.remove('show'); }
+    });
+  </script>
 </body>
 </html>

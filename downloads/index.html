@@ -23,8 +23,28 @@
 
   <div class="banner">下载 JVAV 27 · 脑波原生编程语言 · 完全功能版</div>
 
+  <nav class="breadcrumb" aria-label="面包屑">
+    <a href="../index.html">首页</a><span class="sep">/</span>
+    <span class="current">下载</span>
+  </nav>
+
   <main class="container">
-    <section class="section">
+    <section class="section cards">
+      <div class="card">
+        <h3>下载索引 · 快速直达</h3>
+        <p class="meta">选择你要获取的工具，或查看完整文件清单。</p>
+        <div class="doc-index" style="margin-top:12px;">
+          <a href="#dk27">JVAV DK 27 解释器</a>
+          <a href="#jvavpkg">jvavpkg 包管理器</a>
+          <a href="#dk26">JVAV DK 26 扩展版</a>
+          <a href="#dk25">JVAV DK 25 兼容版</a>
+          <a href="#archive">历史版本存档</a>
+          <a href="#verify">如何校验 SHA256</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dk27">
       <div class="card">
         <h3>JVAV DK 27 完整功能版 ⭐ 最新推荐</h3>
         <p class="meta">Windows x64 可执行文件 · 约 8.7 MB · 最新稳定版 · Turing 完备</p>
@@ -57,7 +77,33 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="jvavpkg">
+      <div class="card">
+        <h3>jvavpkg 包管理器</h3>
+        <p class="meta">Windows x64 可执行文件 · 约 8.6 MB · 2026-08-10</p>
+        <p>基于 GitHub 仓库文件的 JVAV 包管理器：一包一仓库、Git tag 即版本，支持依赖解析、版本约束、循环/冲突检测。安装库与插件到全局或项目本地。详细介绍见 <a href="../help-pkg.html">包管理器完整指南</a>。</p>
+        <table class="table">
+          <thead>
+            <tr><th>文件</th><th>版本信息</th><th>SHA256 校验</th><th>操作</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>jvavpkg.exe</strong></td>
+              <td>包管理器 · 仓库文件分发 · 依赖解析 · 2026-08-10</td>
+              <td><code style="font-size:0.65em; word-break:break-all;">BD86627C7969E5039EC0E2BB676ACE0D75E01FE5263A3AD770EB0AB7189E637F</code></td>
+              <td><a class="btn primary" href="./jvavpkg.exe">下载</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;margin-top:12px;">
+# 下载后即可使用（无需安装，直接运行）
+jvavpkg info BR-get/two_sum      # 查看包信息
+jvavpkg install BR-get/two_sum   # 安装包到全局
+jvavpkg list                      # 查看已装包</pre>
+      </div>
+    </section>
+
+    <section class="section" id="dk26">
       <div class="card">
         <h3>JVAV DK 26 扩展版</h3>
         <p class="meta">Windows x64 可执行文件 · 约 8.7 MB · 稳定版</p>
@@ -78,7 +124,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="dk25">
       <div class="card">
         <h3>JVAV DK 25 兼容版</h3>
         <p class="meta">Windows x64 可执行文件 · 约 8.0 MB · 基础版本 · 已归档</p>
@@ -98,7 +144,7 @@
       </div>
     </section>
 
-    <section class="section cards">
+    <section class="section cards" id="archive">
       <div class="card">
         <h3>历史版本存档</h3>
         <p class="meta">已发布的旧版本，保持可验证性。</p>
@@ -110,11 +156,30 @@
         </ul>
         <a class="btn ghost" href="./archive/index.html">查看完整存档</a>
       </div>
+      <div class="card" id="verify">
+        <h3>如何校验 SHA256</h3>
+        <p class="meta">下载后核验文件完整性，确保不是被篡改的「假包」。</p>
+        <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# Windows PowerShell
+Get-FileHash .\jvav_dk27.exe -Algorithm SHA256
+
+# 与上表公布的值逐一比对即可</pre>
+        <p class="meta" style="margin-top:8px;">SHA256 是客观的完整性证据。外链资产（>100MB）由包管理器强制校验。</p>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container">JVAV | BR inc. 2018-2026 · <a href="https://shundebo.top">shundebo</a></div>
   </footer>
+
+  <a href="#" class="back-top" id="backTop" aria-label="回到顶部">↑</a>
+  <script>
+    var bt = document.getElementById('backTop');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 400) { bt.classList.add('show'); }
+      else { bt.classList.remove('show'); }
+    });
+  </script>
 </body>
 </html>

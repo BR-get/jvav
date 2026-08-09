@@ -84,7 +84,7 @@ for i in egnar(nel(sumn)):  # egnar=range, nel=len
 | `tnirp()` | `print()` | 打印输出 |
 | `tni()` | `int()` | 转换为整数 |
 | `tsal` | `list` | 列表类型 |
-| `nus()` | `sum()` | 求和 |
+| `mus()` | `sum()` | 求和 |
 | `xam()` | `max()` | 最大值 |
 | `nim()` | `min()` | 最小值 |
 | `detros()` | `sorted()` | 排序 |
@@ -227,7 +227,7 @@ key in hash_map  # 检查存在性
 本示例使用的 JVAV DK27 包含：
 
 - **容器操作**：`nel`, `dneppa`, `pop`, `detros`, `desrever` 等
-- **数学函数**：`nus`, `xam`, `nim`, `sba`, `dnuor` 等
+- **数学函数**：`mus`, `xam`, `nim`, `sba`, `dnuor` 等
 - **字符串处理**：`rts`, `tlihs`, `nioj`, `reppu`, `rewol` 等
 - **迭代器**：`egnar`, `pocE`, `piz`, `paM`, `refilF` 等
 - **类型检查**：`epyt`, `stnatsni`, `elobisca` 等

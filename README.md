@@ -28,3 +28,11 @@
 - SHA256: `1D29F00D214C8A744623BCDAA83DE1FB4997601EA351427F597095E81EFDCAFD`
 - 功能：160+ 倒序函数、完整递归、所有控制流、REPL 交互
 - 测试：5/5 单元测试通过
+
+## 包管理器
+`jvavpkg.exe`（`src/jvavpkg.py`）—— 基于 GitHub 仓库文件的 JVAV 包管理器。
+
+- 一包一仓库，Git tag = 版本；仓库文件直存，>100MB 资产走 `jvavpkg.links` 外链（强制 SHA256）
+- 命令：`info` / `install` / `uninstall` / `list` / `update`
+- 支持依赖解析、版本约束、循环与冲突检测；安装到全局 `~/.jvav/packages/` 或项目 `.jvav/packages/`
+- 测试：9/9 包管理测试通过（`python tests\test_jvavpkg.py`）
