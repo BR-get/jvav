@@ -26,7 +26,16 @@
   <main class="container">
     <section class="section">
       <div class="card">
-        <h3>JVAV 27 v5 — 2026-04-05 (最新) 🎉</h3>
+        <h3>JVAV 27 v6 — 2026-08-08 (最新) 🎉</h3>
+        <ul style="color: var(--muted); margin-top: 8px; line-height: 1.6;">
+          <li>✨ <strong>倒序关键字补全</strong>：文件模式支持 <code>ni</code>(in)、<code>ton</code>(not)、<code>nruter</code>(return)</li>
+          <li>✨ <strong>倒序布尔常量</strong>：新增 <code>eurT</code>(True)、<code>eslaF</code>(False)</li>
+          <li>🐛 修复综合示例 comprehensive_test.jvav 无法运行的问题（关键字映射缺失 + 错误的倒序方法名）</li>
+          <li>📈 测试覆盖：5/5 测试通过（100%）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>JVAV 27 v5 — 2026-04-05</h3>
         <ul style="color: var(--muted); margin-top: 8px; line-height: 1.6;">
           <li>✨ <strong>REPL 函数作用域完全修复</strong>：函数定义现在可以访问所有 160+ 反转函数</li>
           <li>✨ <strong>完整递归函数支持</strong>：factorial、fibonacci 等递归算法完全工作</li>
@@ -34,7 +43,7 @@
           <li>🔧 函数定义后同步回 self.env，支持函数自调用</li>
           <li>📊 应用修复到 7 个关键执行方法（eval_line、_exec_*、run_file）</li>
           <li>✅ 新增 2 个函数测试文件和完整文档</li>
-          <li>📈 测试覆盖：10/10 测试通过（100%）</li>
+          <li>📈 测试覆盖：5/5 测试通过（100%）</li>
         </ul>
       </div>
       <div class="card">

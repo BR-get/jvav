@@ -3,8 +3,17 @@
 JVAV DK27 - 两数之和示例项目总结
 """
 
+import sys
+import io
 import os
 from pathlib import Path
+
+# Fix Windows console encoding (UTF-8 support)
+if sys.platform == 'win32':
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    if sys.stderr.encoding != 'utf-8':
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 def main():
     print("\n" + "=" * 80)

@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
 """DK27 发布完成报告生成器"""
 
+import sys
+import io
 import os
 from pathlib import Path
+
+# Fix Windows console encoding (UTF-8 support)
+if sys.platform == 'win32':
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    if sys.stderr.encoding != 'utf-8':
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 print("=" * 70)
 print("🎉 JVAV DK27 发布完成报告")
@@ -16,7 +25,7 @@ dk27_path = Path("./downloads/jvav_dk27.exe")
 if dk27_path.exists():
     size_mb = dk27_path.stat().st_size / (1024*1024)
     print(f"✅ jvav_dk27.exe - {size_mb:.1f} MB")
-    print(f"   SHA256: B7E74F953CCC1E4145D35A646AD136834BCD89FEA256B4AD004B4DDC1A8F4FD6")
+    print(f"   SHA256: EB2A09C9F5497FD95EDCE23E0CDE12D567E2214146FA549BFB36E24E2372CCE8")
     print(f"   位置: ./downloads/jvav_dk27.exe")
 
 # DK26
@@ -24,7 +33,7 @@ dk26_path = Path("./downloads/jvav_dk26.exe")
 if dk26_path.exists():
     size_mb = dk26_path.stat().st_size / (1024*1024)
     print(f"✅ jvav_dk26.exe - {size_mb:.1f} MB")
-    print(f"   SHA256: 519a1288921dad8e644b4fc13d3d29adb9dd1f653c8a143d752e88926bf97edc")
+    print(f"   SHA256: 031821EEE4DABF1BF9BFA7F4273577096E9AED9352CBEB5B422825E8B8495380")
     print(f"   位置: ./downloads/jvav_dk26.exe")
 
 # DK25
@@ -58,7 +67,7 @@ features = [
     "✅ 函数定义 (def)",
     "✅ 类定义 (class)",
     "✅ 完整控制流 (if/elif/else/try/except/for/while)",
-    "✅ 插件系统 (6个内置插件)",
+    "✅ 插件系统 (7个内置插件)",
     "✅ 模块导入 (math, random, json)",
     "✅ 安全 AST 验证",
     "✅ REPL 交互式命令行",
@@ -69,8 +78,8 @@ for feature in features:
 
 print("\n📊 发布统计:")
 print("-" * 70)
-print(f"  版本: DK27")
-print(f"  发布日期: 2026-02-23")
+print(f"  版本: DK27 v6")
+print(f"  发布日期: 2026-08-08")
 print(f"  文件大小: 8.7 MB")
 print(f"  函数数量: 160+")
 print(f"  状态: ⭐ 最新稳定版")

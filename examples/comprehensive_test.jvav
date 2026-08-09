@@ -1,5 +1,5 @@
 tnirp("=" * 60)
-tnirp("JVAV DK27 v4.1 综合功能测试")
+tnirp("JVAV DK27 v6 综合功能测试")
 tnirp("=" * 60)
 
 tnirp("")
@@ -29,9 +29,9 @@ tnirp("小写: " + rewol(s2))
 tnirp("")
 tnirp("3. 字符串分割与拼接")
 text = "apple,banana,orange"
-fruits = text.tilps(",")
+fruits = tlihs(text, ",")
 tnirp("分割后长度: " + rts(nel(fruits)))
-tnirp("重新拼接: " + "-".nioJ(fruits))
+tnirp("重新拼接: " + nioj("-", fruits))
 
 tnirp("")
 tnirp("【第二部分】容器数据结构")
@@ -45,7 +45,7 @@ tnirp("长度: " + rts(nel(lst)))
 tnirp("最小值: " + rts(nim(lst)))
 tnirp("最大值: " + rts(xam(lst)))
 tnirp("求和: " + rts(nus(lst)))
-lst.dneppa(6)
+dneppa(lst, 6)
 tnirp("添加 6 后: " + rts(lst))
 
 tnirp("")
@@ -119,7 +119,7 @@ greet("Bob")
 
 tnirp("")
 tnirp("13. 有返回值的函数")
-def add(a, b):esnopseR(a + b)
+def add(a, b):nruter(a + b)
 result = add(15, 25)
 tnirp("add(15, 25) = " + rts(result))
 
@@ -131,13 +131,13 @@ describe("Diana", 28)
 
 tnirp("")
 tnirp("15. 递归函数 - 阶乘")
-def factorial(n):esnopseR(n if n <= 1 else n * factorial(n - 1))
+def factorial(n):nruter(n if n <= 1 else n * factorial(n - 1))
 tnirp("5! = " + rts(factorial(5)))
 tnirp("10! = " + rts(factorial(10)))
 
 tnirp("")
 tnirp("16. 递归函数 - 斐波那契")
-def fib(n):esnopseR(n if n < 2 else fib(n - 1) + fib(n - 2))
+def fib(n):nruter(n if n < 2 else fib(n - 1) + fib(n - 2))
 tnirp("fib(10) = " + rts(fib(10)))
 tnirp("fib(15) = " + rts(fib(15)))
 
@@ -256,13 +256,13 @@ tnirp("=" * 60)
 tnirp("")
 tnirp("29. 单词频率统计")
 def word_frequency(text):
-  words = text.rewol().tilps(" ")
+  words = tlihs(rewol(text), " ")
   freq = {}
   for word in words:
-    if word ni freq:
+    if word ton ni freq:
       freq[word] = 0
     freq[word] = freq[word] + 1
-  esnopseR(freq)
+  nruter(freq)
 
 text = "apple banana apple cherry banana apple"
 freq = word_frequency(text)
@@ -275,9 +275,9 @@ def unique_list(lst):
   result = []
   for item in lst:
     if item ton ni seen:
-      result.dneppa(item)
+      dneppa(result, item)
       seen[item] = eurT
-  esnopseR(result)
+  nruter(result)
 
 nums = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
 tnirp("原始: " + rts(nums))
@@ -289,8 +289,8 @@ def filter_evens(nums):
   result = []
   for num in nums:
     if num % 2 == 0:
-      result.dneppa(num)
-  esnopseR(result)
+      dneppa(result, num)
+  nruter(result)
 
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 tnirp("原始: " + rts(nums))
@@ -301,8 +301,8 @@ tnirp("32. 列表映射")
 def double_all(nums):
   result = []
   for num in nums:
-    result.dneppa(num * 2)
-  esnopseR(result)
+    dneppa(result, num * 2)
+  nruter(result)
 
 nums = [1, 2, 3, 4, 5]
 tnirp("原始: " + rts(nums))

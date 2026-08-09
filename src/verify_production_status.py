@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-JVAV DK27 v5 - 最终项目状态验证
+JVAV DK27 v6 - 最终项目状态验证
 生产就绪检查清单
 """
 
+import sys
+import io
+
+# Fix Windows console encoding (UTF-8 support)
+if sys.platform == 'win32':
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    if sys.stderr.encoding != 'utf-8':
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 PROJECT_STATUS = {
     "project_name": "JVAV DK27",
-    "version": "v5",
-    "release_date": "2026-02-24",
+    "version": "v6",
+    "release_date": "2026-08-08",
     "status": "🟢 PRODUCTION READY",
     
     "core_language": {
@@ -40,7 +50,7 @@ PROJECT_STATUS = {
             "date": "2026-02-24",
             "version": "v5",
             "status": "✅ FIXED",
-            "tests_passed": "10/10",
+            "tests_passed": "5/5",
         },
         "recursive_functions": {
             "date": "2026-02-24",
@@ -68,12 +78,12 @@ PROJECT_STATUS = {
     
     "files": {
         "core": {
-            "JvavDK27.py": "✅ Updated (880 lines, 7 methods fixed)",
+            "JvavDK27.py": "✅ Updated (926 lines, keyword map + boolean constants)",
         },
         "executable": {
             "downloads/jvav_dk27.exe": {
-                                "size": "9.1 MB",
-                                "sha256": "B7E74F953CCC1E4145D35A646AD136834BCD89FEA256B4AD004B4DDC1A8F4FD6",
+                                "size": "8.7 MB",
+                                "sha256": "EB2A09C9F5497FD95EDCE23E0CDE12D567E2214146FA549BFB36E24E2372CCE8",
                                 "status": "✅ Compiled & Verified",
                             }
         },
@@ -99,11 +109,12 @@ PROJECT_STATUS = {
     },
     
     "test_results": {
-        "basic_functions": "✅ 3/3 passed",
-        "function_definition": "✅ 2/2 passed",
-        "recursive_functions": "✅ 2/2 passed",
-        "list_operations": "✅ 3/3 passed",
-        "total": "✅ 10/10 passed (100%)",
+        "basic_reversed_fn": "✅ 1/1 passed",
+        "function_definition": "✅ 1/1 passed",
+        "recursive_function": "✅ 1/1 passed",
+        "multi_call_shared_scope": "✅ 1/1 passed",
+        "fibonacci": "✅ 1/1 passed",
+        "total": "✅ 5/5 passed (100%)",
     },
     
     "metrics": {

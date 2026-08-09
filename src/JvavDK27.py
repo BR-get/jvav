@@ -17,10 +17,10 @@ Language features
 - Exit: empty line or Ctrl+C/Ctrl+D
 
 CLI usage
-- Interactive: python JvavDK27.py
+- Interactive REPL: python JvavDK27.py
 - Run command: python JvavDK27.py -c "tnirp('Hello')"
 - Run file: python JvavDK27.py -f script.jvav
-- Project management: python JvavDK27.py [init|build|run|verify] [target]
+- Self-check: python JvavDK27.py info
 """
 
 import ast
@@ -476,6 +476,12 @@ class SafeEvaluator:
             "seY": lambda: True,
         })
 
+        # Reversed boolean constants
+        helpers.update({
+            "eurT": True,
+            "eslaF": False,
+        })
+
         self.env.update(helpers)
 
     def _install_extended_stdlib(self) -> None:
@@ -828,6 +834,9 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
             ('yrt', 'try'),
             ('tpecxe', 'except'),
             ('fi', 'if'),
+            ('ni', 'in'),
+            ('ton', 'not'),
+            ('nruter', 'return'),
         ]
 
         def _preprocess_lines(lines: list[str]) -> list[str]:
