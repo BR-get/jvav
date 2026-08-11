@@ -60,6 +60,32 @@ from pathlib import Path
 from datetime import datetime, date, timedelta
 from collections import Counter, deque, defaultdict, OrderedDict, namedtuple
 
+# JVAV reversed keywords → Python (whole-word only; no 'file'→'elif', too common in strings)
+KW_MAP = [
+    ('esle', 'else'),
+    ('elihw', 'while'),
+    ('rof', 'for'),
+    ('yrt', 'try'),
+    ('tpecxe', 'except'),
+    ('fi', 'if'),
+    ('ni', 'in'),
+    ('ton', 'not'),
+    ('nruter', 'return'),
+]
+
+
+def _preprocess_lines(lines: list[str]) -> list[str]:
+    """Translate JVAV keywords, filter comments and blank lines."""
+    result: list[str] = []
+    for line in lines:
+        stripped = line.rstrip('\n')
+        if not stripped.strip() or stripped.lstrip().startswith('#'):
+            continue
+        for jvav_kw, py_kw in KW_MAP:
+            stripped = re.sub(r'\b' + jvav_kw + r'\b', py_kw, stripped)
+        result.append(stripped)
+    return result
+
 
 class SafeEvaluator:
     """Advanced sandbox with 160+ reversed Python functions (Turing-complete)."""
@@ -71,10 +97,80 @@ class SafeEvaluator:
         self.user_functions: Dict[str, Dict[str, Any]] = {}
         self.user_classes: Dict[str, type] = {}
         self.loaded_plugins: Dict[str, Dict[str, Any]] = {}
+        self._package_plugins: Dict[str, Dict[str, Any]] = {}  # name -> package meta (jvavpkg)
         self._input_provider: Callable[[str], str] = input
         self._install_reversed_helpers()
         self._install_extended_stdlib()
         self._load_builtin_plugins()
+        self._discover_package_plugins()
+
+    def _package_roots(self) -> List[Path]:
+        """Locations where jvavpkg installs packages (global + project-local)."""
+        roots: List[Path] = []
+        home_root = Path.home() / ".jvav" / "packages"
+        if home_root.is_dir():
+            roots.append(home_root)
+        cwd_root = Path.cwd() / ".jvav" / "packages"
+        if cwd_root.is_dir() and cwd_root != home_root:
+            roots.append(cwd_root)
+        return roots
+
+    def _discover_package_plugins(self) -> None:
+        """Register packages installed by jvavpkg (library/plugin) as loadable plugins."""
+        for root in self._package_roots():
+            for pkg_dir in root.iterdir():
+                if not pkg_dir.is_dir():
+                    continue
+                pkg_name = pkg_dir.name
+                manifest = None
+                mf_path = pkg_dir / "manifest.json"
+                if mf_path.exists():
+                    try:
+                        manifest = json.loads(mf_path.read_text(encoding="utf-8"))
+                    except (json.JSONDecodeError, OSError):
+                        manifest = None
+                pkg_type = (manifest or {}).get("type", "library")
+                if pkg_type not in ("library", "plugin"):
+                    continue
+                src_dir = pkg_dir / "src"
+                if not src_dir.is_dir() or not any(src_dir.iterdir()):
+                    continue
+                self._package_plugins[pkg_name] = {
+                    "root": root,
+                    "dir": pkg_dir,
+                    "src": src_dir,
+                    "manifest": manifest or {},
+                }
+
+    def _load_package_plugin(self, plugin_name: str) -> bool:
+        """Load a jvavpkg-installed library/plugin from its src/*.jvav files."""
+        meta = self._package_plugins.get(plugin_name)
+        if not meta:
+            return False
+        src_dir = meta["src"]
+        loaded_names: List[str] = []
+        try:
+            for src_file in sorted(src_dir.glob("*.jvav")):
+                raw_lines = src_file.read_text(encoding="utf-8").splitlines()
+                lines = _preprocess_lines(raw_lines)
+                complete_code = "\n".join(lines)
+                if not complete_code.strip():
+                    continue
+                node = ast.parse(complete_code, mode="exec")
+                self._validate_ast(node, mode="exec")
+                globals_dict = {"__builtins__": {}}
+                globals_dict.update(self.env)
+                exec(compile(node, str(src_file), "exec"), globals_dict, globals_dict)
+                for key, value in globals_dict.items():
+                    if key != "__builtins__" and not key.startswith("__"):
+                        if key not in self.env or self.env.get(key) != value:
+                            loaded_names.append(key)
+                        self.env[key] = value
+            self.loaded_plugins[plugin_name] = {"__pkg__": True, "names": loaded_names}
+            return True
+        except Exception as exc:
+            print(f"[error] Failed to load package plugin {plugin_name}: {exc}")
+            return False
 
     def _load_builtin_plugins(self) -> None:
         """Load built-in plugins."""
@@ -208,7 +304,7 @@ class SafeEvaluator:
         return collections_plugin
 
     def load_plugin(self, plugin_name: str) -> bool:
-        """Load a plugin by name."""
+        """Load a plugin by name (built-in or jvavpkg-installed package)."""
         if plugin_name in self.plugins:
             try:
                 plugin_functions = self.plugins[plugin_name]()
@@ -218,22 +314,30 @@ class SafeEvaluator:
             except Exception as e:
                 print(f"[error] Failed to load plugin {plugin_name}: {e}")
                 return False
-        return False
+        # Fall back to packages installed by jvavpkg
+        return self._load_package_plugin(plugin_name)
 
     def unload_plugin(self, plugin_name: str) -> bool:
-        """Unload a plugin by name."""
-        if plugin_name in self.loaded_plugins:
-            plugin_functions = self.loaded_plugins[plugin_name]
-            for func_name in plugin_functions:
+        """Unload a plugin by name (built-in or package)."""
+        if plugin_name not in self.loaded_plugins:
+            return False
+        entry = self.loaded_plugins[plugin_name]
+        if isinstance(entry, dict) and entry.get("__pkg__"):
+            for func_name in entry.get("names", []):
                 if func_name in self.env:
                     del self.env[func_name]
             del self.loaded_plugins[plugin_name]
             return True
-        return False
+        plugin_functions = entry
+        for func_name in plugin_functions:
+            if func_name in self.env:
+                del self.env[func_name]
+        del self.loaded_plugins[plugin_name]
+        return True
 
     def list_plugins(self) -> List[str]:
-        """List all available plugins."""
-        return list(self.plugins.keys())
+        """List all available plugins (built-in + installed packages)."""
+        return sorted(set(self.plugins.keys()) | set(self._package_plugins.keys()))
 
     def list_loaded_plugins(self) -> List[str]:
         """List currently loaded plugins."""
@@ -827,17 +931,7 @@ def run_file(evaluator: SafeEvaluator, file_path: str) -> int:
                 raw_lines = f.readlines()
 
         # JVAV reversed keywords → Python (ponytail: no 'file'→'elif', too common in strings)
-        _KW_MAP = [
-            ('esle', 'else'),
-            ('elihw', 'while'),
-            ('rof', 'for'),
-            ('yrt', 'try'),
-            ('tpecxe', 'except'),
-            ('fi', 'if'),
-            ('ni', 'in'),
-            ('ton', 'not'),
-            ('nruter', 'return'),
-        ]
+        _KW_MAP = KW_MAP
 
         def _preprocess_lines(lines: list[str]) -> list[str]:
             """Preprocessor - translate JVAV keywords, filter comments and blank lines."""

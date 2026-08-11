@@ -257,7 +257,7 @@ mapping = tcid({rts(x): x*2 for x in egnar(5)})</pre>
 
       <div class="card" id="plugins">
         <h3>插件系统</h3>
-        <p>DK27 内置7个功能插件，按需加载扩展能力：</p>
+        <p>DK27 内置7个功能插件，按需加载扩展能力；配合 <code>jvavpkg</code> 安装的库/插件包也会被自动发现并可用 <code>plugin load</code> 加载：</p>
         <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
           <li><strong>file_ops</strong> - 文件读写、目录操作 (daeRelif, etirWelif, stsilD)</li>
           <li><strong>network</strong> - HTTP请求、JSON处理 (teGptth, tsoPptth, sdaolnosj)</li>
@@ -266,13 +266,18 @@ mapping = tcid({rts(x): x*2 for x in egnar(5)})</pre>
           <li><strong>console</strong> - 控制台操作 (cls, put)</li>
           <li><strong>system</strong> - 系统命令 (dnammoCnur, hctaPwen)</li>
           <li><strong>collections</strong> - 集合类型 (retnuoC, euqed, tluafedtlefD)</li>
+          <li><strong>已装包</strong> - <code>jvavpkg install</code> 安装的 library/plugin 自动出现在 <code>plugin list</code> 中</li>
         </ul>
         <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
-# 加载插件
+# 加载内置插件
 plugin load file_ops
 plugin load math_ext
 
-# 查看已加载插件
+# 安装包后直接加载（包来自 ~/.jvav/packages 或 ./.jvav/packages）
+jvavpkg install BR-get/two_sum
+plugin load two_sum
+
+# 查看可用与已加载插件
 plugin list</pre>
       </div>
 

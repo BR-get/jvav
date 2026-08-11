@@ -5,6 +5,9 @@ Run: python tests/test_repl_function.py
 
 import sys
 import os
+import json
+import shutil
+import tempfile
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from JvavDK27 import SafeEvaluator
@@ -49,6 +52,65 @@ def test_fibonacci():
     assert result == 21, f"expected 21, got {result}"
 
 
+def _make_pkg(cwd, name, src_code):
+    """Create a jvavpkg-installed library/plugin in cwd/.jvav/packages/<name>."""
+    pkg_dir = os.path.join(cwd, '.jvav', 'packages', name)
+    src_dir = os.path.join(pkg_dir, 'src')
+    os.makedirs(src_dir, exist_ok=True)
+    manifest = {
+        "name": name,
+        "type": "plugin",
+        "assets": {"win64": {"source": f"dist/{name}-1.0.0-src.jvavpkg"}},
+    }
+    with open(os.path.join(pkg_dir, 'manifest.json'), 'w', encoding='utf-8') as f:
+        json.dump(manifest, f, ensure_ascii=False)
+    with open(os.path.join(src_dir, 'main.jvav'), 'w', encoding='utf-8') as f:
+        f.write(src_code)
+
+
+def test_package_plugin_discovery():
+    """Packages installed by jvavpkg appear as available plugins."""
+    tmp = tempfile.mkdtemp()
+    try:
+        _make_pkg(tmp, 'demo_math', "def dbod(x):\n    return x * 2\n")
+        old = os.getcwd()
+        try:
+            os.chdir(tmp)
+            e = SafeEvaluator()
+            assert 'demo_math' in e.list_plugins(), f"demo_math missing in {e.list_plugins()}"
+        finally:
+            os.chdir(old)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_package_plugin_load_unload():
+    """Loading a package injects its functions; unloading removes them."""
+    tmp = tempfile.mkdtemp()
+    try:
+        _make_pkg(tmp, 'demo_math', "def dbod(x):\n    return x * 2\n\ndef gnis(s):\n    return s[::-1]\n")
+        old = os.getcwd()
+        try:
+            os.chdir(tmp)
+            e = SafeEvaluator()
+            assert e.load_plugin('demo_math'), "load should succeed"
+            assert e.env.get('dbod')(21) == 42, "dbod(21) should be 42"
+            assert e.env.get('gnis')('abc') == 'cba', "gnis('abc') should be 'cba'"
+            assert 'demo_math' in e.list_loaded_plugins()
+            assert e.unload_plugin('demo_math')
+            assert 'dbod' not in e.env, "dbod should be removed after unload"
+        finally:
+            os.chdir(old)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_package_plugin_missing():
+    """Loading an unknown plugin returns False."""
+    e = SafeEvaluator()
+    assert e.load_plugin('no_such_plugin') is False
+
+
 if __name__ == '__main__':
     tests = [
         test_basic_reversed_fn,
@@ -56,6 +118,9 @@ if __name__ == '__main__':
         test_recursive_function,
         test_multi_call_shared_scope,
         test_fibonacci,
+        test_package_plugin_discovery,
+        test_package_plugin_load_unload,
+        test_package_plugin_missing,
     ]
     passed = 0
     for t in tests:

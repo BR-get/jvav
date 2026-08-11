@@ -42,12 +42,12 @@
     <section class="section cards">
       <div class="card">
         <h3>0. 快速入门（30 秒）</h3>
-        <ol style="color: var(--muted); line-height: 1.8; margin-left: 18px;">
+          <ol style="color: var(--muted); line-height: 1.8; margin-left: 18px;">
           <li>下载 <code>jvavpkg.exe</code>（下载页）或使用 <code>python src\jvavpkg.py</code>。</li>
           <li>安装一个包：<code>jvavpkg install BR-get/two_sum</code></li>
           <li>查看已装包：<code>jvavpkg list</code></li>
           <li>查看包信息：<code>jvavpkg info BR-get/two_sum</code></li>
-          <li>运行包：<code>jvav_dk27.exe -f %USERPROFILE%\.jvav\packages\two_sum\src\two_sum.jvav</code></li>
+          <li>在解释器里加载包：<code>jvav_dk27.exe</code> → <code>plugin load two_sum</code>（library/plugin 包自动被发现）</li>
         </ol>
         <p class="meta">所有命令都以 <code>owner/repo</code> 或已注册的短名称引用包。匿名使用 GitHub API 限流 60 次/时，设置 <code>GITHUB_TOKEN</code> 提升至 5000 次/时。</p>
       </div>
