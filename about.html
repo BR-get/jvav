@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>关于 JVAV</title>
+  <meta name="description" content="JVAV：脑波原生的 Turing 完备编程语言，含解释器、包管理器与发布站点。" />
   <link rel="stylesheet" href="./assets/styles.css" />
 </head>
 <body>
@@ -27,15 +28,86 @@
     <section class="section cards">
       <div class="card">
         <h3>我们在做什么</h3>
-        <p>JVAV 是真实项目，目标是把脑波输入变成一等公民。我们提供从编译器、运行时到工具链的全栈能力。</p>
+        <p>JVAV 是一个<strong>真实、可验证</strong>的编程语言项目：用 Python 实现解释器，把「倒序命名」的内置函数作为语言的标志性设计。它拥有完整的运行时、包管理器、示例库与发布站点，所有环节都能独立校验。</p>
+        <p class="meta" style="margin-top:8px;">当前版本：DK 27 v6 · Turing 完备 · 160+ 倒序函数 · 19 项自动化测试全部通过。</p>
+      </div>
+      <div class="card">
+        <h3>为什么叫「脑波原生」</h3>
+        <p>「脑波」是 JVAV 的世界观——思维是语言的第一公民，代码是思维的忠实记录。我们相信编程可以像脑波一样自然流动，而工程严谨（沙箱安全、哈希验证、可复现构建）则是这一切的地基。</p>
+        <p class="meta" style="margin-top:8px;">奇幻不等于虚假：仪式感留在故事里，工程事实落在哈希与测试上。</p>
       </div>
       <div class="card">
         <h3>设计准则</h3>
-        <p>极简、可信、可交付。界面居中留白，交互不过度，任何元素都为清晰传达服务。</p>
+        <ul style="color: var(--muted); line-height: 1.6; margin-left: 18px;">
+          <li><strong>极简</strong>：界面居中留白，任何元素都为清晰传达服务</li>
+          <li><strong>可信</strong>：每个发行附带 SHA256，任何人都能复现校验</li>
+          <li><strong>可交付</strong>：一次构建，双击即用的 Windows 单文件 exe</li>
+        </ul>
       </div>
+    </section>
+
+    <section class="section">
+      <h2>语言与工具链</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>倒序函数库</h3>
+          <p>160+ 倒序命名的 Python 内置函数：<code>tnirp</code>（print）、<code>mus</code>（sum）、<code>nel</code>（len）、<code>egnar</code>（range）、<code>tcid</code>（dict）。覆盖 I/O、类型转换、容器、数学、字符串、迭代器、位运算等全部标准库领域。</p>
+          <a class="btn ghost" href="./help.html">函数文档</a>
+        </div>
+        <div class="card">
+          <h3>Turing 完备</h3>
+          <p>完整支持函数与类定义、if/elif/else、for/while、try/except、列表推导、递归。倒序关键字（<code>fi</code>/<code>rof</code>/<code>nruter</code>）与倒序布尔常量（<code>eurT</code>/<code>eslaF</code>）。任何可计算的算法都能表达。</p>
+        </div>
+        <div class="card">
+          <h3>安全沙箱</h3>
+          <p>所有代码在 <code>SafeEvaluator</code> 中执行：AST 验证拦截 Lambda、dunder 访问、属性调用与危险导入。包与脚本均受同一套沙箱约束，防止恶意注入。</p>
+        </div>
+        <div class="card">
+          <h3>插件系统</h3>
+          <p>7 个内置插件（文件、网络、日期、数学、控制台、系统、集合）按需加载；通过 <code>jvavpkg</code> 安装的库/插件包会被解释器自动发现，<code>plugin load</code> 即可复用。</p>
+        </div>
+        <div class="card">
+          <h3>包管理器 jvavpkg</h3>
+          <p>基于 GitHub 仓库文件分发：一包一仓库、Git tag 即版本、>100MB 走外链并强制 SHA256。支持依赖解析、版本约束、循环与冲突检测，安装到全局或项目本地。</p>
+          <a class="btn ghost" href="./help-pkg.html">包管理器指南</a>
+        </div>
+        <div class="card">
+          <h3>发布与验证</h3>
+          <p>PyInstaller 与 Nuitka 双打包（Nuitka 版体积小约 24%、启动快约 50%）。所有下载页哈希与源码级脚本（verify_production_status.py / report.py）保持一致，发布可复现。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>发展时间线</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>DK 25 / 26 · 奠基</h3>
+          <p>首个公开解释器与 32 个倒序函数；DK26 引入插件系统、模块导入与扩展标准库。</p>
+        </div>
+        <div class="card">
+          <h3>DK 27 v1–v4 · 完善</h3>
+          <p>UTF-8 修复、PyInstaller 兼容、增强预处理器、多行 if/for/while/try 块与推导式支持。</p>
+        </div>
+        <div class="card">
+          <h3>DK 27 v5–v6 · 完备</h3>
+          <p>REPL 作用域修复、完整递归、Turing 完备声明；v6 补全倒序关键字与布尔常量。</p>
+        </div>
+        <div class="card">
+          <h3>2026-08 · 生态</h3>
+          <p>包管理器 jvavpkg 上线（依赖解析 + pack 打包），解释器与包的 Nuitka 试点验证通过。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cards">
       <div class="card">
-        <h3>函数扩展</h3>
-        <p>最新版本 DK27 v6 包含 160+ 倒序函数，涵盖 I/O、类型转换、容器操作、数学、字符串、迭代、异常等领域。完整支持 Turing 完备的编程需求。v6 补全倒序关键字（ni/ton/nruter）并新增倒序布尔常量（eurT/eslaF）。</p>
+        <h3>下一步</h3>
+        <p>生态扩展（search / 官方 registry 索引）、解释器 Nuitka 正式化、CI 自动化测试。让 JVAV 从一个语言，长成一个可以持续交付的平台。</p>
+        <div class="hero-actions" style="margin-top:12px;">
+          <a class="btn primary" href="./downloads/index.html">下载体验</a>
+          <a class="btn ghost" href="./help.html">快速上手</a>
+        </div>
       </div>
     </section>
   </main>
