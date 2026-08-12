@@ -471,10 +471,126 @@ pre code {
     transform: translateY(-2px);
 }
 
-@media (max-width: 640px) {
+/* ---------- Responsive: table (horizontal scroll) ---------- */
+.table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+}
+
+.table th,
+.table td {
+    min-width: 140px;
+}
+
+.table td code {
+    white-space: normal;
+    word-break: break-all;
+}
+
+/* ---------- Responsive breakpoints ---------- */
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .breadcrumb,
+    .doc-nav {
+        padding: 0 20px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .doc-index {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .breadcrumb,
+    .doc-nav {
+        padding: 0 16px;
+    }
+
+    .doc-nav {
+        gap: 4px;
+    }
+
+    .doc-nav a {
+        padding: 7px 12px;
+        font-size: 13px;
+    }
+
+    .banner {
+        font-size: 14px;
+        padding: 14px 16px;
+        margin: 16px auto;
+    }
+
+    .hero {
+        padding: 40px 0 24px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .breadcrumb,
+    .doc-nav {
+        padding: 0 12px;
+    }
+
     .header-inner {
         flex-direction: column;
         align-items: flex-start;
+        padding: 14px 0;
+    }
+
+    .nav {
+        width: 100%;
+        gap: 4px;
+    }
+
+    .nav a {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .banner {
+        font-size: 13px;
+        padding: 12px 14px;
+        margin: 12px auto;
+        border-radius: 12px;
+    }
+
+    .hero {
+        padding: 28px 0 18px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 15px;
     }
 
     .hero-actions {
@@ -484,5 +600,46 @@ pre code {
     .btn {
         flex: 1 1 auto;
         justify-content: center;
+        padding: 12px 18px;
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+    }
+
+    pre {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .section {
+        margin: 28px 0;
+    }
+
+    .breadcrumb {
+        font-size: 12px;
+    }
+
+    .breadcrumb .current {
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+        display: inline-block;
+    }
+
+    .back-top {
+        right: 16px;
+        bottom: 16px;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
     }
 }
