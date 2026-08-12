@@ -12,6 +12,7 @@ jvavpkg.py - JVAV 包管理器 (P1/P2)
   jvavpkg.py uninstall <name> [--local]
   jvavpkg.py list [--local]
   jvavpkg.py update [name] [--local]
+  jvavpkg.py pack [src] [--name <n>] [--version <v>] [--main <f>] [--out <p>]
 
 环境变量:
   GITHUB_TOKEN  可选，提升 GitHub API 限流（匿名 60/h -> 5000/h）
@@ -531,6 +532,70 @@ class PackageManager:
                 return
         (src_dir / basename).write_bytes(data)
 
+    def cmd_pack(
+        self,
+        src: str = ".",
+        name: Optional[str] = None,
+        version: str = "1.0.0",
+        main: Optional[str] = None,
+        out: Optional[str] = None,
+    ) -> None:
+        """Package local *.jvav files into a standard .jvavpkg source package."""
+        src_dir = Path(src)
+        if not src_dir.is_dir():
+            raise JVAVPkgError(f"Source directory not found: {src}")
+
+        jvav_files = sorted(
+            p for p in src_dir.iterdir()
+            if p.is_file() and p.suffix == ".jvav"
+        )
+        if not jvav_files:
+            raise JVAVPkgError(f"No .jvav files found in {src}")
+
+        pkg_name = name or src_dir.name
+        pkg_version = version if version.startswith("v") else f"v{version}"
+
+        # pick main file: explicit, main.jvav, or first .jvav
+        if main:
+            main_file = main
+            if not (src_dir / main_file).exists():
+                raise JVAVPkgError(f"Main file not found: {main_file}")
+        elif (src_dir / "main.jvav").exists():
+            main_file = "main.jvav"
+        else:
+            main_file = jvav_files[0].name
+
+        files: Dict[str, str] = {}
+        for f in jvav_files:
+            files[f.name] = f.read_text(encoding="utf-8")
+
+        package = {
+            "name": pkg_name,
+            "version": pkg_version.lstrip("v"),
+            "jvav_version": "DK27",
+            "main": main_file,
+            "files": files,
+            "build_info": {
+                "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "builder": "jvavpkg",
+                "platform": "windows-x64",
+            },
+        }
+
+        out_path = out or str(src_dir / "dist" / f"{pkg_name}-{pkg_version.lstrip('v')}-src.jvavpkg")
+        out_dir = Path(out_path).parent
+        out_dir.mkdir(parents=True, exist_ok=True)
+        Path(out_path).write_text(
+            json.dumps(package, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+
+        print(f"[pack] packaged {pkg_name}@{pkg_version}")
+        print(f"[pack] files: {', '.join(files.keys())}")
+        print(f"[pack] main : {main_file}")
+        print(f"[pack] output: {out_path}")
+        print(f"[pack] manifest hint (add to jvavpkg.json assets.win64.source):")
+        print(f"        dist/{Path(out_path).name}")
+
 
 def _add_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--version", default="latest", help="git tag / version (default: latest)")
@@ -561,6 +626,13 @@ def main(argv: Optional[List[str]] = None) -> int:
     p_update.add_argument("name", nargs="?", default=None, help="package name (default: all)")
     p_update.add_argument("--local", action="store_true", help="update project-local packages")
 
+    p_pack = sub.add_parser("pack", help="package local .jvav files into a .jvavpkg")
+    p_pack.add_argument("src", nargs="?", default=".", help="source directory containing .jvav files")
+    p_pack.add_argument("--name", default=None, help="package name (default: dir name)")
+    p_pack.add_argument("--version", default="1.0.0", help="package version (default: 1.0.0)")
+    p_pack.add_argument("--main", default=None, help="main file name (default: main.jvav or first .jvav)")
+    p_pack.add_argument("--out", default=None, help="output path (default: dist/<name>-<ver>-src.jvavpkg)")
+
     args = parser.parse_args(argv)
     token = getattr(args, "token", None) or os.environ.get("GITHUB_TOKEN")
     scope = "local" if getattr(args, "local", False) else "global"
@@ -577,6 +649,9 @@ def main(argv: Optional[List[str]] = None) -> int:
             pm.cmd_uninstall(args.name)
         elif args.command == "update":
             pm.cmd_update(args.name)
+        elif args.command == "pack":
+            pm.cmd_pack(args.src, name=args.name, version=args.version,
+                        main=args.main, out=args.out)
         return 0
     except JVAVPkgError as e:
         print(f"[error] {e}")

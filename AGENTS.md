@@ -16,14 +16,14 @@ JVAV is a Python-implemented "brainwave" programming language (`.jvav` files int
 - Run interpreter tests: `python tests\test_repl_function.py` (8 tests)
 - Run package-manager tests: `python tests\test_jvavpkg.py` (9 tests; offline, uses a fake GitHub client)
 - Run a script: `python src\JvavDK27.py -f file.jvav` · one line: `-c "tnirp('hi')"` · REPL: no args · self-check: `info`
-- Package manager: `python src\jvavpkg.py <info|install|uninstall|list|update>` — one package per GitHub repo; repo files direct (no Releases), git tag = version; >100MB assets via `jvavpkg.links` external links with mandatory SHA256
+- Package manager: `python src\jvavpkg.py <info|install|uninstall|list|update|pack>` — one package per GitHub repo; repo files direct (no Releases), git tag = version; >100MB assets via `jvavpkg.links` external links with mandatory SHA256. `pack` packages local `*.jvav` into a `.jvavpkg`.
 - Build: `python -m PyInstaller jvav_dk27.spec --clean --noconfirm` then copy `dist\jvav_dk27.exe` → `downloads\`. Build `jvavpkg.exe` from `jvavpkg.spec` the same way. `build/` and `dist/` are gitignored.
-- Nuitka pilot: `python -m nuitka --onefile --assume-yes-for-downloads --output-dir=nuitka_build --output-filename=jvavpkg_nuitka.exe src\jvavpkg.py` — auto-downloads Dependency Walker + Zig (no MSVC needed on this box; `--mingw64` is unsupported on Python 3.13). Builds ~23% smaller, ~40% faster startup than PyInstaller. Copy to `downloads\jvavpkg_nuitka.exe`. `nuitka_build/` is gitignored.
+- Nuitka pilot (both exes verified): `python -m nuitka --onefile --assume-yes-for-downloads --no-deployment-flag=self-execution --output-dir=nuitka_build --output-filename=<name>_nuitka.exe src\<file>.py` — auto-downloads Dependency Walker + Zig (no MSVC needed on this box; `--mingw64` is unsupported on Python 3.13). The `--no-deployment-flag=self-execution` flag is required for the interpreter (else `-c`/`-f` args are rejected as self-recursion). Builds ~24% smaller, ~50% faster startup than PyInstaller. `jvav_dk27` and `jvavpkg` Nuitka builds passed function + sandbox verification. Copy to `downloads\`. `nuitka_build/` is gitignored.
 
 ## Gotchas
 - CLI is only `-c`, `-f`, `info`; anything else drops into the REPL. `main()` is JvavDK27.py:991. Docs referencing `[init|build|run|verify]` commands are fictional — don't resurrect them.
 - Release info (version, SHA256, test counts) is duplicated across `README.md`, `src/verify_production_status.py`, `src/report.py`, and several HTML pages — keep in sync on version bumps. Rebuilding `jvav_dk27.exe` or `jvavpkg.exe` changes its SHA256; update all copies.
-- Test counts are currently 8 interpreter + 9 package-manager (17 total). Update these numbers anywhere they appear when adding tests.
+- Test counts are currently 8 interpreter + 11 package-manager (19 total). Update these numbers anywhere they appear when adding tests.
 - Package-manager `jvavpkg.json` dependency keys are `owner/repo`; short names only resolve after first install writes them to local `registry.json`.
 - `jvav_dk27.spec` bundles `assets/logo.ico` and lists `hiddenimports`; update both if imports are added. `jvavpkg.spec` builds the standalone package manager.
 - The interpreter auto-discovers jvavpkg-installed `library`/`plugin` packages (from `~/.jvav/packages` and `./.jvav/packages`) as loadable plugins — `plugin load <name>` injects their `src/*.jvav` functions into `env`. Program-type packages are not loaded as plugins.

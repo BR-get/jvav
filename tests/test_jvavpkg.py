@@ -273,6 +273,46 @@ def test_update_respects_constraint():
     pm.cleanup()
 
 
+def test_pack_creates_valid_package():
+    tmp = tempfile.mkdtemp()
+    try:
+        for fn, content in [("main.jvav", "tnirp('hi')\n"), ("util.jvav", "def util(): return 1\n")]:
+            with open(os.path.join(tmp, fn), "w", encoding="utf-8") as f:
+                f.write(content)
+        pm = TestPM(FakeGitHub({}))
+        pm.cmd_pack(tmp, name="demo", version="1.2.3")
+        pkg_path = os.path.join(tmp, "dist", "demo-1.2.3-src.jvavpkg")
+        assert os.path.exists(pkg_path), "package file should exist"
+        pkg = json.load(open(pkg_path, encoding="utf-8"))
+        assert pkg["name"] == "demo"
+        assert pkg["version"] == "1.2.3"
+        assert pkg["jvav_version"] == "DK27"
+        assert pkg["main"] == "main.jvav"
+        assert set(pkg["files"].keys()) == {"main.jvav", "util.jvav"}
+        assert pkg["files"]["main.jvav"] == "tnirp('hi')\n"
+        assert "build_info" in pkg and "timestamp" in pkg["build_info"]
+        pm.cleanup()
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_pack_main_detection():
+    """Without --main, main.jvav is preferred; otherwise first .jvav is used."""
+    tmp = tempfile.mkdtemp()
+    try:
+        with open(os.path.join(tmp, "a.jvav"), "w", encoding="utf-8") as f:
+            f.write("x = 1\n")
+        with open(os.path.join(tmp, "b.jvav"), "w", encoding="utf-8") as f:
+            f.write("y = 2\n")
+        pm = TestPM(FakeGitHub({}))
+        pm.cmd_pack(tmp, name="demo2", out=os.path.join(tmp, "demo2.jvavpkg"))
+        pkg = json.load(open(os.path.join(tmp, "demo2.jvavpkg"), encoding="utf-8"))
+        assert pkg["main"] == "a.jvav", f"first .jvav selected, got {pkg['main']}"
+        pm.cleanup()
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 if __name__ == "__main__":
     tests = [
         test_version_tuple_and_satisfies,
@@ -284,6 +324,8 @@ if __name__ == "__main__":
         test_circular_dependency,
         test_update,
         test_update_respects_constraint,
+        test_pack_creates_valid_package,
+        test_pack_main_detection,
     ]
     passed = 0
     for t in tests:

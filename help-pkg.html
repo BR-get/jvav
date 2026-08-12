@@ -250,6 +250,16 @@ jvavpkg update two_sum</pre>
         </div>
 
         <div class="card">
+          <h3>pack [src]</h3>
+          <p>把本地 <code>*.jvav</code> 源文件打包成标准 <code>.jvavpkg</code>，替代手工脚本。</p>
+          <pre style="background:#f6f8fb;padding:12px;border-radius:10px;overflow:auto;">
+# 在项目目录内打包（自动选 main.jvav，输出 dist/&lt;name&gt;-&lt;ver&gt;-src.jvavpkg）
+jvavpkg pack .
+jvavpkg pack . --name two_sum --version 1.2.0 --main two_sum.jvav</pre>
+          <p class="meta">产物格式与 DK26/DK27 的 <code>.jvavpkg</code> 兼容（files/main/build_info），可直接被解释器运行或经 <code>install</code> 分发。</p>
+        </div>
+
+        <div class="card">
           <h3>退出码</h3>
           <table class="table">
             <thead><tr><th>码</th><th>含义</th></tr></thead>
