@@ -50,7 +50,7 @@ PROJECT_STATUS = {
             "date": "2026-02-24",
             "version": "v5",
             "status": "✅ FIXED",
-            "tests_passed": "5/5",
+            "tests_passed": "8/8",
         },
         "recursive_functions": {
             "date": "2026-02-24",
@@ -114,7 +114,10 @@ PROJECT_STATUS = {
         "recursive_function": "✅ 1/1 passed",
         "multi_call_shared_scope": "✅ 1/1 passed",
         "fibonacci": "✅ 1/1 passed",
-        "total": "✅ 5/5 passed (100%)",
+        "package_plugin_discovery": "✅ 1/1 passed",
+        "package_plugin_load_unload": "✅ 1/1 passed",
+        "package_plugin_missing": "✅ 1/1 passed",
+        "total": "✅ 8/8 passed (100%)",
     },
     
     "metrics": {
