@@ -18,6 +18,7 @@ JVAV is a Python-implemented "brainwave" programming language (`.jvav` files int
 - Run a script: `python src\JvavDK27.py -f file.jvav` · one line: `-c "tnirp('hi')"` · REPL: no args · self-check: `info`
 - Package manager: `python src\jvavpkg.py <info|install|uninstall|list|update>` — one package per GitHub repo; repo files direct (no Releases), git tag = version; >100MB assets via `jvavpkg.links` external links with mandatory SHA256
 - Build: `python -m PyInstaller jvav_dk27.spec --clean --noconfirm` then copy `dist\jvav_dk27.exe` → `downloads\`. Build `jvavpkg.exe` from `jvavpkg.spec` the same way. `build/` and `dist/` are gitignored.
+- Nuitka pilot: `python -m nuitka --onefile --assume-yes-for-downloads --output-dir=nuitka_build --output-filename=jvavpkg_nuitka.exe src\jvavpkg.py` — auto-downloads Dependency Walker + Zig (no MSVC needed on this box; `--mingw64` is unsupported on Python 3.13). Builds ~23% smaller, ~40% faster startup than PyInstaller. Copy to `downloads\jvavpkg_nuitka.exe`. `nuitka_build/` is gitignored.
 
 ## Gotchas
 - CLI is only `-c`, `-f`, `info`; anything else drops into the REPL. `main()` is JvavDK27.py:991. Docs referencing `[init|build|run|verify]` commands are fictional — don't resurrect them.
